@@ -1,4 +1,4 @@
-package at.hgz.vocabletrainer;
+package at.hgz.picturetrainer;
 
 import android.app.Application;
 

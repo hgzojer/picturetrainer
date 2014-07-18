@@ -1,4 +1,4 @@
-package at.hgz.vocabletrainer;
+package at.hgz.picturetrainer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import at.hgz.vocabletrainer.set.TrainingElem;
+import at.hgz.picturetrainer.set.TrainingElem;
 
 public class MultipleChoiceActivity extends AbstractTrainingActivity {
 	

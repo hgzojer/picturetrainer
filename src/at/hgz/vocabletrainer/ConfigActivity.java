@@ -1,4 +1,4 @@
-package at.hgz.vocabletrainer;
+package at.hgz.picturetrainer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-import at.hgz.vocabletrainer.db.VocableOpenHelper;
-import at.hgz.vocabletrainer.set.TrainingSet;
+import at.hgz.picturetrainer.db.VocableOpenHelper;
+import at.hgz.picturetrainer.set.TrainingSet;
 
 public class ConfigActivity extends Activity {
 	

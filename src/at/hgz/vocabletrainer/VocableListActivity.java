@@ -1,4 +1,4 @@
-package at.hgz.vocabletrainer;
+package at.hgz.picturetrainer;
 
 import java.util.List;
 
@@ -21,9 +21,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
-import at.hgz.vocabletrainer.db.Dictionary;
-import at.hgz.vocabletrainer.db.Vocable;
-import at.hgz.vocabletrainer.db.VocableOpenHelper;
+import at.hgz.picturetrainer.db.Dictionary;
+import at.hgz.picturetrainer.db.Vocable;
+import at.hgz.picturetrainer.db.VocableOpenHelper;
 
 public class VocableListActivity extends ListActivity {
 	

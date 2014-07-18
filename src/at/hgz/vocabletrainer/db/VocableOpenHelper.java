@@ -1,4 +1,4 @@
-package at.hgz.vocabletrainer.db;
+package at.hgz.picturetrainer.db;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +16,7 @@ import android.content.res.XmlResourceParser;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import at.hgz.vocabletrainer.R;
+import at.hgz.picturetrainer.R;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

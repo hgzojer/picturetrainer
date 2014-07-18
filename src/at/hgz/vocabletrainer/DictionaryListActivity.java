@@ -1,4 +1,4 @@
-package at.hgz.vocabletrainer;
+package at.hgz.picturetrainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +19,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import at.hgz.vocabletrainer.db.Dictionary;
-import at.hgz.vocabletrainer.db.Vocable;
-import at.hgz.vocabletrainer.db.VocableOpenHelper;
-import at.hgz.vocabletrainer.set.TrainingSet;
+import at.hgz.picturetrainer.db.Dictionary;
+import at.hgz.picturetrainer.db.Vocable;
+import at.hgz.picturetrainer.db.VocableOpenHelper;
+import at.hgz.picturetrainer.set.TrainingSet;
 
 public class DictionaryListActivity extends ListActivity {
 

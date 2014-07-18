@@ -1,4 +1,4 @@
-package at.hgz.vocabletrainer.db;
+package at.hgz.picturetrainer.db;
 
 public class Vocable {
 

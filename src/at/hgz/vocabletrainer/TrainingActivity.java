@@ -1,4 +1,4 @@
-package at.hgz.vocabletrainer;
+package at.hgz.picturetrainer;
 
 import android.os.Bundle;
 import android.view.KeyEvent;

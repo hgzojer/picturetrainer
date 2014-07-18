@@ -1,4 +1,4 @@
-package at.hgz.vocabletrainer;
+package at.hgz.picturetrainer;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import at.hgz.vocabletrainer.set.TrainingSet;
+import at.hgz.picturetrainer.set.TrainingSet;
 
 public abstract class AbstractTrainingActivity extends Activity {
 	
@@ -23,7 +23,7 @@ public abstract class AbstractTrainingActivity extends Activity {
         //Intent intent = getIntent();
         //state.setDictionaryId(intent.getIntExtra("dictionaryId", state.getDictionaryId()));
     	if (state.isNeedInit()) {
-            loadVokabel();
+            loadVocable();
             state.setNeedInit(false);
     	} else {
         	updateDisplay();
@@ -45,7 +45,7 @@ public abstract class AbstractTrainingActivity extends Activity {
             	state.getList().add(state.getVocable());
             	showWrongToast();
     		}
-    		loadVokabel();
+    		loadVocable();
     	}
 	}
 
@@ -89,7 +89,7 @@ public abstract class AbstractTrainingActivity extends Activity {
 		toast.show();		
 	}
 
-    public void loadVokabel() {
+    public void loadVocable() {
     	if (state.getList() == null || state.getList().isEmpty()) {
     		init();
     	}

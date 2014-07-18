@@ -1,10 +1,10 @@
-package at.hgz.vocabletrainer.set;
+package at.hgz.picturetrainer.set;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import at.hgz.vocabletrainer.db.Vocable;
+import at.hgz.picturetrainer.db.Vocable;
 
 public class TrainingElem {
 
