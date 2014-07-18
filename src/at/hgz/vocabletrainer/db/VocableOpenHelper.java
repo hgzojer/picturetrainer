@@ -30,8 +30,8 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
     
     private static final String VOCABLE_TABLE_NAME = "vocable";
     private static final String DICTIONARY_ID_COL_NAME = "dictionary_id";
+    private static final String PICTURE_COL_NAME = "picture";
     private static final String WORD_COL_NAME = "word";
-    private static final String TRANSLATION_COL_NAME = "translation";
     
     private static final String DICTIONARY_TABLE_NAME = "dictionary";
     private static final String ID_COL_NAME = "id";
@@ -43,8 +43,8 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + VOCABLE_TABLE_NAME + " (" +
                 		ID_COL_NAME + " INTEGER, " +
                 		DICTIONARY_ID_COL_NAME + " INTEGER, " +
-                		WORD_COL_NAME + " TEXT, " +
-                		TRANSLATION_COL_NAME + " TEXT);";
+                		PICTURE_COL_NAME + " TEXT, " +
+                		WORD_COL_NAME + " TEXT);";
 
     private static final String DICTIONARY_TABLE_CREATE =
             "CREATE TABLE " + DICTIONARY_TABLE_NAME + " (" +
@@ -112,11 +112,11 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 				for (JsonElement vocablesElem : vocables) {
 					JsonObject vocable = vocablesElem.getAsJsonObject();
 					
+					String picture = vocable.get("picture").getAsString();
 					String word = vocable.get("word").getAsString();
-					String translation = vocable.get("translation").getAsString();
 					
 					int vocableId = vocableIdNext++;
-					addVocable(db, vocableId, dictionaryId, word, translation);
+					addVocable(db, vocableId, dictionaryId, picture, word);
 				}
 			}
 	    	
@@ -164,12 +164,12 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 			    	while (xrp.getEventType() == XmlPullParser.START_TAG && xrp.getName().equals("vocable"))
 		    		{
 		    	    	assertType(xrp, XmlPullParser.START_TAG, "vocable");
-			    		String word = getString(xrp, "word");
-						String translation = getString(xrp, "translation");
+			    		String picture = getString(xrp, "picture");
+						String word = getString(xrp, "word");
 						xrp.next();
 						
 						int vocableId = vocableIdNext++;
-						addVocable(db, vocableId, dictionaryId, word, translation);
+						addVocable(db, vocableId, dictionaryId, picture, word);
 						
 		    	    	assertType(xrp, XmlPullParser.END_TAG, "vocable");
 						xrp.next();
@@ -277,14 +277,14 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 	
 	public List<Vocable> getVocables(int dictionaryId) {
 		SQLiteDatabase db = getReadableDatabase();
-		Cursor cursor = db.query(VOCABLE_TABLE_NAME, new String[] { ID_COL_NAME, DICTIONARY_ID_COL_NAME, WORD_COL_NAME, TRANSLATION_COL_NAME }, DICTIONARY_ID_COL_NAME + " = ?", new String[] {""+dictionaryId}, null, null, ID_COL_NAME);
+		Cursor cursor = db.query(VOCABLE_TABLE_NAME, new String[] { ID_COL_NAME, DICTIONARY_ID_COL_NAME, PICTURE_COL_NAME, WORD_COL_NAME }, DICTIONARY_ID_COL_NAME + " = ?", new String[] {""+dictionaryId}, null, null, ID_COL_NAME);
 		List<Vocable> list = new LinkedList<Vocable>();
 		while (cursor.moveToNext()) {
 			int id = cursor.getInt(0);
 			int dictionaryId1 = cursor.getInt(1);
-			String word = cursor.getString(2);
-			String translation = cursor.getString(3);
-			list.add(new Vocable(id, dictionaryId1, word, translation));
+			String picture = cursor.getString(2);
+			String word = cursor.getString(3);
+			list.add(new Vocable(id, dictionaryId1, picture, word));
 		}
 		cursor.close();
 		return list;
@@ -319,12 +319,12 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 		db.insert(DICTIONARY_TABLE_NAME, null, values);
 	}
 	
-	private void addVocable(SQLiteDatabase db, int vocableId, int dictionaryId, String word, String translation) {
+	private void addVocable(SQLiteDatabase db, int vocableId, int dictionaryId, String picture, String word) {
 		ContentValues values = new ContentValues();
 		values.put(ID_COL_NAME, vocableId);
 		values.put(DICTIONARY_ID_COL_NAME, dictionaryId);
+		values.put(PICTURE_COL_NAME, picture);
 		values.put(WORD_COL_NAME, word);
-		values.put(TRANSLATION_COL_NAME, translation);
 		db.insert(VOCABLE_TABLE_NAME, null, values);
 	}
 
@@ -349,7 +349,7 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 			
 			int vocableId = getVocableIdNext(db);
 			for (Vocable vocable : vocables) {
-				addVocable(db, vocableId, dictionaryId, vocable.getWord(), vocable.getTranslation());
+				addVocable(db, vocableId, dictionaryId, vocable.getPicture(), vocable.getWord());
 				vocableId++;
 			}
 	    	

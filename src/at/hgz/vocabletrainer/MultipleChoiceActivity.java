@@ -43,8 +43,8 @@ public class MultipleChoiceActivity extends AbstractTrainingActivity {
 		case R.id.buttonChoice1:
 		case R.id.buttonChoice2:
 		case R.id.buttonChoice3:
-			String translation = ((Button) view).getText().toString();
-	    	evaluate(translation);
+			String word = ((Button) view).getText().toString();
+	    	evaluate(word);
 		}
     }
 
@@ -54,7 +54,7 @@ public class MultipleChoiceActivity extends AbstractTrainingActivity {
 		TrainingElem vocable = state.getVocable();
 		String[] alternatives = vocable.getAlternatives();
 		List<String> choices = new ArrayList<String>(3);
-		choices.add(vocable.getTranslation());
+		choices.add(vocable.getWord());
 		choices.add(alternatives[0]);
 		choices.add(alternatives[1]);
 		Collections.shuffle(choices);
@@ -62,8 +62,8 @@ public class MultipleChoiceActivity extends AbstractTrainingActivity {
 		TextView textViewLanguageDirection12 = (TextView) findViewById(R.id.textViewLanguageDirection12);
 		textViewLanguageDirection12.setText(String.format("%s -> %s", vocable.getLanguage1(), vocable.getLanguage2()));
 		
-		TextView outputWord = (TextView) findViewById(R.id.textViewWordLanguage1);
-		outputWord.setText(vocable.getWord());
+		TextView outputPicture = (TextView) findViewById(R.id.textViewPictureLanguage1);
+		outputPicture.setText(vocable.getPicture());
 
 		Button buttonChoice1 = (Button) findViewById(R.id.buttonChoice1);
 		buttonChoice1.setText(choices.get(0));

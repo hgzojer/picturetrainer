@@ -15,7 +15,7 @@
 	     android:textAppearance="?android:attr/textAppearanceLarge" />
 	
 	 <TextView
-	     android:id="@+id/textViewWordLanguage1"
+	     android:id="@+id/textViewPictureLanguage1"
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
 	     android:layout_margin="3dp"
@@ -30,7 +30,7 @@
 	     android:textAppearance="?android:attr/textAppearanceLarge" />
 	
 	 <EditText
-	     android:id="@+id/editTextTranslationLanguage2"
+	     android:id="@+id/editTextWordLanguage2"
 	     android:layout_width="match_parent"
 	     android:layout_height="wrap_content"
 	     android:layout_margin="3dp"

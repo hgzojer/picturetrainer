@@ -14,8 +14,8 @@ public class TrainingActivity extends AbstractTrainingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training);
-    	EditText inputTranslation = (EditText) findViewById(R.id.editTextTranslationLanguage2);
-    	inputTranslation.setOnEditorActionListener(new OnEditorActionListener() {
+    	EditText inputWord = (EditText) findViewById(R.id.editTextWordLanguage2);
+    	inputWord.setOnEditorActionListener(new OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
                 	check();
@@ -31,16 +31,16 @@ public class TrainingActivity extends AbstractTrainingActivity {
     }
 
 	private void check() {
-		EditText inputTranslation = (EditText) findViewById(R.id.editTextTranslationLanguage2);
-    	String translation = inputTranslation.getText().toString();
-		inputTranslation.setText("");
-    	evaluate(translation);
+		EditText inputWord = (EditText) findViewById(R.id.editTextWordLanguage2);
+    	String word = inputWord.getText().toString();
+		inputWord.setText("");
+    	evaluate(word);
 	}
 
 	@Override
 	protected void updateDisplay() {
-		TextView outputWord = (TextView) findViewById(R.id.textViewWordLanguage1);
-		outputWord.setText(state.getVocable().getWord());
+		TextView outputPicture = (TextView) findViewById(R.id.textViewPictureLanguage1);
+		outputPicture.setText(state.getVocable().getPicture());
 		TextView textLanguage1 = (TextView) findViewById(R.id.textViewLanguage1);
 		textLanguage1.setText(state.getVocable().getLanguage1());
 		TextView textLanguage2 = (TextView) findViewById(R.id.textViewLanguage2);

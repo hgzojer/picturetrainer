@@ -14,7 +14,7 @@ import at.hgz.vocabletrainer.set.TrainingSet;
 
 public class ConfigActivity extends Activity {
 	
-    public static final String TRANSLATION_DIRECTION = "translationDirection";
+    public static final String WORD_DIRECTION = "wordDirection";
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -148,8 +148,8 @@ public class VocableListActivity extends ListActivity {
 		}
 		
 		private class ViewHolder {
+			public EditText listItemEditPicture;
 			public EditText listItemEditWord;
-			public EditText listItemEditTranslation;
 			public View buttonDeleteVocable;
 			public Vocable vocable;
 		}
@@ -163,15 +163,15 @@ public class VocableListActivity extends ListActivity {
 				convertView = LayoutInflater.from(getContext()).inflate(
 						R.layout.vocable_list_item, parent, false);
 				final ViewHolder vh = new ViewHolder();
+				vh.listItemEditPicture = (EditText) convertView.findViewById(R.id.listItemEditPicture);
 				vh.listItemEditWord = (EditText) convertView.findViewById(R.id.listItemEditWord);
-				vh.listItemEditTranslation = (EditText) convertView.findViewById(R.id.listItemEditTranslation);
 				vh.buttonDeleteVocable = convertView.findViewById(R.id.buttonDeleteVocable);
 				
-				vh.listItemEditWord.addTextChangedListener(new TextWatcher() {
+				vh.listItemEditPicture.addTextChangedListener(new TextWatcher() {
 					@Override
 					public void afterTextChanged(Editable arg0) {
-						String word = vh.listItemEditWord.getText().toString();
-						vh.vocable.setWord(word);
+						String picture = vh.listItemEditPicture.getText().toString();
+						vh.vocable.setPicture(picture);
 					}
 					@Override
 					public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
@@ -181,11 +181,11 @@ public class VocableListActivity extends ListActivity {
 					}
 				});
 				
-				vh.listItemEditTranslation.addTextChangedListener(new TextWatcher() {
+				vh.listItemEditWord.addTextChangedListener(new TextWatcher() {
 					@Override
 					public void afterTextChanged(Editable arg0) {
-						String translation = vh.listItemEditTranslation.getText().toString();
-						vh.vocable.setTranslation(translation);
+						String word = vh.listItemEditWord.getText().toString();
+						vh.vocable.setWord(word);
 					}
 					@Override
 					public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
@@ -206,8 +206,8 @@ public class VocableListActivity extends ListActivity {
 			
 			ViewHolder vh = (ViewHolder) convertView.getTag();
 			vh.vocable = vocable;
+			vh.listItemEditPicture.setText(vocable.getPicture());
 			vh.listItemEditWord.setText(vocable.getWord());
-			vh.listItemEditTranslation.setText(vocable.getTranslation());
 
 			return convertView;
 		}

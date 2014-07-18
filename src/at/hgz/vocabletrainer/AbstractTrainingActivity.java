@@ -30,9 +30,9 @@ public abstract class AbstractTrainingActivity extends Activity {
     	}
 	}
 
-	protected void evaluate(String translation) {
-		if (translation != null && !translation.trim().equals("")) {
-    		if (translation.equalsIgnoreCase(state.getVocable().getTranslation())) {
+	protected void evaluate(String word) {
+		if (word != null && !word.trim().equals("")) {
+    		if (word.equalsIgnoreCase(state.getVocable().getWord())) {
     			state.incRight();
     			state.decTodo();
     			if (state.getTodo() > 0) {
@@ -68,7 +68,7 @@ public abstract class AbstractTrainingActivity extends Activity {
 		
 		TextView text = (TextView) layout.findViewById(R.id.textWrongToastDetails);
 		Resources resources = getApplicationContext().getResources();
-		text.setText(resources.getString(R.string.wrongToastDetails, state.getVocable().getTranslation()));
+		text.setText(resources.getString(R.string.wrongToastDetails, state.getVocable().getWord()));
 
 		Toast toast = new Toast(getApplicationContext());
 		toast.setGravity(Gravity.CENTER, 0, 0);

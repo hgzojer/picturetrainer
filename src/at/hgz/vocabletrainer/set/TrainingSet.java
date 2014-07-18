@@ -35,8 +35,8 @@ public class TrainingSet {
 	 */
 	private void createList1to2(List<Vocable> vocables) {
 		for (Vocable vocable : vocables) {
-			list.add(new TrainingElem(vocable.getWord(), vocable
-					.getTranslation(), dictionary.getLanguage1(), dictionary
+			list.add(new TrainingElem(vocable.getPicture(), vocable
+					.getWord(), dictionary.getLanguage1(), dictionary
 					.getLanguage2(), vocables, false));
 		}
 	}
@@ -48,8 +48,8 @@ public class TrainingSet {
 	 */
 	private void createList2to1(List<Vocable> vocables) {
 		for (Vocable vocable : vocables) {
-			list.add(new TrainingElem(vocable.getTranslation(), vocable
-					.getWord(), dictionary.getLanguage2(), dictionary
+			list.add(new TrainingElem(vocable.getWord(), vocable
+					.getPicture(), dictionary.getLanguage2(), dictionary
 					.getLanguage1(), vocables, true));
 		}
 	}

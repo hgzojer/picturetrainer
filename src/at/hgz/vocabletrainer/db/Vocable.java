@@ -4,14 +4,14 @@ public class Vocable {
 
 	private int id;
 	private int dictionaryId;
+	private String picture;
 	private String word;
-	private String translation;
 	
-	public Vocable(int id, int dictionaryId, String word, String translation) {
+	public Vocable(int id, int dictionaryId, String picture, String word) {
 		this.id = id;
 		this.dictionaryId = dictionaryId;
+		this.picture = picture;
 		this.word = word;
-		this.translation = translation;
 	}
 
 	public int getId() {
@@ -26,19 +26,19 @@ public class Vocable {
 		this.dictionaryId = trainingSetId;
 	}
 
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
 	public String getWord() {
 		return word;
 	}
 
 	public void setWord(String word) {
 		this.word = word;
-	}
-
-	public String getTranslation() {
-		return translation;
-	}
-
-	public void setTranslation(String translation) {
-		this.translation = translation;
 	}
 }

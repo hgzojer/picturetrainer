@@ -44,7 +44,7 @@
     <string name="confirmDeleteDictionaryText">Möchten Sie das Wörterbuch wirklich löschen?</string>
     
     <string name="openConfig">Einstellungen</string>
-    <string name="translationDirection">Übersetzungsrichtung</string>
+    <string name="wordDirection">Übersetzungsrichtung</string>
     <string name="translateForward">Sprache 1 -&gt; Sprache 2</string>
     <string name="translateBidrectional">Sprache 1 &lt;-&gt; Sprache 2</string>
     <string name="translateBackward">Sprache 1 &lt;- Sprache 2</string>
