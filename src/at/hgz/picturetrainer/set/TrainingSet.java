@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import at.hgz.picturetrainer.db.Dictionary;
 import at.hgz.picturetrainer.db.Vocable;
 
 public class TrainingSet {
@@ -14,10 +13,8 @@ public class TrainingSet {
 	public static final int DIRECTION_BIDIRECTIONAL = 3;
 
 	private List<TrainingElem> list;
-	private Dictionary dictionary;
 
-	public TrainingSet(Dictionary dictionary, List<Vocable> vocables, int direction) {
-		this.dictionary = dictionary;
+	public TrainingSet(List<Vocable> vocables, int direction) {
 		list = new LinkedList<TrainingElem>();
 		if (direction == DIRECTION_FORWARD || direction == DIRECTION_BIDIRECTIONAL) {
 			createList1to2(vocables);
@@ -35,9 +32,8 @@ public class TrainingSet {
 	 */
 	private void createList1to2(List<Vocable> vocables) {
 		for (Vocable vocable : vocables) {
-			list.add(new TrainingElem(vocable.getPicture(), vocable
-					.getWord(), dictionary.getLanguage1(), dictionary
-					.getLanguage2(), vocables, false));
+			list.add(new TrainingElem(vocable.getPicture(), vocable.getWord(),
+					vocables, false));
 		}
 	}
 
@@ -48,9 +44,8 @@ public class TrainingSet {
 	 */
 	private void createList2to1(List<Vocable> vocables) {
 		for (Vocable vocable : vocables) {
-			list.add(new TrainingElem(vocable.getWord(), vocable
-					.getPicture(), dictionary.getLanguage2(), dictionary
-					.getLanguage1(), vocables, true));
+			list.add(new TrainingElem(vocable.getPicture(), vocable.getWord(),
+					vocables, true));
 		}
 	}
 

@@ -58,7 +58,7 @@ public class VocableListActivity extends ListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case R.id.addVocable:
-	            adapter.add(new Vocable(-1, -1, "", ""));
+	            adapter.add(new Vocable(-1, -1, new byte[0] /*TODO*/, ""));
 	            setSelection(adapter.getCount() - 1);
 	            return true;
 	        case R.id.deleteDictionary:

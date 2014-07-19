@@ -98,7 +98,7 @@ public abstract class AbstractTrainingActivity extends Activity {
     }
 
 	private void init() {
-        state.setList(new TrainingSet(state.getDictionary(), state.getVocables(), state.getDirection()).getList());
+        state.setList(new TrainingSet(state.getVocables(), state.getDirection()).getList());
 		state.setRight(0);
 		state.setWrong(0);
 		state.setTodo(state.getList().size());
@@ -110,7 +110,6 @@ public abstract class AbstractTrainingActivity extends Activity {
 	protected abstract void updateDisplay();
 
 	protected void updateDisplayStatistic() {
-		// Statistik:
 		TextView outputRight = (TextView) findViewById(R.id.textViewRightCount);
 		outputRight.setText("" + state.getRight());
 		TextView outputWrong = (TextView) findViewById(R.id.textViewWrongCount);

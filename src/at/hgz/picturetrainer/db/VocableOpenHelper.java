@@ -1,18 +1,14 @@
 package at.hgz.picturetrainer.db;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -36,22 +32,19 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
     private static final String DICTIONARY_TABLE_NAME = "dictionary";
     private static final String ID_COL_NAME = "id";
     private static final String NAME_COL_NAME = "name";
-    private static final String LANGUAGE1_COL_NAME = "language1";
-    private static final String LANGUAGE2_COL_NAME = "language2";
     
     private static final String VOCABLE_TABLE_CREATE =
                 "CREATE TABLE " + VOCABLE_TABLE_NAME + " (" +
                 		ID_COL_NAME + " INTEGER, " +
                 		DICTIONARY_ID_COL_NAME + " INTEGER, " +
-                		PICTURE_COL_NAME + " TEXT, " +
+                		PICTURE_COL_NAME + " BLOB, " +
                 		WORD_COL_NAME + " TEXT);";
 
     private static final String DICTIONARY_TABLE_CREATE =
             "CREATE TABLE " + DICTIONARY_TABLE_NAME + " (" +
             		ID_COL_NAME + " INTEGER, " +
-            		NAME_COL_NAME + " TEXT," +
-            		LANGUAGE1_COL_NAME + " TEXT," +
-            		LANGUAGE2_COL_NAME + " TEXT);";
+            		PICTURE_COL_NAME + " BLOB, " +
+            		NAME_COL_NAME + " TEXT);";
     
     public static final String PREFS_NAME = "VocableOpenHelperFile";
     
@@ -101,18 +94,18 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 			for (JsonElement dictionariesElem : dictionaries) {
 				JsonObject dictionary = dictionariesElem.getAsJsonObject();
 				
+				// TODO blob picture
+				byte[] dictionaryPicture = null;
 				String name = dictionary.get("name").getAsString();
-				String language1 = dictionary.get("language1").getAsString();
-				String language2 = dictionary.get("language2").getAsString();
 				
 		    	int dictionaryId = dictionaryIdNext++;
-		    	addDictionary(db, dictionaryId, name, language1, language2);
+		    	addDictionary(db, dictionaryId, dictionaryPicture, name);
 		    	
 		    	JsonArray vocables = dictionary.getAsJsonArray("vocables");
 				for (JsonElement vocablesElem : vocables) {
 					JsonObject vocable = vocablesElem.getAsJsonObject();
 					
-					String picture = vocable.get("picture").getAsString();
+					byte[] picture = null; // TODO vocable.get("picture").getAsString();
 					String word = vocable.get("word").getAsString();
 					
 					int vocableId = vocableIdNext++;
@@ -128,127 +121,6 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
     	}
 	}
 
-	private void loadXmlDefaultDictionary(final SQLiteDatabase db) {
-		int dictionaryIdNext = 1;
-        int vocableIdNext = 1;
-        
-    	db.beginTransaction();
-    	try {
-			Resources res = context.getResources();
-			
-			XmlResourceParser xrp = res.getXml(R.xml.default_dictionaries_old);
-			xrp.next();
-			
-			assertDoc(xrp, XmlPullParser.START_DOCUMENT);
-			xrp.next();
-			
-	    	assertType(xrp, XmlPullParser.START_TAG, "dictionaries");
-			xrp.next();
-
-	    	while (xrp.getEventType() == XmlPullParser.START_TAG && xrp.getName().equals("dictionary"))
-    		{
-    	    	assertType(xrp, XmlPullParser.START_TAG, "dictionary");
-	    		String name = getString(xrp, "name");
-	    		String language1 = getString(xrp, "language1");
-	    		String language2 = getString(xrp, "language2");
-				xrp.next();
-	    		
-		    	int dictionaryId = dictionaryIdNext++;
-		    	addDictionary(db, dictionaryId, name, language1, language2);
-	        	
-				if (xrp.getEventType() == XmlPullParser.START_TAG && xrp.getName().equals("vocables")) {
-					
-			    	assertType(xrp, XmlPullParser.START_TAG, "vocables");
-					xrp.next();
-		        	
-			    	while (xrp.getEventType() == XmlPullParser.START_TAG && xrp.getName().equals("vocable"))
-		    		{
-		    	    	assertType(xrp, XmlPullParser.START_TAG, "vocable");
-			    		String picture = getString(xrp, "picture");
-						String word = getString(xrp, "word");
-						xrp.next();
-						
-						int vocableId = vocableIdNext++;
-						addVocable(db, vocableId, dictionaryId, picture, word);
-						
-		    	    	assertType(xrp, XmlPullParser.END_TAG, "vocable");
-						xrp.next();
-		    		}
-		    		
-			    	assertType(xrp, XmlPullParser.END_TAG, "vocables");
-			    	xrp.next();
-	        	}
-				
-    	    	assertType(xrp, XmlPullParser.END_TAG, "dictionary");
-    	    	xrp.next();
-    		}
-    		
-	    	assertType(xrp, XmlPullParser.END_TAG, "dictionaries");
-			xrp.next();
-			
-			assertDoc(xrp, XmlPullParser.END_DOCUMENT);
-	    	
-    		db.setTransactionSuccessful();
-    	} catch (Exception e) {
-    		throw new RuntimeException(e.getMessage(), e);
-		} finally {
-    		db.endTransaction();
-    	}
-	}
-    
-    private void assertDoc(XmlResourceParser xrp, int expectedType) {
-    	try {
-        	int eventType = xrp.getEventType();
-        	if (eventType != expectedType) {
-        		throw new RuntimeException("eventType " + eventType + " != expectedType " + expectedType);
-        	}
-    	} catch (XmlPullParserException e) {
-    		throw new RuntimeException(e.getMessage(), e);
-    	}
-    }
-    
-    private void assertType(XmlResourceParser xrp, int expectedType, String expectedTag) {
-    	try {
-        	int eventType = xrp.getEventType();
-        	if (eventType != expectedType) {
-        		throw new RuntimeException("eventType " + eventType + " != expectedType " + expectedType);
-        	}
-        	if (!xrp.getName().equals(expectedTag)) {
-        		throw new RuntimeException("tagName " + xrp.getName() + " != expectedTag " + expectedTag);
-        	}
-    	} catch (XmlPullParserException e) {
-    		throw new RuntimeException(e.getMessage(), e);
-    	}
-    }
-    
-    private String getText(XmlResourceParser xrp) {
-    	try {
-        	int eventType = xrp.getEventType();
-        	if (eventType != XmlPullParser.TEXT) {
-        		throw new RuntimeException("eventType " + eventType + " != expectedType " + XmlPullParser.TEXT);
-        	}
-    	} catch (XmlPullParserException e) {
-    		throw new RuntimeException(e.getMessage(), e);
-    	}
-    	return xrp.getText();
-    }
-    
-    private String getString(XmlResourceParser xrp, String tag) {
-    	try {
-	    	xrp.next();
-	    	assertType(xrp, XmlPullParser.START_TAG, tag);
-	    	xrp.next();
-	    	String string = getText(xrp);
-	    	xrp.next();
-	    	assertType(xrp, XmlPullParser.END_TAG, tag);
-	    	return string;
-    	} catch (XmlPullParserException e) {
-    		throw new RuntimeException(e.getMessage(), e);
-    	} catch (IOException e) {
-    		throw new RuntimeException(e.getMessage(), e);
-    	}
-    }
-
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		resetDatabase(db);
@@ -262,14 +134,13 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 	
 	public List<Dictionary> getDictionaries() {
 		SQLiteDatabase db = getReadableDatabase();
-		Cursor cursor = db.query(DICTIONARY_TABLE_NAME, new String[] { ID_COL_NAME, NAME_COL_NAME, LANGUAGE1_COL_NAME, LANGUAGE2_COL_NAME }, null, null, null, null, ID_COL_NAME);
+		Cursor cursor = db.query(DICTIONARY_TABLE_NAME, new String[] { ID_COL_NAME, PICTURE_COL_NAME, NAME_COL_NAME }, null, null, null, null, ID_COL_NAME);
 		List<Dictionary> list = new LinkedList<Dictionary>();
 		while (cursor.moveToNext()) {
 			int id = cursor.getInt(0);
-			String name = cursor.getString(1);
-			String language1 = cursor.getString(2);
-			String language2 = cursor.getString(3);
-			list.add(new Dictionary(id, name, language1, language2));
+			byte[] picture = null; // TODO
+			String name = cursor.getString(2);
+			list.add(new Dictionary(id, picture, name));
 		}
 		cursor.close();
 		return list;
@@ -282,7 +153,7 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 		while (cursor.moveToNext()) {
 			int id = cursor.getInt(0);
 			int dictionaryId1 = cursor.getInt(1);
-			String picture = cursor.getString(2);
+			byte[] picture = null; // TODO cursor.getString(2);
 			String word = cursor.getString(3);
 			list.add(new Vocable(id, dictionaryId1, picture, word));
 		}
@@ -310,16 +181,15 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 		return ret;
 	}
 	
-	private void addDictionary(SQLiteDatabase db, int dictionaryId, String name, String language1, String language2) {
+	private void addDictionary(SQLiteDatabase db, int dictionaryId, byte[] picture, String name) {
 		ContentValues values = new ContentValues();
 		values.put(ID_COL_NAME, dictionaryId);
+		values.put(PICTURE_COL_NAME, picture);
 		values.put(NAME_COL_NAME, name);
-		values.put(LANGUAGE1_COL_NAME, language1);
-		values.put(LANGUAGE2_COL_NAME, language2);
 		db.insert(DICTIONARY_TABLE_NAME, null, values);
 	}
 	
-	private void addVocable(SQLiteDatabase db, int vocableId, int dictionaryId, String picture, String word) {
+	private void addVocable(SQLiteDatabase db, int vocableId, int dictionaryId, byte[] picture, String word) {
 		ContentValues values = new ContentValues();
 		values.put(ID_COL_NAME, vocableId);
 		values.put(DICTIONARY_ID_COL_NAME, dictionaryId);
@@ -336,13 +206,12 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 			int dictionaryId = dictionary.getId();
 			if (dictionaryId != -1) {
 				ContentValues values = new ContentValues();
+				values.put(PICTURE_COL_NAME, dictionary.getPicture());
 				values.put(NAME_COL_NAME, dictionary.getName());
-				values.put(LANGUAGE1_COL_NAME, dictionary.getLanguage1());
-				values.put(LANGUAGE2_COL_NAME, dictionary.getLanguage2());
 				db.update(DICTIONARY_TABLE_NAME, values, ID_COL_NAME + " = ?", new String[] {""+dictionaryId});
 			} else {
 				dictionaryId = getDictionaryIdNext(db);
-				addDictionary(db, dictionaryId, dictionary.getName(), dictionary.getLanguage1(), dictionary.getLanguage2());
+				addDictionary(db, dictionaryId, dictionary.getPicture(), dictionary.getName());
 			}
 			
 			db.delete(VOCABLE_TABLE_NAME, DICTIONARY_ID_COL_NAME + " = ?", new String[] {""+dictionaryId});

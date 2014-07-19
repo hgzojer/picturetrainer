@@ -67,13 +67,13 @@ public class DictionaryListActivity extends ListActivity {
 	    switch (item.getItemId()) {
 	        case R.id.addDictionary:
 	        {
-	        	TrainingApplication.getState().setDictionary(new Dictionary(-1, "", "", ""));
+	        	TrainingApplication.getState().setDictionary(new Dictionary(-1, new byte[0] /* TODO */, ""));
 	        	List<Vocable> vocables = new ArrayList<Vocable>(1);
-	        	vocables.add(new Vocable(-1, -1, "", ""));
-	        	vocables.add(new Vocable(-1, -1, "", ""));
-	        	vocables.add(new Vocable(-1, -1, "", ""));
-	        	vocables.add(new Vocable(-1, -1, "", ""));
-	        	vocables.add(new Vocable(-1, -1, "", ""));
+	        	vocables.add(new Vocable(-1, -1, new byte[0] /* TODO */, ""));
+	        	vocables.add(new Vocable(-1, -1, new byte[0] /* TODO */, ""));
+	        	vocables.add(new Vocable(-1, -1, new byte[0] /* TODO */, ""));
+	        	vocables.add(new Vocable(-1, -1, new byte[0] /* TODO */, ""));
+	        	vocables.add(new Vocable(-1, -1, new byte[0] /* TODO */, ""));
 	        	TrainingApplication.getState().setVocables(vocables);
 				Intent intent = new Intent(DictionaryListActivity.this, VocableListActivity.class);
 				//intent.putExtra("dictionaryId", dictionaryId);

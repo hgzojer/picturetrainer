@@ -4,10 +4,10 @@ public class Vocable {
 
 	private int id;
 	private int dictionaryId;
-	private String picture;
+	private byte[] picture;
 	private String word;
 	
-	public Vocable(int id, int dictionaryId, String picture, String word) {
+	public Vocable(int id, int dictionaryId, byte[] picture, String word) {
 		this.id = id;
 		this.dictionaryId = dictionaryId;
 		this.picture = picture;
@@ -26,11 +26,11 @@ public class Vocable {
 		this.dictionaryId = trainingSetId;
 	}
 
-	public String getPicture() {
+	public byte[] getPicture() {
 		return picture;
 	}
 
-	public void setPicture(String picture) {
+	public void setPicture(byte[] picture) {
 		this.picture = picture;
 	}
 

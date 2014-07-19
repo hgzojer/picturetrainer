@@ -3,19 +3,25 @@ package at.hgz.picturetrainer.db;
 public class Dictionary {
 
 	private int id;
+	private byte[] picture;
 	private String name;
-	private String language1;
-	private String language2;
 	
-	public Dictionary(int id, String name, String language1, String language2) {
+	public Dictionary(int id, byte[] picture, String name) {
 		this.id = id;
+		this.picture = picture;
 		this.name = name;
-		this.language1 = language1;
-		this.language2 = language2;
 	}
 
 	public int getId() {
 		return id;
+	}
+
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
 	}
 
 	public String getName() {
@@ -24,22 +30,6 @@ public class Dictionary {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getLanguage1() {
-		return language1;
-	}
-
-	public void setLanguage1(String language1) {
-		this.language1 = language1;
-	}
-
-	public String getLanguage2() {
-		return language2;
-	}
-
-	public void setLanguage2(String language2) {
-		this.language2 = language2;
 	}
 	
 }
