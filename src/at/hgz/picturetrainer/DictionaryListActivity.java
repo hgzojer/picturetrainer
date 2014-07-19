@@ -230,11 +230,11 @@ public class DictionaryListActivity extends ListActivity {
 	          convertView = LayoutInflater.from(getContext()).inflate(R.layout.dictionary_list_item, parent, false);
 	       }
 
+	       // TODO picture
 	       TextView listItemName = (TextView) convertView.findViewById(R.id.listItemName);
-	       TextView listItemLanguage12 = (TextView) convertView.findViewById(R.id.listItemLanguage12);
 	        
-	       listItemName.setText(dictionary.getName());
-	       listItemLanguage12.setText(String.format("%s %s %s",  dictionary.getLanguage1(), directionSymbol, dictionary.getLanguage2()));
+	       // TODO picture
+	       listItemName.setText(String.format("%s %s",  directionSymbol, dictionary.getName()));
 
 	       return convertView;
 	   }		

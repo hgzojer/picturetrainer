@@ -40,11 +40,7 @@ public class TrainingActivity extends AbstractTrainingActivity {
 	@Override
 	protected void updateDisplay() {
 		TextView outputPicture = (TextView) findViewById(R.id.textViewPictureLanguage1);
-		outputPicture.setText(state.getVocable().getPicture());
-		TextView textLanguage1 = (TextView) findViewById(R.id.textViewLanguage1);
-		textLanguage1.setText(state.getVocable().getLanguage1());
-		TextView textLanguage2 = (TextView) findViewById(R.id.textViewLanguage2);
-		textLanguage2.setText(state.getVocable().getLanguage2());
+		//TODO outputPicture.setText(state.getVocable().getPicture());
 		
 		updateDisplayStatistic();
 	}

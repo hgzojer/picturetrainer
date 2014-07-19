@@ -38,10 +38,6 @@ public class VocableListActivity extends ListActivity {
 		
 		EditText editTextDictionaryName = (EditText) findViewById(R.id.editTextDictionaryName);
 		editTextDictionaryName.setText(state.getDictionary().getName());
-		EditText editTextLanguage1 = (EditText) findViewById(R.id.editTextLanguage1);
-		editTextLanguage1.setText(state.getDictionary().getLanguage1());
-		EditText editTextLanguage2 = (EditText) findViewById(R.id.editTextLanguage2);
-		editTextLanguage2.setText(state.getDictionary().getLanguage2());
 
 		adapter = new VocableArrayAdapter(this, R.layout.vocable_list_item, state.getVocables());
 		setListAdapter(adapter);
@@ -106,10 +102,6 @@ public class VocableListActivity extends ListActivity {
 		
 		EditText editTextDictionaryName = (EditText) findViewById(R.id.editTextDictionaryName);
 		dictionary.setName(editTextDictionaryName.getText().toString());
-		EditText editTextLanguage1 = (EditText) findViewById(R.id.editTextLanguage1);
-		dictionary.setLanguage1(editTextLanguage1.getText().toString());
-		EditText editTextLanguage2 = (EditText) findViewById(R.id.editTextLanguage2);
-		dictionary.setLanguage2(editTextLanguage2.getText().toString());
 		
 		List<Vocable> vocables = state.getVocables();
 		/*vocables.clear();
@@ -170,7 +162,7 @@ public class VocableListActivity extends ListActivity {
 				vh.listItemEditPicture.addTextChangedListener(new TextWatcher() {
 					@Override
 					public void afterTextChanged(Editable arg0) {
-						String picture = vh.listItemEditPicture.getText().toString();
+						byte[] picture = null; //TODO vh.listItemEditPicture.getText().toString();
 						vh.vocable.setPicture(picture);
 					}
 					@Override
@@ -206,7 +198,7 @@ public class VocableListActivity extends ListActivity {
 			
 			ViewHolder vh = (ViewHolder) convertView.getTag();
 			vh.vocable = vocable;
-			vh.listItemEditPicture.setText(vocable.getPicture());
+			//TDOO vh.listItemEditPicture.setText(vocable.getPicture());
 			vh.listItemEditWord.setText(vocable.getWord());
 
 			return convertView;

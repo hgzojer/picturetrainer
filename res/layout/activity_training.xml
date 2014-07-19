@@ -7,27 +7,11 @@
     tools:context="${relativePackage}.${activityClass}" >
 	 
 	 <TextView
-	     android:id="@+id/textViewLanguage1"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:text="@string/language1"
-	     android:layout_margin="3dp"
-	     android:textAppearance="?android:attr/textAppearanceLarge" />
-	
-	 <TextView
 	     android:id="@+id/textViewPictureLanguage1"
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
 	     android:layout_margin="3dp"
 	     android:text="@string/bla" />
-	
-	 <TextView
-	     android:id="@+id/textViewLanguage2"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:text="@string/language2"
-	     android:layout_margin="3dp"
-	     android:textAppearance="?android:attr/textAppearanceLarge" />
 	
 	 <EditText
 	     android:id="@+id/editTextWordLanguage2"

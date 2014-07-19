@@ -8,9 +8,8 @@
     <string name="wrong">wrong</string>
     <string name="todo">to do</string>
     
-    <string name="dictionary1">Deutsch/English 1</string>
-    <string name="language1">Deutsch</string>
-    <string name="language2">English</string>
+    <string name="dictionaryPicture">Picture</string>
+    <string name="dictionaryName">Fruits</string>
     <string name="next">&gt;</string>
     
     <string name="bla">abc</string>
@@ -22,18 +21,14 @@
     <string name="finishedToast">*** Complete ***</string>
     <string name="finishedToastDetails">Congratulation, you have successfully solved the training set.</string>
     
-    <string name="language12">Deutsch &lt;-&gt; English</string>
     <string name="count">count: %d</string>
     <string name="edit">edit</string>
     <string name="training">training</string>
     <string name="multipleChoice">MC</string>
     <string name="nodata">No dictionaries present</string>
     
-    <string name="languageDirection12">Deutsch -&gt; Toki Pona</string>
-    
+    <string name="dictionaryPictureLabel">dictionary picture</string>
     <string name="dictionaryNameLabel">dictionary name</string>
-    <string name="language1Label">language 1</string>
-    <string name="language2Label">language 2</string>
 	<string name="addVocable">add vocable</string>
 	<string name="deleteVocable">delete vocable</string>
     <string name="addDictionary">add dictionary</string>
@@ -44,10 +39,10 @@
     <string name="confirmDeleteDictionaryText">You are deleting that dictionary. Are you sure?</string>
     
     <string name="openConfig">configuration</string>
-    <string name="wordDirection">word direction</string>
-    <string name="translateForward">language 1 -&gt; language 2</string>
-    <string name="translateBidrectional">language 1 &lt;-&gt; language 2</string>
-    <string name="translateBackward">language 1 &lt;- language 2</string>
+    <string name="translationDirection">translation direction</string>
+    <string name="translateForward">picture -&gt; word</string>
+    <string name="translateBidrectional">picture &lt;-&gt; word</string>
+    <string name="translateBackward">picture &lt;- word</string>
     <string name="resetDatabase">reset database</string>
     
     <string name="confirmResetDatabaseTitle">Reset database</string>

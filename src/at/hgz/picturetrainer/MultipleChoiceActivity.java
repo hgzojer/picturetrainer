@@ -59,20 +59,17 @@ public class MultipleChoiceActivity extends AbstractTrainingActivity {
 		choices.add(alternatives[1]);
 		Collections.shuffle(choices);
 		
-		TextView textViewLanguageDirection12 = (TextView) findViewById(R.id.textViewLanguageDirection12);
-		textViewLanguageDirection12.setText(String.format("%s -> %s", vocable.getLanguage1(), vocable.getLanguage2()));
-		
 		TextView outputPicture = (TextView) findViewById(R.id.textViewPictureLanguage1);
-		outputPicture.setText(vocable.getPicture());
+		//TODO outputPicture.setText(vocable.getPicture());
 
 		Button buttonChoice1 = (Button) findViewById(R.id.buttonChoice1);
-		buttonChoice1.setText(choices.get(0));
+		//TODO buttonChoice1.setText(choices.get(0));
 		
 		Button buttonChoice2 = (Button) findViewById(R.id.buttonChoice2);
-		buttonChoice2.setText(choices.get(1));
+		//TODO buttonChoice2.setText(choices.get(1));
 		
 		Button buttonChoice3 = (Button) findViewById(R.id.buttonChoice3);
-		buttonChoice3.setText(choices.get(2));
+		//TODO buttonChoice3.setText(choices.get(2));
 		
 		updateDisplayStatistic();
 	}

@@ -7,21 +7,20 @@
     android:orientation="vertical"
     tools:context="${relativePackage}.DictionaryListActivity" >
 
+    <ImageView
+        android:id="@+id/imageViewPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/dictionaryPicture"
+        android:src="@drawable/ic_launcher" />
+
     <TextView
         android:id="@+id/listItemName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
-        android:text="@string/dictionary1"
+        android:text="@string/dictionaryName"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/listItemLanguage12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:text="@string/language12"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/listItemCount"

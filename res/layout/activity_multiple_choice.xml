@@ -7,15 +7,7 @@
     tools:context="${relativePackage}.MultipleCoiceActivity" >
 	 
 	 <TextView
-	     android:id="@+id/textViewLanguageDirection12"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:text="@string/languageDirection12"
-	     android:layout_margin="3dp"
-	     android:textAppearance="?android:attr/textAppearanceLarge" />
-	
-	 <TextView
-	     android:id="@+id/textViewPictureLanguage1"
+	     android:id="@+id/textViewPicture"
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
 	     android:layout_margin="3dp"

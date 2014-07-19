@@ -10,7 +10,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/wordDirection" />
+        android:text="@string/translationDirection" />
 
     <RadioGroup
         android:id="@+id/radioGroupDirection"
