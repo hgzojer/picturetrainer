@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Vocable Trainer</string>
+    <string name="app_name">Picture Trainer</string>
     
     <string name="statistic">Statistic</string>
     <string name="right">right</string>
@@ -44,7 +44,7 @@
     <string name="confirmDeleteDictionaryText">You are deleting that dictionary. Are you sure?</string>
     
     <string name="openConfig">configuration</string>
-    <string name="translationDirection">translation direction</string>
+    <string name="wordDirection">word direction</string>
     <string name="translateForward">language 1 -&gt; language 2</string>
     <string name="translateBidrectional">language 1 &lt;-&gt; language 2</string>
     <string name="translateBackward">language 1 &lt;- language 2</string>

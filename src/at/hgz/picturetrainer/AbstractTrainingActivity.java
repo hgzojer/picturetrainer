@@ -1,4 +1,4 @@
-package at.hgz.vocabletrainer;
+package at.hgz.picturetrainer;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import at.hgz.vocabletrainer.set.TrainingSet;
+import at.hgz.picturetrainer.set.TrainingSet;
 
 public abstract class AbstractTrainingActivity extends Activity {
 	
@@ -23,16 +23,16 @@ public abstract class AbstractTrainingActivity extends Activity {
         //Intent intent = getIntent();
         //state.setDictionaryId(intent.getIntExtra("dictionaryId", state.getDictionaryId()));
     	if (state.isNeedInit()) {
-            loadVokabel();
+            loadVocable();
             state.setNeedInit(false);
     	} else {
         	updateDisplay();
     	}
 	}
 
-	protected void evaluate(String translation) {
-		if (translation != null && !translation.trim().equals("")) {
-    		if (translation.equalsIgnoreCase(state.getVocable().getTranslation())) {
+	protected void evaluate(String word) {
+		if (word != null && !word.trim().equals("")) {
+    		if (word.equalsIgnoreCase(state.getVocable().getWord())) {
     			state.incRight();
     			state.decTodo();
     			if (state.getTodo() > 0) {
@@ -45,7 +45,7 @@ public abstract class AbstractTrainingActivity extends Activity {
             	state.getList().add(state.getVocable());
             	showWrongToast();
     		}
-    		loadVokabel();
+    		loadVocable();
     	}
 	}
 
@@ -68,7 +68,7 @@ public abstract class AbstractTrainingActivity extends Activity {
 		
 		TextView text = (TextView) layout.findViewById(R.id.textWrongToastDetails);
 		Resources resources = getApplicationContext().getResources();
-		text.setText(resources.getString(R.string.wrongToastDetails, state.getVocable().getTranslation()));
+		text.setText(resources.getString(R.string.wrongToastDetails, state.getVocable().getWord()));
 
 		Toast toast = new Toast(getApplicationContext());
 		toast.setGravity(Gravity.CENTER, 0, 0);
@@ -89,7 +89,7 @@ public abstract class AbstractTrainingActivity extends Activity {
 		toast.show();		
 	}
 
-    public void loadVokabel() {
+    public void loadVocable() {
     	if (state.getList() == null || state.getList().isEmpty()) {
     		init();
     	}

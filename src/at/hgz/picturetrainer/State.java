@@ -1,10 +1,10 @@
-package at.hgz.vocabletrainer;
+package at.hgz.picturetrainer;
 
 import java.util.List;
 
-import at.hgz.vocabletrainer.db.Dictionary;
-import at.hgz.vocabletrainer.db.Vocable;
-import at.hgz.vocabletrainer.set.TrainingElem;
+import at.hgz.picturetrainer.db.Dictionary;
+import at.hgz.picturetrainer.db.Vocable;
+import at.hgz.picturetrainer.set.TrainingElem;
 
 public class State {
 	

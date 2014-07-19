@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Vokabel Trainer</string>
+    <string name="app_name">Picture Trainer</string>
     
     <string name="statistic">Statistik</string>
     <string name="right">richtig</string>
@@ -44,7 +44,7 @@
     <string name="confirmDeleteDictionaryText">Möchten Sie das Wörterbuch wirklich löschen?</string>
     
     <string name="openConfig">Einstellungen</string>
-    <string name="translationDirection">Übersetzungsrichtung</string>
+    <string name="wordDirection">Übersetzungsrichtung</string>
     <string name="translateForward">Sprache 1 -&gt; Sprache 2</string>
     <string name="translateBidrectional">Sprache 1 &lt;-&gt; Sprache 2</string>
     <string name="translateBackward">Sprache 1 &lt;- Sprache 2</string>

@@ -1,4 +1,4 @@
-package at.hgz.vocabletrainer;
+package at.hgz.picturetrainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +19,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import at.hgz.vocabletrainer.db.Dictionary;
-import at.hgz.vocabletrainer.db.Vocable;
-import at.hgz.vocabletrainer.db.VocableOpenHelper;
-import at.hgz.vocabletrainer.set.TrainingSet;
+import at.hgz.picturetrainer.db.Dictionary;
+import at.hgz.picturetrainer.db.Vocable;
+import at.hgz.picturetrainer.db.VocableOpenHelper;
+import at.hgz.picturetrainer.set.TrainingSet;
 
 public class DictionaryListActivity extends ListActivity {
 
@@ -40,7 +40,7 @@ public class DictionaryListActivity extends ListActivity {
 		setContentView(R.layout.activity_dictionary_list);
 
         SharedPreferences settings = DictionaryListActivity.this.getPreferences(MODE_PRIVATE);
-        int direction = settings.getInt(ConfigActivity.TRANSLATION_DIRECTION, TrainingSet.DIRECTION_BIDIRECTIONAL);
+        int direction = settings.getInt(ConfigActivity.WORD_DIRECTION, TrainingSet.DIRECTION_BIDIRECTIONAL);
         TrainingApplication.getState().setDirection(direction);
 
 		loadDictionaryList();
@@ -50,7 +50,7 @@ public class DictionaryListActivity extends ListActivity {
 	protected void onDestroy() {
         SharedPreferences settings = this.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
-		editor.putInt(ConfigActivity.TRANSLATION_DIRECTION, TrainingApplication.getState().getDirection());
+		editor.putInt(ConfigActivity.WORD_DIRECTION, TrainingApplication.getState().getDirection());
 		editor.commit();
 		super.onDestroy();
 	}

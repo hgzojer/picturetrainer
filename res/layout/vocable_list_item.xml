@@ -20,7 +20,7 @@
         android:src="@android:drawable/ic_delete" />
     
     <EditText
-        android:id="@+id/listItemEditWord"
+        android:id="@+id/listItemEditPicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
@@ -31,7 +31,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/listItemEditTranslation"
+        android:id="@+id/listItemEditWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"

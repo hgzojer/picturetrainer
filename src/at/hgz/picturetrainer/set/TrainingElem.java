@@ -1,15 +1,15 @@
-package at.hgz.vocabletrainer.set;
+package at.hgz.picturetrainer.set;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import at.hgz.vocabletrainer.db.Vocable;
+import at.hgz.picturetrainer.db.Vocable;
 
 public class TrainingElem {
 
+	private String picture;
 	private String word;
-	private String translation;
 	private String language1;
 	private String language2;
 	
@@ -18,29 +18,29 @@ public class TrainingElem {
 	
 	/**
 	 * 
+	 * @param picture
 	 * @param word
-	 * @param translation
 	 * @param language1
 	 * @param language2
 	 * @param vocables
 	 * @param flipVocables false if DIRECTION_FORWARD, true if DIRECTION_BACKWARD
 	 */
-	public TrainingElem(String word, String translation, String language1,
+	public TrainingElem(String picture, String word, String language1,
 			String language2, List<Vocable> vocables, boolean flipVocables) {
+		this.picture = picture;
 		this.word = word;
-		this.translation = translation;
 		this.language1 = language1;
 		this.language2 = language2;
 		this.vocables = vocables;
 		this.flipVocables = flipVocables;
 	}
 
-	public String getWord() {
-		return word;
+	public String getPicture() {
+		return picture;
 	}
 	
-	public String getTranslation() {
-		return translation;
+	public String getWord() {
+		return word;
 	}
 	
 	public String[] getAlternatives() {
@@ -48,31 +48,31 @@ public class TrainingElem {
 		if (flipVocables) {
 			for (Iterator<Vocable> it = pool.iterator(); it.hasNext(); ) {
 				Vocable vocable = it.next();
-				if (vocable.getWord() == translation && vocable.getTranslation() == word) {
+				if (vocable.getPicture() == word && vocable.getWord() == picture) {
 					it.remove();
 				}
 			}
 			if (pool.size() < 2) {
-				pool.add(new Vocable(-1, -1, translation + "a", word + "a"));
-				pool.add(new Vocable(-1, -1, translation + "o", word + "o"));
+				pool.add(new Vocable(-1, -1, word + "a", picture + "a"));
+				pool.add(new Vocable(-1, -1, word + "o", picture + "o"));
+			}
+			Vocable alt1 = pool.remove((int) (Math.random() * pool.size()));
+			Vocable alt2 = pool.remove((int) (Math.random() * pool.size()));
+			return new String[] { alt1.getPicture(), alt2.getPicture() };
+		} else {
+			for (Iterator<Vocable> it = pool.iterator(); it.hasNext(); ) {
+				Vocable vocable = it.next();
+				if (vocable.getPicture() == picture && vocable.getWord() == word) {
+					it.remove();
+				}
+			}
+			if (pool.size() < 2) {
+				pool.add(new Vocable(-1, -1, picture + "a", word + "a"));
+				pool.add(new Vocable(-1, -1, picture + "o", word + "o"));
 			}
 			Vocable alt1 = pool.remove((int) (Math.random() * pool.size()));
 			Vocable alt2 = pool.remove((int) (Math.random() * pool.size()));
 			return new String[] { alt1.getWord(), alt2.getWord() };
-		} else {
-			for (Iterator<Vocable> it = pool.iterator(); it.hasNext(); ) {
-				Vocable vocable = it.next();
-				if (vocable.getWord() == word && vocable.getTranslation() == translation) {
-					it.remove();
-				}
-			}
-			if (pool.size() < 2) {
-				pool.add(new Vocable(-1, -1, word + "a", translation + "a"));
-				pool.add(new Vocable(-1, -1, word + "o", translation + "o"));
-			}
-			Vocable alt1 = pool.remove((int) (Math.random() * pool.size()));
-			Vocable alt2 = pool.remove((int) (Math.random() * pool.size()));
-			return new String[] { alt1.getTranslation(), alt2.getTranslation() };
 		}
 	}
 

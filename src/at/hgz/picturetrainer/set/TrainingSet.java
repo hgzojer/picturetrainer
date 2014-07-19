@@ -1,11 +1,11 @@
-package at.hgz.vocabletrainer.set;
+package at.hgz.picturetrainer.set;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import at.hgz.vocabletrainer.db.Dictionary;
-import at.hgz.vocabletrainer.db.Vocable;
+import at.hgz.picturetrainer.db.Dictionary;
+import at.hgz.picturetrainer.db.Vocable;
 
 public class TrainingSet {
 	
@@ -35,8 +35,8 @@ public class TrainingSet {
 	 */
 	private void createList1to2(List<Vocable> vocables) {
 		for (Vocable vocable : vocables) {
-			list.add(new TrainingElem(vocable.getWord(), vocable
-					.getTranslation(), dictionary.getLanguage1(), dictionary
+			list.add(new TrainingElem(vocable.getPicture(), vocable
+					.getWord(), dictionary.getLanguage1(), dictionary
 					.getLanguage2(), vocables, false));
 		}
 	}
@@ -48,8 +48,8 @@ public class TrainingSet {
 	 */
 	private void createList2to1(List<Vocable> vocables) {
 		for (Vocable vocable : vocables) {
-			list.add(new TrainingElem(vocable.getTranslation(), vocable
-					.getWord(), dictionary.getLanguage2(), dictionary
+			list.add(new TrainingElem(vocable.getWord(), vocable
+					.getPicture(), dictionary.getLanguage2(), dictionary
 					.getLanguage1(), vocables, true));
 		}
 	}
