@@ -6,7 +6,6 @@ import org.apache.commons.io.IOUtils;
 
 import android.content.Context;
 import android.content.res.Resources;
-import at.hgz.picturetrainer.R;
 
 public final class ImageUtil {
 	
@@ -29,7 +28,7 @@ public final class ImageUtil {
 		try {
 			Resources res = context.getResources();
 			int id = res.getIdentifier(filename, "raw", context.getPackageName());
-			InputStream in = res.openRawResource(R.raw.default_dictionaries);
+			InputStream in = res.openRawResource(id);
 			byte[] picture = IOUtils.toByteArray(in);
 			return picture;
     	} catch (Exception e) {

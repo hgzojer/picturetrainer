@@ -1,14 +1,14 @@
 {
 "dictionaries": [
 	{
-	"picture": "fruits.jpg",
+	"picture": "fruits",
 	"name": "fruits",
 	"vocables": [
-		{ "picture": "apple.jpg", "word": "apple" },
-		{ "picture": "banana.jpg", "word": "banana" },
-		{ "picture": "orange.jpg", "word": "orange" },
-		{ "picture": "strawberry.jpg", "word": "strawberry" },
-		{ "picture": "cherry.jpg", "word": "cherry" },
+		{ "picture": "apple", "word": "apple" },
+		{ "picture": "banana", "word": "banana" },
+		{ "picture": "orange", "word": "orange" },
+		{ "picture": "strawberry", "word": "strawberry" },
+		{ "picture": "cherry", "word": "cherry" }
 	]
 	}
 ]

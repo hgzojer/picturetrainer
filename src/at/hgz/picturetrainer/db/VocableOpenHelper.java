@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import at.hgz.picturetrainer.R;
+import at.hgz.picturetrainer.img.ImageUtil;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -80,6 +81,7 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 	private void loadJsonDefaultDictionary(final SQLiteDatabase db) {
 		int dictionaryIdNext = 1;
         int vocableIdNext = 1;
+        ImageUtil util = ImageUtil.getInstance(context);
         
     	db.beginTransaction();
     	try {
@@ -94,8 +96,7 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 			for (JsonElement dictionariesElem : dictionaries) {
 				JsonObject dictionary = dictionariesElem.getAsJsonObject();
 				
-				// TODO blob picture
-				byte[] dictionaryPicture = null;
+				byte[] dictionaryPicture = util.getResourceImage(dictionary.get("picture").getAsString());
 				String name = dictionary.get("name").getAsString();
 				
 		    	int dictionaryId = dictionaryIdNext++;
@@ -105,7 +106,7 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 				for (JsonElement vocablesElem : vocables) {
 					JsonObject vocable = vocablesElem.getAsJsonObject();
 					
-					byte[] picture = null; // TODO vocable.get("picture").getAsString();
+					byte[] picture = util.getResourceImage(vocable.get("picture").getAsString());
 					String word = vocable.get("word").getAsString();
 					
 					int vocableId = vocableIdNext++;
@@ -138,7 +139,7 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 		List<Dictionary> list = new LinkedList<Dictionary>();
 		while (cursor.moveToNext()) {
 			int id = cursor.getInt(0);
-			byte[] picture = null; // TODO
+			byte[] picture = cursor.getBlob(1);
 			String name = cursor.getString(2);
 			list.add(new Dictionary(id, picture, name));
 		}
@@ -153,7 +154,7 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 		while (cursor.moveToNext()) {
 			int id = cursor.getInt(0);
 			int dictionaryId1 = cursor.getInt(1);
-			byte[] picture = null; // TODO cursor.getString(2);
+			byte[] picture = cursor.getBlob(2);
 			String word = cursor.getString(3);
 			list.add(new Vocable(id, dictionaryId1, picture, word));
 		}
