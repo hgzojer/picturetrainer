@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import at.hgz.picturetrainer.db.Dictionary;
 import at.hgz.picturetrainer.db.Vocable;
 import at.hgz.picturetrainer.db.VocableOpenHelper;
+import at.hgz.picturetrainer.img.ImageUtil;
 import at.hgz.picturetrainer.set.TrainingSet;
 
 public class DictionaryListActivity extends ListActivity {
@@ -225,15 +227,16 @@ public class DictionaryListActivity extends ListActivity {
 	    public View getView(int position, View convertView, ViewGroup parent) {
 
 	       Dictionary dictionary = getItem(position);    
+	       ImageUtil util = ImageUtil.getInstance(DictionaryListActivity.this);
 
 	       if (convertView == null) {
 	          convertView = LayoutInflater.from(getContext()).inflate(R.layout.dictionary_list_item, parent, false);
 	       }
 
-	       // TODO picture
 	       TextView listItemName = (TextView) convertView.findViewById(R.id.listItemName);
 	        
-	       // TODO picture
+	       Drawable drawable = util.getDrawable(dictionary.getPicture());
+	       listItemName.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
 	       listItemName.setText(String.format("%s %s",  directionSymbol, dictionary.getName()));
 
 	       return convertView;

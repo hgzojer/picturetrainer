@@ -6,6 +6,9 @@ import org.apache.commons.io.IOUtils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 
 public final class ImageUtil {
 	
@@ -34,6 +37,12 @@ public final class ImageUtil {
     	} catch (Exception e) {
     		throw new RuntimeException(e.getMessage(), e);
     	}
+	}
+	
+	public Drawable getDrawable(byte[] picture) {
+		Resources res = context.getResources();
+		return new BitmapDrawable(res, BitmapFactory.decodeByteArray(picture,
+				0, picture.length));
 	}
 	
 }
