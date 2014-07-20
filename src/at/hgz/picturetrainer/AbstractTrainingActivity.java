@@ -49,6 +49,25 @@ public abstract class AbstractTrainingActivity extends Activity {
     	}
 	}
 
+	protected void evaluate(byte[] picture) {
+		if (picture != null) {
+    		if (picture == state.getVocable().getPicture()) {
+    			state.incRight();
+    			state.decTodo();
+    			if (state.getTodo() > 0) {
+    				showRightToast();
+    			} else {
+    				showFinishedToast();
+    			}
+    		} else {
+            	state.incWrong();
+            	state.getList().add(state.getVocable());
+            	showWrongToast();
+    		}
+    		loadVocable();
+    	}
+	}
+
 	protected void showRightToast() {
 		LayoutInflater inflater = getLayoutInflater();
 		View layout = inflater.inflate(R.layout.toast_right_layout,

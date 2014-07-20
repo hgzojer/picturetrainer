@@ -8,7 +8,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import at.hgz.picturetrainer.img.PictureUtil;
 import at.hgz.picturetrainer.set.TrainingElem;
 
 public class MultipleChoiceActivity extends AbstractTrainingActivity {
@@ -45,6 +48,13 @@ public class MultipleChoiceActivity extends AbstractTrainingActivity {
 		case R.id.buttonChoice3:
 			String word = ((Button) view).getText().toString();
 	    	evaluate(word);
+	    	break;
+		case R.id.imageButtonChoice1:
+		case R.id.imageButtonChoice2:
+		case R.id.imageButtonChoice3:
+			byte[] picture = (byte[]) ((ImageButton) view).getTag();
+			evaluate(picture);
+	    	break;
 		}
     }
 
@@ -59,17 +69,73 @@ public class MultipleChoiceActivity extends AbstractTrainingActivity {
 		choices.add(alternatives[1]);
 		Collections.shuffle(choices);
 		
-		TextView outputPicture = (TextView) findViewById(R.id.textViewPictureLanguage1);
-		//TODO outputPicture.setText(vocable.getPicture());
+    	PictureUtil util = PictureUtil.getInstance(this);
+		if (vocable.isFlipVocables()) {
+			ImageView outputPicture = (ImageView) findViewById(R.id.imageViewPicture);
+			outputPicture.setVisibility(View.GONE);
 
-		Button buttonChoice1 = (Button) findViewById(R.id.buttonChoice1);
-		//TODO buttonChoice1.setText(choices.get(0));
-		
-		Button buttonChoice2 = (Button) findViewById(R.id.buttonChoice2);
-		//TODO buttonChoice2.setText(choices.get(1));
-		
-		Button buttonChoice3 = (Button) findViewById(R.id.buttonChoice3);
-		//TODO buttonChoice3.setText(choices.get(2));
+			Button buttonChoice1 = (Button) findViewById(R.id.buttonChoice1);
+			buttonChoice1.setVisibility(View.GONE);
+			
+			Button buttonChoice2 = (Button) findViewById(R.id.buttonChoice2);
+			buttonChoice2.setVisibility(View.GONE);
+			
+			Button buttonChoice3 = (Button) findViewById(R.id.buttonChoice3);
+			buttonChoice3.setVisibility(View.GONE);
+			
+			TextView outputWord = (TextView) findViewById(R.id.textViewWord);
+			outputWord.setText(vocable.getWord());
+			outputWord.setVisibility(View.VISIBLE);
+			
+			ImageButton imageButtonChoice1 = (ImageButton) findViewById(R.id.imageButtonChoice1);
+        	Drawable drawable1 = util.getDrawable(choices.get(0).getPicture());
+        	imageButtonChoice1.setTag(choices.get(0).getPicture());
+        	imageButtonChoice1.setImageDrawable(drawable1);
+        	imageButtonChoice1.setVisibility(View.VISIBLE);
+			
+			ImageButton imageButtonChoice2 = (ImageButton) findViewById(R.id.imageButtonChoice2);
+        	Drawable drawable2 = util.getDrawable(choices.get(1).getPicture());
+        	imageButtonChoice2.setTag(choices.get(1).getPicture());
+        	imageButtonChoice2.setImageDrawable(drawable2);
+        	imageButtonChoice2.setVisibility(View.VISIBLE);
+			
+			ImageButton imageButtonChoice3 = (ImageButton) findViewById(R.id.imageButtonChoice3);
+        	Drawable drawable3 = util.getDrawable(choices.get(2).getPicture());
+        	imageButtonChoice3.setTag(choices.get(2).getPicture());
+        	imageButtonChoice3.setImageDrawable(drawable3);
+        	imageButtonChoice3.setVisibility(View.VISIBLE);
+			
+		} else {
+			ImageView outputPicture = (ImageView) findViewById(R.id.imageViewPicture);
+        	Drawable drawable = util.getDrawable(vocable.getPicture());
+			outputPicture.setImageDrawable(drawable);
+			outputPicture.setVisibility(View.VISIBLE);
+
+			Button buttonChoice1 = (Button) findViewById(R.id.buttonChoice1);
+			buttonChoice1.setText(choices.get(0).getWord());
+			buttonChoice1.setVisibility(View.VISIBLE);
+			
+			Button buttonChoice2 = (Button) findViewById(R.id.buttonChoice2);
+			buttonChoice2.setText(choices.get(1).getWord());
+			buttonChoice2.setVisibility(View.VISIBLE);
+			
+			Button buttonChoice3 = (Button) findViewById(R.id.buttonChoice3);
+			buttonChoice3.setText(choices.get(2).getWord());
+			buttonChoice3.setVisibility(View.VISIBLE);
+			
+			TextView outputWord = (TextView) findViewById(R.id.textViewWord);
+			outputWord.setVisibility(View.GONE);
+			
+			ImageButton imageButtonChoice1 = (ImageButton) findViewById(R.id.imageButtonChoice1);
+			imageButtonChoice1.setVisibility(View.GONE);
+			
+			ImageButton imageButtonChoice2 = (ImageButton) findViewById(R.id.imageButtonChoice2);
+			imageButtonChoice2.setVisibility(View.GONE);
+			
+			ImageButton imageButtonChoice3 = (ImageButton) findViewById(R.id.imageButtonChoice3);
+			imageButtonChoice3.setVisibility(View.GONE);
+			
+		}
 		
 		updateDisplayStatistic();
 	}
