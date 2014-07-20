@@ -10,19 +10,19 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-public final class ImageUtil {
+public final class PictureUtil {
 	
-	private static ImageUtil instance;
+	private static PictureUtil instance;
 
 	private Context context;
 	
-	private ImageUtil(Context context) {
+	private PictureUtil(Context context) {
 		this.context = context;
 	}
 	
-	public static ImageUtil getInstance(Context context) {
+	public static PictureUtil getInstance(Context context) {
 		if (instance == null) {
-			instance = new ImageUtil(context);
+			instance = new PictureUtil(context);
 		}
 		return instance;
 	}

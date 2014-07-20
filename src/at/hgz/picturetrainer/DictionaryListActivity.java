@@ -23,7 +23,7 @@ import android.widget.TextView;
 import at.hgz.picturetrainer.db.Dictionary;
 import at.hgz.picturetrainer.db.Vocable;
 import at.hgz.picturetrainer.db.VocableOpenHelper;
-import at.hgz.picturetrainer.img.ImageUtil;
+import at.hgz.picturetrainer.img.PictureUtil;
 import at.hgz.picturetrainer.set.TrainingSet;
 
 public class DictionaryListActivity extends ListActivity {
@@ -69,7 +69,7 @@ public class DictionaryListActivity extends ListActivity {
 	    switch (item.getItemId()) {
 	        case R.id.addDictionary:
 	        {
-	        	ImageUtil util = ImageUtil.getInstance(DictionaryListActivity.this);
+	        	PictureUtil util = PictureUtil.getInstance(DictionaryListActivity.this);
 	        	byte[] image = util.getDefaultPicture();
 	        	TrainingApplication.getState().setDictionary(new Dictionary(-1, image, ""));
 	        	List<Vocable> vocables = new ArrayList<Vocable>(5);
@@ -229,7 +229,7 @@ public class DictionaryListActivity extends ListActivity {
 	    public View getView(int position, View convertView, ViewGroup parent) {
 
 	       Dictionary dictionary = getItem(position);    
-	       ImageUtil util = ImageUtil.getInstance(DictionaryListActivity.this);
+	       PictureUtil util = PictureUtil.getInstance(DictionaryListActivity.this);
 
 	       if (convertView == null) {
 	          convertView = LayoutInflater.from(getContext()).inflate(R.layout.dictionary_list_item, parent, false);

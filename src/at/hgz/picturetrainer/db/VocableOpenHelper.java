@@ -13,7 +13,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import at.hgz.picturetrainer.R;
-import at.hgz.picturetrainer.img.ImageUtil;
+import at.hgz.picturetrainer.img.PictureUtil;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -81,7 +81,7 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 	private void loadJsonDefaultDictionary(final SQLiteDatabase db) {
 		int dictionaryIdNext = 1;
         int vocableIdNext = 1;
-        ImageUtil util = ImageUtil.getInstance(context);
+        PictureUtil util = PictureUtil.getInstance(context);
         
     	db.beginTransaction();
     	try {

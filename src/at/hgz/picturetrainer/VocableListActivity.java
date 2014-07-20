@@ -26,7 +26,7 @@ import android.widget.Toast;
 import at.hgz.picturetrainer.db.Dictionary;
 import at.hgz.picturetrainer.db.Vocable;
 import at.hgz.picturetrainer.db.VocableOpenHelper;
-import at.hgz.picturetrainer.img.ImageUtil;
+import at.hgz.picturetrainer.img.PictureUtil;
 
 public class VocableListActivity extends ListActivity {
 	
@@ -57,7 +57,7 @@ public class VocableListActivity extends ListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case R.id.addVocable:
-	        	ImageUtil util = ImageUtil.getInstance(this);
+	        	PictureUtil util = PictureUtil.getInstance(this);
 	        	byte[] image = util.getDefaultPicture();
 	            adapter.add(new Vocable(-1, -1, image, ""));
 	            setSelection(adapter.getCount() - 1);
@@ -191,7 +191,7 @@ public class VocableListActivity extends ListActivity {
 			
 			ViewHolder vh = (ViewHolder) convertView.getTag();
 			vh.vocable = vocable;
-        	ImageUtil util = ImageUtil.getInstance(VocableListActivity.this);
+        	PictureUtil util = PictureUtil.getInstance(VocableListActivity.this);
         	Drawable drawable = util.getDrawable(vocable.getPicture());
 			vh.listItemEditPicture.setImageDrawable(drawable);
 			vh.listItemEditWord.setText(vocable.getWord());
