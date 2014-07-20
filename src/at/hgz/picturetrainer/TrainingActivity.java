@@ -14,7 +14,7 @@ public class TrainingActivity extends AbstractTrainingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training);
-    	EditText inputWord = (EditText) findViewById(R.id.editTextWordLanguage2);
+    	EditText inputWord = (EditText) findViewById(R.id.editTextWord);
     	inputWord.setOnEditorActionListener(new OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
@@ -31,7 +31,7 @@ public class TrainingActivity extends AbstractTrainingActivity {
     }
 
 	private void check() {
-		EditText inputWord = (EditText) findViewById(R.id.editTextWordLanguage2);
+		EditText inputWord = (EditText) findViewById(R.id.editTextWord);
     	String word = inputWord.getText().toString();
 		inputWord.setText("");
     	evaluate(word);
@@ -39,7 +39,7 @@ public class TrainingActivity extends AbstractTrainingActivity {
 
 	@Override
 	protected void updateDisplay() {
-		TextView outputPicture = (TextView) findViewById(R.id.textViewPictureLanguage1);
+		TextView outputPicture = (TextView) findViewById(R.id.textViewWord);
 		//TODO outputPicture.setText(state.getVocable().getPicture());
 		
 		updateDisplayStatistic();
