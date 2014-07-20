@@ -29,7 +29,8 @@
     
     <string name="dictionaryPictureLabel">dictionary picture</string>
     <string name="dictionaryNameLabel">dictionary name</string>
-	<string name="addVocable">add vocable</string>
+    <string name="picture">picture</string>
+    <string name="addVocable">add vocable</string>
 	<string name="deleteVocable">delete vocable</string>
     <string name="addDictionary">add dictionary</string>
 	<string name="deleteDictionary">delete dictionary</string>

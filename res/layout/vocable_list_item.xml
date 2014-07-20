@@ -11,24 +11,22 @@
         android:id="@+id/buttonDeleteVocable"
         android:layout_width="1pt"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="6dp"
         android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
         android:layout_weight="1"
         android:contentDescription="@string/deleteVocable"
         android:src="@android:drawable/ic_delete" />
-    
-    <EditText
+
+    <ImageView
         android:id="@+id/listItemEditPicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
         android:layout_weight="1"
-        android:ems="4"
-        android:inputType="text" >
-
-    </EditText>
+        android:contentDescription="@string/picture"
+        android:src="@drawable/ic_launcher" >
+    </ImageView>
 
     <EditText
         android:id="@+id/listItemEditWord"
@@ -38,7 +36,6 @@
         android:layout_weight="1"
         android:ems="4"
         android:inputType="text" >
-
     </EditText>
 
 </LinearLayout>

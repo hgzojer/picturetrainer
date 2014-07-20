@@ -27,7 +27,11 @@ public final class ImageUtil {
 		return instance;
 	}
 	
-	public byte[] getResourceImage(String filename) {
+	public byte[] getDefaultPicture() {
+		return getResourcePicture("default_picture");
+	}
+	
+	public byte[] getResourcePicture(String filename) {
 		try {
 			Resources res = context.getResources();
 			int id = res.getIdentifier(filename, "raw", context.getPackageName());

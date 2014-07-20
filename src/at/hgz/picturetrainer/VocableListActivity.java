@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,10 +21,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import at.hgz.picturetrainer.db.Dictionary;
 import at.hgz.picturetrainer.db.Vocable;
 import at.hgz.picturetrainer.db.VocableOpenHelper;
+import at.hgz.picturetrainer.img.ImageUtil;
 
 public class VocableListActivity extends ListActivity {
 	
@@ -54,7 +57,9 @@ public class VocableListActivity extends ListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case R.id.addVocable:
-	            adapter.add(new Vocable(-1, -1, new byte[0] /*TODO*/, ""));
+	        	ImageUtil util = ImageUtil.getInstance(this);
+	        	byte[] image = util.getDefaultPicture();
+	            adapter.add(new Vocable(-1, -1, image, ""));
 	            setSelection(adapter.getCount() - 1);
 	            return true;
 	        case R.id.deleteDictionary:
@@ -140,7 +145,7 @@ public class VocableListActivity extends ListActivity {
 		}
 		
 		private class ViewHolder {
-			public EditText listItemEditPicture;
+			public ImageView listItemEditPicture;
 			public EditText listItemEditWord;
 			public View buttonDeleteVocable;
 			public Vocable vocable;
@@ -155,23 +160,11 @@ public class VocableListActivity extends ListActivity {
 				convertView = LayoutInflater.from(getContext()).inflate(
 						R.layout.vocable_list_item, parent, false);
 				final ViewHolder vh = new ViewHolder();
-				vh.listItemEditPicture = (EditText) convertView.findViewById(R.id.listItemEditPicture);
+				vh.listItemEditPicture = (ImageView) convertView.findViewById(R.id.listItemEditPicture);
 				vh.listItemEditWord = (EditText) convertView.findViewById(R.id.listItemEditWord);
 				vh.buttonDeleteVocable = convertView.findViewById(R.id.buttonDeleteVocable);
 				
-				vh.listItemEditPicture.addTextChangedListener(new TextWatcher() {
-					@Override
-					public void afterTextChanged(Editable arg0) {
-						byte[] picture = null; //TODO vh.listItemEditPicture.getText().toString();
-						vh.vocable.setPicture(picture);
-					}
-					@Override
-					public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-					}
-					@Override
-					public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-					}
-				});
+				//TODO vh.listItemEditPicture.add(...);
 				
 				vh.listItemEditWord.addTextChangedListener(new TextWatcher() {
 					@Override
@@ -198,7 +191,9 @@ public class VocableListActivity extends ListActivity {
 			
 			ViewHolder vh = (ViewHolder) convertView.getTag();
 			vh.vocable = vocable;
-			//TDOO vh.listItemEditPicture.setText(vocable.getPicture());
+        	ImageUtil util = ImageUtil.getInstance(VocableListActivity.this);
+        	Drawable drawable = util.getDrawable(vocable.getPicture());
+			vh.listItemEditPicture.setImageDrawable(drawable);
 			vh.listItemEditWord.setText(vocable.getWord());
 
 			return convertView;

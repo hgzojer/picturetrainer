@@ -70,7 +70,7 @@ public class DictionaryListActivity extends ListActivity {
 	        case R.id.addDictionary:
 	        {
 	        	ImageUtil util = ImageUtil.getInstance(DictionaryListActivity.this);
-	        	byte[] image = util.getResourceImage("default_image");
+	        	byte[] image = util.getDefaultPicture();
 	        	TrainingApplication.getState().setDictionary(new Dictionary(-1, image, ""));
 	        	List<Vocable> vocables = new ArrayList<Vocable>(5);
 	        	vocables.add(new Vocable(-1, -1, image, ""));

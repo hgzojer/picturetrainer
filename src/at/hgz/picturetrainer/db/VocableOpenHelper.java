@@ -96,7 +96,7 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 			for (JsonElement dictionariesElem : dictionaries) {
 				JsonObject dictionary = dictionariesElem.getAsJsonObject();
 				
-				byte[] dictionaryPicture = util.getResourceImage(dictionary.get("picture").getAsString());
+				byte[] dictionaryPicture = util.getResourcePicture(dictionary.get("picture").getAsString());
 				String name = dictionary.get("name").getAsString();
 				
 		    	int dictionaryId = dictionaryIdNext++;
@@ -106,7 +106,7 @@ public final class VocableOpenHelper extends SQLiteOpenHelper {
 				for (JsonElement vocablesElem : vocables) {
 					JsonObject vocable = vocablesElem.getAsJsonObject();
 					
-					byte[] picture = util.getResourceImage(vocable.get("picture").getAsString());
+					byte[] picture = util.getResourcePicture(vocable.get("picture").getAsString());
 					String word = vocable.get("word").getAsString();
 					
 					int vocableId = vocableIdNext++;
