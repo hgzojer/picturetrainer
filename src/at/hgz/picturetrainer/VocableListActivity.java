@@ -39,6 +39,10 @@ public class VocableListActivity extends ListActivity {
 
 		State state = TrainingApplication.getState();
 		
+    	PictureUtil util = PictureUtil.getInstance(VocableListActivity.this);
+    	Drawable drawable = util.getDrawable(state.getDictionary().getPicture());
+		ImageView imageViewDictionaryPicture = (ImageView) findViewById(R.id.imageViewDictionaryPicture);
+		imageViewDictionaryPicture.setImageDrawable(drawable);
 		EditText editTextDictionaryName = (EditText) findViewById(R.id.editTextDictionaryName);
 		editTextDictionaryName.setText(state.getDictionary().getName());
 
