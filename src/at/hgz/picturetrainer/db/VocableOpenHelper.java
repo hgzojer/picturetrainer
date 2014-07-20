@@ -22,7 +22,7 @@ import com.google.gson.JsonParser;
 
 public final class VocableOpenHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 15;
+    private static final int DATABASE_VERSION = 16;
     private static final String DATABASE_NAME = "vocabledb";
     
     private static final String VOCABLE_TABLE_NAME = "vocable";

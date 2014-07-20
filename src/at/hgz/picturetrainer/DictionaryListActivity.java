@@ -69,13 +69,15 @@ public class DictionaryListActivity extends ListActivity {
 	    switch (item.getItemId()) {
 	        case R.id.addDictionary:
 	        {
-	        	TrainingApplication.getState().setDictionary(new Dictionary(-1, new byte[0] /* TODO */, ""));
-	        	List<Vocable> vocables = new ArrayList<Vocable>(1);
-	        	vocables.add(new Vocable(-1, -1, new byte[0] /* TODO */, ""));
-	        	vocables.add(new Vocable(-1, -1, new byte[0] /* TODO */, ""));
-	        	vocables.add(new Vocable(-1, -1, new byte[0] /* TODO */, ""));
-	        	vocables.add(new Vocable(-1, -1, new byte[0] /* TODO */, ""));
-	        	vocables.add(new Vocable(-1, -1, new byte[0] /* TODO */, ""));
+	        	ImageUtil util = ImageUtil.getInstance(DictionaryListActivity.this);
+	        	byte[] image = util.getResourceImage("default_image");
+	        	TrainingApplication.getState().setDictionary(new Dictionary(-1, image, ""));
+	        	List<Vocable> vocables = new ArrayList<Vocable>(5);
+	        	vocables.add(new Vocable(-1, -1, image, ""));
+	        	vocables.add(new Vocable(-1, -1, image, ""));
+	        	vocables.add(new Vocable(-1, -1, image, ""));
+	        	vocables.add(new Vocable(-1, -1, image, ""));
+	        	vocables.add(new Vocable(-1, -1, image, ""));
 	        	TrainingApplication.getState().setVocables(vocables);
 				Intent intent = new Intent(DictionaryListActivity.this, VocableListActivity.class);
 				//intent.putExtra("dictionaryId", dictionaryId);
@@ -237,7 +239,7 @@ public class DictionaryListActivity extends ListActivity {
 	        
 	       Drawable drawable = util.getDrawable(dictionary.getPicture());
 	       listItemName.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-	       listItemName.setText(String.format("%s %s",  directionSymbol, dictionary.getName()));
+	       listItemName.setText(String.format(" %s %s",  directionSymbol, dictionary.getName()));
 
 	       return convertView;
 	   }		
