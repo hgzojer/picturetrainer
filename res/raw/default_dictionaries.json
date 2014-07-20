@@ -1,50 +1,14 @@
 {
 "dictionaries": [
 	{
-	"name": "Deutsch/English 1",
-	"language1": "Deutsch",
-	"language2": "English",
+	"picture": "fruits.jpg",
+	"name": "fruits",
 	"vocables": [
-		{ "picture": "Tee", "word": "tea" },
-		{ "picture": "Kaffee", "word": "coffee" },
-		{ "picture": "Wein", "word": "wine" },
-		{ "picture": "Saft", "word": "juice" },
-		{ "picture": "Kuchen", "word": "cake" },
-		{ "picture": "Brot", "word": "bread" },
-		{ "picture": "Butter", "word": "butter" },
-		{ "picture": "Pfeffer", "word": "pepper" },
-		{ "picture": "K\u00e4se", "word": "cheese" },
-		{ "picture": "Salz", "word": "salt" },
-		{ "picture": "Zucker", "word": "sugar" },
-		{ "picture": "Apfel", "word": "apple" },
-		{ "picture": "Banane", "word": "banana" },
-		{ "picture": "Orange", "word": "orange" },
-		{ "picture": "Erdbeere", "word": "strawberry" },
-		{ "picture": "Himbeere", "word": "raspberry" },
-		{ "picture": "Birne", "word": "pear" },
-		{ "picture": "Pfirsich", "word": "peach" },
-		{ "picture": "Zitrone", "word": "lemon" },
-		{ "picture": "Limette", "word": "lime" }
-	]
-	},
-	{
-	"name": "Toki Pona/Deutsch Zahlworte",
-	"language1": "Toki Pona",
-	"language2": "Deutsch",
-	"vocables": [
-		{ "picture": "ala", "word": "null" },
-		{ "picture": "wan", "word": "eins" },
-		{ "picture": "tu", "word": "zwei" },
-		{ "picture": "tu wan", "word": "drei" },
-		{ "picture": "tu tu", "word": "vier" },
-		{ "picture": "luka", "word": "f\u00fcnf" },
-		{ "picture": "luka wan", "word": "sechs" },
-		{ "picture": "luka tu", "word": "sieben" },
-		{ "picture": "luka tu wan", "word": "acht" },
-		{ "picture": "luka tu tu", "word": "neun" },
-		{ "picture": "luka luka", "word": "zehn" },
-		{ "picture": "luka luka luka tu", "word": "siebzehn" },
-		{ "picture": "mute", "word": "viele" }
+		{ "picture": "apple.jpg", "word": "apple" },
+		{ "picture": "banana.jpg", "word": "banana" },
+		{ "picture": "orange.jpg", "word": "orange" },
+		{ "picture": "strawberry.jpg", "word": "strawberry" },
+		{ "picture": "cherry.jpg", "word": "cherry" },
 	]
 	}
 ]
