@@ -15,18 +15,21 @@
             android:id="@+id/textViewDictionaryPictureLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+        	android:layout_gravity="left|center_vertical"
             android:layout_margin="3dp"
             android:text="@string/dictionaryPictureLabel"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-	    <ImageView
-	        android:id="@+id/imageViewDictionaryPicture"
+	    <ImageButton
+	        android:id="@+id/imageButtonDictionaryPicture"
 	        android:layout_width="100dp"
 	        android:layout_height="100dp"
+        	android:layout_gravity="left|center_vertical"
 	        android:scaleType="centerInside"
+	        android:onClick="onClick"
 	        android:contentDescription="@string/picture"
 	        android:src="@drawable/ic_launcher" >
-	    </ImageView>
+	    </ImageButton>
     </LinearLayout>
     
     <LinearLayout
@@ -39,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
+        	android:layout_gravity="left|center_vertical"
             android:text="@string/dictionaryNameLabel"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -47,6 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
+        	android:layout_gravity="left|center_vertical"
             android:ems="4"
             android:inputType="text" >
         </EditText>

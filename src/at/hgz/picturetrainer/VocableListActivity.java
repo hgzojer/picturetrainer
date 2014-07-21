@@ -1,6 +1,10 @@
 package at.hgz.picturetrainer;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -9,9 +13,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +38,12 @@ import at.hgz.picturetrainer.img.PictureUtil;
 
 public class VocableListActivity extends ListActivity {
 	
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_VOCABLE = 200;
+	private Uri fileUri;
+	private boolean imageSavedInternally;
+	private Vocable imageSaveVocable;
+	
 	private VocableArrayAdapter adapter;
 
 	@Override
@@ -41,13 +55,91 @@ public class VocableListActivity extends ListActivity {
 		
     	PictureUtil util = PictureUtil.getInstance(VocableListActivity.this);
     	Drawable drawable = util.getDrawable(state.getDictionary().getPicture());
-		ImageView imageViewDictionaryPicture = (ImageView) findViewById(R.id.imageViewDictionaryPicture);
-		imageViewDictionaryPicture.setImageDrawable(drawable);
+		ImageView imageButtonDictionaryPicture = (ImageView) findViewById(R.id.imageButtonDictionaryPicture);
+		imageButtonDictionaryPicture.setImageDrawable(drawable);
 		EditText editTextDictionaryName = (EditText) findViewById(R.id.editTextDictionaryName);
 		editTextDictionaryName.setText(state.getDictionary().getName());
 
 		adapter = new VocableArrayAdapter(this, R.layout.vocable_list_item, state.getVocables());
 		setListAdapter(adapter);
+	}
+	
+	public void onClick(View v) {
+	    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	    fileUri = Uri.fromFile(getOutputMediaFile());
+	    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+	    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+	}
+	
+	private File getOutputMediaFile(){
+		File mediaStorageDir;
+		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+		    mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+		              Environment.DIRECTORY_PICTURES), "PictureTrainer");
+		    imageSavedInternally = false;
+		} else {
+		    mediaStorageDir = Environment.getDataDirectory();
+		    imageSavedInternally = true;
+		}
+
+
+	    if (! mediaStorageDir.exists()){
+	        if (! mediaStorageDir.mkdirs()){
+	            Log.d("MyCameraApp", "failed to create directory");
+	            return null;
+	        }
+	    }
+
+	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
+	    File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+        "IMG_"+ timeStamp + ".jpg");
+
+	    return mediaFile;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+	        if (resultCode == RESULT_OK) {
+	            // Image captured and saved to fileUri specified in the Intent
+                PictureUtil util = PictureUtil.getInstance(this);
+				byte[] picture = util.getUriPicture(fileUri);
+				State state = TrainingApplication.getState();
+				state.getDictionary().setPicture(picture);
+            	Drawable drawable = util.getDrawable(picture);
+        		ImageView imageButtonDictionaryPicture = (ImageView) findViewById(R.id.imageButtonDictionaryPicture);
+        		imageButtonDictionaryPicture.setImageDrawable(drawable);
+	            if (imageSavedInternally) {
+	            	new File(fileUri.getPath()).delete();
+	            }
+	        } else if (resultCode == RESULT_CANCELED) {
+	            // User cancelled the image capture
+	        } else {
+	            // Image capture failed, advise user
+	        	String text = getResources().getString(R.string.errorSavingPicture);
+	            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	        }
+	    }
+	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_VOCABLE) {
+	        if (resultCode == RESULT_OK) {
+	            // Image captured and saved to fileUri specified in the Intent
+	            /*Toast.makeText(this, "Image saved to:\n" +
+	                     data.getData(), Toast.LENGTH_LONG).show();*/
+                PictureUtil util = PictureUtil.getInstance(this);
+				byte[] picture = util.getUriPicture(fileUri);
+				imageSaveVocable.setPicture(picture);
+				adapter.notifyDataSetChanged();
+	            if (imageSavedInternally) {
+	            	new File(fileUri.getPath()).delete();
+	            }
+	        } else if (resultCode == RESULT_CANCELED) {
+	            // User cancelled the image capture
+	        } else {
+	            // Image capture failed, advise user
+	        	String text = getResources().getString(R.string.errorSavingPicture);
+	            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	        }
+	    }
 	}
 	
 	@Override
@@ -168,7 +260,16 @@ public class VocableListActivity extends ListActivity {
 				vh.listItemEditWord = (EditText) convertView.findViewById(R.id.listItemEditWord);
 				vh.buttonDeleteVocable = convertView.findViewById(R.id.buttonDeleteVocable);
 				
-				//TODO vh.listItemEditPicture.add(...);
+				vh.listItemEditPicture.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						imageSaveVocable = vh.vocable;
+					    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					    fileUri = Uri.fromFile(getOutputMediaFile());
+					    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+					    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_VOCABLE);
+					}
+				});
 				
 				vh.listItemEditWord.addTextChangedListener(new TextWatcher() {
 					@Override

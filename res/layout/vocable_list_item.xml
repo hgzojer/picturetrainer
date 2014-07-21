@@ -19,7 +19,7 @@
         android:contentDescription="@string/deleteVocable"
         android:src="@android:drawable/ic_delete" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/listItemEditPicture"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -28,7 +28,7 @@
         android:layout_gravity="left|center_vertical"
         android:contentDescription="@string/picture"
         android:src="@drawable/ic_launcher" >
-    </ImageView>
+    </ImageButton>
 
     <EditText
         android:id="@+id/listItemEditWord"
