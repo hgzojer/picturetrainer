@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_action_edit"
             android:text="@string/edit"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/buttonTraining"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_action_training"
             android:text="@string/training"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/buttonMultipleChoice"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_action_mc"
             android:text="@string/multipleChoice"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>
