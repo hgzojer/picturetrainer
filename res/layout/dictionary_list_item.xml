@@ -17,6 +17,7 @@
 	        android:layout_width="100dp"
 	        android:layout_height="100dp"
         	android:layout_margin="3dp"
+	    	android:layout_gravity="left|center_vertical"
 	        android:scaleType="centerInside"
 	        android:contentDescription="@string/picture"
 	        android:src="@drawable/ic_launcher" >
@@ -27,6 +28,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	    	android:layout_margin="3dp"
+	    	android:layout_gravity="left|center_vertical"
 	        android:text="@string/dictionaryName"
 	        android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
@@ -50,24 +52,27 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_edit"
             android:text="@string/edit"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/buttonTraining"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_training"
             android:text="@string/training"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/buttonMultipleChoice"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_mc"
             android:text="@string/multipleChoice"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </LinearLayout>
 
 </LinearLayout>
