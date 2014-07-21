@@ -9,7 +9,8 @@
     <ImageView
         android:id="@+id/imageViewPicture"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
+        android:scaleType="centerInside"
         android:contentDescription="@string/picture"
         android:src="@drawable/ic_launcher" />
 

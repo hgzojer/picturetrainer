@@ -9,7 +9,8 @@
     <ImageView
         android:id="@+id/imageViewPicture"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
+        android:scaleType="centerInside"
         android:contentDescription="@string/picture"
         android:src="@drawable/ic_launcher" />
 
@@ -47,7 +48,8 @@
     <ImageButton
         android:id="@+id/imageButtonChoice1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
+        android:scaleType="centerInside"
         android:contentDescription="@string/picture"
         android:layout_margin="3dp"
         android:onClick="onClick"
@@ -56,7 +58,8 @@
     <ImageButton
         android:id="@+id/imageButtonChoice2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
+        android:scaleType="centerInside"
         android:contentDescription="@string/picture"
         android:layout_margin="3dp"
         android:onClick="onClick"
@@ -65,7 +68,8 @@
     <ImageButton
         android:id="@+id/imageButtonChoice3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
+        android:scaleType="centerInside"
         android:contentDescription="@string/picture"
         android:layout_margin="3dp"
         android:onClick="onClick"
