@@ -62,6 +62,11 @@ public class ConfigActivity extends Activity {
 			}
 		}
 	}
+	
+	public void onCheckBoxClicked(View view) {
+		boolean checked = ((CheckBox) view).isChecked();
+		TrainingApplication.getState().setPlaySound(checked);
+	}
     
 	public void onClickResetDatabase(View view) {
 
