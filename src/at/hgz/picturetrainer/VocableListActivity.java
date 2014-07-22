@@ -43,8 +43,9 @@ public class VocableListActivity extends ListActivity {
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_VOCABLE = 200;
 	private static final int SELECT_PICTURE = 300;
 	private static final int SELECT_PICTURE_VOCABLE = 400;
-	private Uri fileUri;
 	private boolean imageSavedInternally;
+	private File imageInternally;
+	private Uri fileUri;
 	private Vocable imageSaveVocable;
 	
 	private VocableArrayAdapter adapter;
@@ -109,6 +110,9 @@ public class VocableListActivity extends ListActivity {
 	    File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
         "IMG_"+ timeStamp + ".jpg");
 
+	    if (imageSavedInternally) {
+	    	imageInternally = mediaFile;
+	    }
 	    return mediaFile;
 	}
 	
@@ -118,9 +122,12 @@ public class VocableListActivity extends ListActivity {
 	        if (resultCode == RESULT_OK) {
 	            // Image captured and saved to fileUri specified in the Intent
                 PictureUtil util = PictureUtil.getInstance(this);
-				byte[] picture = util.getUriPicture(fileUri);
-	            if (imageSavedInternally) {
-	            	util.getFile(fileUri).delete();
+                if (data != null && data.getData() != null) {
+                	fileUri = data.getData();
+                }
+				byte[] picture = util.getFileSystemPicture(util.getCameraFile(fileUri));
+	            if (imageSavedInternally && imageInternally.exists()) {
+	            	imageInternally.delete();
 	            }
 				State state = TrainingApplication.getState();
 				state.getDictionary().setPicture(picture);
@@ -139,9 +146,12 @@ public class VocableListActivity extends ListActivity {
 	        if (resultCode == RESULT_OK) {
 	            // Image captured and saved to fileUri specified in the Intent
                 PictureUtil util = PictureUtil.getInstance(this);
-				byte[] picture = util.getUriPicture(fileUri);
-	            if (imageSavedInternally) {
-	            	util.getFile(fileUri).delete();
+                if (data != null && data.getData() != null) {
+                	fileUri = data.getData();
+                }
+				byte[] picture = util.getFileSystemPicture(util.getCameraFile(fileUri));
+	            if (imageSavedInternally && imageInternally.exists()) {
+	            	imageInternally.delete();
 	            }
 				imageSaveVocable.setPicture(picture);
 				adapter.notifyDataSetChanged();
@@ -157,7 +167,7 @@ public class VocableListActivity extends ListActivity {
 	        if (resultCode == RESULT_OK) {
 				Uri selectedImageUri = data.getData();
                 PictureUtil util = PictureUtil.getInstance(this);
-				byte[] picture = util.getUriPicture(selectedImageUri);
+				byte[] picture = util.getFileSystemPicture(util.getGalleryFile(selectedImageUri));
 				State state = TrainingApplication.getState();
 				state.getDictionary().setPicture(picture);
             	Drawable drawable = util.getDrawable(picture);
@@ -175,7 +185,7 @@ public class VocableListActivity extends ListActivity {
 	        if (resultCode == RESULT_OK) {
 				Uri selectedImageUri = data.getData();
                 PictureUtil util = PictureUtil.getInstance(this);
-				byte[] picture = util.getUriPicture(selectedImageUri);
+				byte[] picture = util.getFileSystemPicture(util.getGalleryFile(selectedImageUri));
 				imageSaveVocable.setPicture(picture);
 				adapter.notifyDataSetChanged();
 	        } else if (resultCode == RESULT_CANCELED) {

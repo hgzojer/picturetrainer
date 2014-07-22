@@ -48,17 +48,24 @@ public final class PictureUtil {
     	}
 	}
 	
-	public File getFile(Uri uri) {
+	public File getGalleryFile(Uri uri) {
 		Cursor c = context.getContentResolver().query(uri, null, null, null, null);
+		if (c == null) {
+			return null;
+		}
 		c.moveToNext();
 		String path = c.getString(c.getColumnIndex(MediaStore.MediaColumns.DATA));
 		c.close();
 		return new File(path);
 	}
 	
-	public byte[] getUriPicture(Uri uri) {
+	public File getCameraFile(Uri uri) {
+		return new File(uri.getPath());
+	}
+	
+	public byte[] getFileSystemPicture(File file) {
 		try {
-			InputStream in = new FileInputStream(getFile(uri));
+			InputStream in = new FileInputStream(file);
 			byte[] picture = IOUtils.toByteArray(in);
 			return picture;
     	} catch (Exception e) {
