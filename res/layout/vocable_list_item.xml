@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    android:layout_marginRight="20dp"
     android:orientation="horizontal"
     tools:context="${relativePackage}.VocableListActivity" >
 
     <ImageButton
         android:id="@+id/buttonDeleteVocable"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
         android:layout_marginLeft="3dp"
@@ -23,12 +23,25 @@
         android:id="@+id/listItemEditPicture"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_margin="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="3dp"
         android:scaleType="centerInside"
         android:layout_gravity="left|center_vertical"
         android:contentDescription="@string/picture"
         android:src="@drawable/ic_launcher" >
     </ImageButton>
+
+    <ImageButton
+        android:id="@+id/listItemCamera"
+        android:layout_width="40dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="3dp"
+        android:layout_gravity="left|center_vertical"
+        android:contentDescription="@string/deleteVocable"
+        android:src="@drawable/ic_action_camera" />
 
     <EditText
         android:id="@+id/listItemEditWord"

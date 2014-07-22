@@ -29,6 +29,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import at.hgz.picturetrainer.db.Dictionary;
@@ -65,6 +66,14 @@ public class VocableListActivity extends ListActivity {
 	}
 	
 	public void onClick(View v) {
+		// TODO gallery
+	    /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	    fileUri = Uri.fromFile(getOutputMediaFile());
+	    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+	    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);*/
+	}
+	
+	public void onClickCamera(View v) {
 	    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 	    fileUri = Uri.fromFile(getOutputMediaFile());
 	    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
@@ -245,7 +254,8 @@ public class VocableListActivity extends ListActivity {
 		}
 		
 		private class ViewHolder {
-			public ImageView listItemEditPicture;
+			public ImageButton listItemEditPicture;
+			public ImageButton listItemCamera;
 			public EditText listItemEditWord;
 			public View buttonDeleteVocable;
 			public Vocable vocable;
@@ -260,11 +270,24 @@ public class VocableListActivity extends ListActivity {
 				convertView = LayoutInflater.from(getContext()).inflate(
 						R.layout.vocable_list_item, parent, false);
 				final ViewHolder vh = new ViewHolder();
-				vh.listItemEditPicture = (ImageView) convertView.findViewById(R.id.listItemEditPicture);
+				vh.listItemEditPicture = (ImageButton) convertView.findViewById(R.id.listItemEditPicture);
+				vh.listItemCamera = (ImageButton) convertView.findViewById(R.id.listItemCamera);
 				vh.listItemEditWord = (EditText) convertView.findViewById(R.id.listItemEditWord);
 				vh.buttonDeleteVocable = convertView.findViewById(R.id.buttonDeleteVocable);
 				
 				vh.listItemEditPicture.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						imageSaveVocable = vh.vocable;
+						// TODO gallery
+					    /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					    fileUri = Uri.fromFile(getOutputMediaFile());
+					    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+					    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_VOCABLE);*/
+					}
+				});
+				
+				vh.listItemCamera.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						imageSaveVocable = vh.vocable;
