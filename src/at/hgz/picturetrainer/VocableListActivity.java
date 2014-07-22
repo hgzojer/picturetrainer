@@ -41,6 +41,8 @@ public class VocableListActivity extends ListActivity {
 	
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_VOCABLE = 200;
+	private static final int SELECT_PICTURE = 300;
+	private static final int SELECT_PICTURE_VOCABLE = 400;
 	private Uri fileUri;
 	private boolean imageSavedInternally;
 	private Vocable imageSaveVocable;
@@ -66,11 +68,11 @@ public class VocableListActivity extends ListActivity {
 	}
 	
 	public void onClick(View v) {
-		// TODO gallery
-	    /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	    fileUri = Uri.fromFile(getOutputMediaFile());
-	    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-	    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);*/
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+    	String text = getResources().getString(R.string.selectPicture);
+        startActivityForResult(Intent.createChooser(intent, text), SELECT_PICTURE);
 	}
 	
 	public void onClickCamera(View v) {
@@ -136,13 +138,44 @@ public class VocableListActivity extends ListActivity {
 	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_VOCABLE) {
 	        if (resultCode == RESULT_OK) {
 	            // Image captured and saved to fileUri specified in the Intent
-	            /*Toast.makeText(this, "Image saved to:\n" +
-	                     data.getData(), Toast.LENGTH_LONG).show();*/
                 PictureUtil util = PictureUtil.getInstance(this);
 				byte[] picture = util.getUriPicture(fileUri);
 	            if (imageSavedInternally) {
 	            	new File(fileUri.getPath()).delete();
 	            }
+				imageSaveVocable.setPicture(picture);
+				adapter.notifyDataSetChanged();
+	        } else if (resultCode == RESULT_CANCELED) {
+	            // User cancelled the image capture
+	        } else {
+	            // Image capture failed, advise user
+	        	String text = getResources().getString(R.string.errorSavingPicture);
+	            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	        }
+	    }
+	    if (requestCode == SELECT_PICTURE) {
+	        if (resultCode == RESULT_OK) {
+				Uri selectedImageUri = data.getData();
+                PictureUtil util = PictureUtil.getInstance(this);
+				byte[] picture = util.getUriPicture(selectedImageUri);
+				State state = TrainingApplication.getState();
+				state.getDictionary().setPicture(picture);
+            	Drawable drawable = util.getDrawable(picture);
+        		ImageView imageButtonDictionaryPicture = (ImageView) findViewById(R.id.imageButtonDictionaryPicture);
+        		imageButtonDictionaryPicture.setImageDrawable(drawable);
+	        } else if (resultCode == RESULT_CANCELED) {
+	            // User cancelled the image capture
+	        } else {
+	            // Image capture failed, advise user
+	        	String text = getResources().getString(R.string.errorSavingPicture);
+	            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	        }
+	    }
+	    if (requestCode == SELECT_PICTURE_VOCABLE) {
+	        if (resultCode == RESULT_OK) {
+				Uri selectedImageUri = data.getData();
+                PictureUtil util = PictureUtil.getInstance(this);
+				byte[] picture = util.getUriPicture(selectedImageUri);
 				imageSaveVocable.setPicture(picture);
 				adapter.notifyDataSetChanged();
 	        } else if (resultCode == RESULT_CANCELED) {
@@ -279,11 +312,11 @@ public class VocableListActivity extends ListActivity {
 					@Override
 					public void onClick(View v) {
 						imageSaveVocable = vh.vocable;
-						// TODO gallery
-					    /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					    fileUri = Uri.fromFile(getOutputMediaFile());
-					    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-					    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_VOCABLE);*/
+				        Intent intent = new Intent();
+				        intent.setType("image/*");
+				        intent.setAction(Intent.ACTION_GET_CONTENT);
+				    	String text = getResources().getString(R.string.selectPicture);
+				        startActivityForResult(Intent.createChooser(intent, text), SELECT_PICTURE_VOCABLE);
 					}
 				});
 				
