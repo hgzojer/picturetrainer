@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import at.hgz.picturetrainer.set.TrainingSet;
+import at.hgz.picturetrainer.snd.SoundUtil;
 
 public abstract class AbstractTrainingActivity extends Activity {
 	
@@ -69,6 +70,9 @@ public abstract class AbstractTrainingActivity extends Activity {
 	}
 
 	protected void showRightToast() {
+		if (state.isPlaySound()) {
+			SoundUtil.getInstance(this).play(R.raw.sound_right);
+		}
 		LayoutInflater inflater = getLayoutInflater();
 		View layout = inflater.inflate(R.layout.toast_right_layout,
 		                               (ViewGroup) findViewById(R.id.toast_right_layout_root));
@@ -81,6 +85,9 @@ public abstract class AbstractTrainingActivity extends Activity {
 	}
 
 	protected void showWrongToast() {
+		if (state.isPlaySound()) {
+			SoundUtil.getInstance(this).play(R.raw.sound_wrong);
+		}
 		LayoutInflater inflater = getLayoutInflater();
 		View layout = inflater.inflate(R.layout.toast_wrong_layout,
 		                               (ViewGroup) findViewById(R.id.toast_wrong_layout_root));
@@ -97,6 +104,9 @@ public abstract class AbstractTrainingActivity extends Activity {
 	}
     
 	protected void showFinishedToast() {
+		if (state.isPlaySound()) {
+			SoundUtil.getInstance(this).play(R.raw.sound_finished);
+		}
 		LayoutInflater inflater = getLayoutInflater();
 		View layout = inflater.inflate(R.layout.toast_finished_layout,
 		                               (ViewGroup) findViewById(R.id.toast_finished_layout_root));

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import at.hgz.picturetrainer.img.PictureUtil;
 import at.hgz.picturetrainer.set.TrainingElem;
+import at.hgz.picturetrainer.snd.SoundUtil;
 
 public class MultipleChoiceActivity extends AbstractTrainingActivity {
 	
@@ -142,6 +143,9 @@ public class MultipleChoiceActivity extends AbstractTrainingActivity {
 
 	@Override
 	protected void showRightToast() {
+		if (state.isPlaySound()) {
+			SoundUtil.getInstance(this).play(R.raw.sound_right);
+		}
 		TextView textViewStatistic = (TextView) findViewById(R.id.textViewStatistic);
 		textViewStatistic.setBackgroundColor(0x8000FF00);
 		TextView textViewRight = (TextView) findViewById(R.id.textViewRight);
@@ -156,6 +160,9 @@ public class MultipleChoiceActivity extends AbstractTrainingActivity {
 
 	@Override
 	protected void showWrongToast() {
+		if (state.isPlaySound()) {
+			SoundUtil.getInstance(this).play(R.raw.sound_wrong);
+		}
 		TextView textViewStatistic = (TextView) findViewById(R.id.textViewStatistic);
 		textViewStatistic.setBackgroundColor(0x80FF0000);
 		TextView textViewRight = (TextView) findViewById(R.id.textViewRight);
