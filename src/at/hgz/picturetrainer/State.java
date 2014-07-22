@@ -19,6 +19,7 @@ public class State {
 	private boolean needInit = true;
 	
 	private int direction;
+	private boolean playSound;
 	
 	public Dictionary getDictionary() {
 		return dictionary;
@@ -106,5 +107,13 @@ public class State {
 
 	public void setDirection(int direction) {
 		this.direction = direction;
+	}
+
+	public boolean isPlaySound() {
+		return playSound;
+	}
+
+	public void setPlaySound(boolean playSound) {
+		this.playSound = playSound;
 	}
 }

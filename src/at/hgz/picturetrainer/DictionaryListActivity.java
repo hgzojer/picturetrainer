@@ -45,6 +45,8 @@ public class DictionaryListActivity extends ListActivity {
         SharedPreferences settings = DictionaryListActivity.this.getPreferences(MODE_PRIVATE);
         int direction = settings.getInt(ConfigActivity.WORD_DIRECTION, TrainingSet.DIRECTION_BIDIRECTIONAL);
         TrainingApplication.getState().setDirection(direction);
+        boolean playSound = settings.getBoolean(ConfigActivity.PLAY_SOUND, true);
+        TrainingApplication.getState().setPlaySound(playSound);
 
 		loadDictionaryList();
 	}
@@ -54,6 +56,7 @@ public class DictionaryListActivity extends ListActivity {
         SharedPreferences settings = this.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
 		editor.putInt(ConfigActivity.WORD_DIRECTION, TrainingApplication.getState().getDirection());
+		editor.putBoolean(ConfigActivity.PLAY_SOUND, TrainingApplication.getState().isPlaySound());
 		editor.commit();
 		super.onDestroy();
 	}

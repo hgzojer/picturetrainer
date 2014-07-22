@@ -15,6 +15,8 @@ import at.hgz.picturetrainer.set.TrainingSet;
 public class ConfigActivity extends Activity {
 	
     public static final String WORD_DIRECTION = "wordDirection";
+	
+    public static final String PLAY_SOUND = "playSound";
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,7 @@ public class ConfigActivity extends Activity {
         setContentView(R.layout.activity_config);
         
         int direction = TrainingApplication.getState().getDirection();
+        boolean playSound = TrainingApplication.getState().isPlaySound();
         
         RadioGroup radioGroupDirection = (RadioGroup) this.findViewById(R.id.radioGroupDirection);
 		switch (direction) {
@@ -35,6 +38,8 @@ public class ConfigActivity extends Activity {
 			radioGroupDirection.check(R.id.radioDirection3);
 			break;
 		}
+        RadioGroup checkBoxPlaySound = (RadioGroup) this.findViewById(R.id.checkBoxPlaySound);
+        // TODO set checked checkBoxPlaySound.set
     }
     
 	public void onRadioButtonClicked(View view) {

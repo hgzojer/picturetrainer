@@ -44,6 +44,14 @@
             android:text="@string/translateBackward" />
     </RadioGroup>
 
+    <CheckBox
+        android:id="@+id/checkBoxPlaySound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:drawableLeft="@drawable/ic_default_picture"
+        android:text="@string/playSounds" />
+
     <Button
         android:id="@+id/buttonResetDatabase"
         android:layout_width="wrap_content"

@@ -44,6 +44,7 @@
     <string name="translateForward"> -&gt; word</string>
     <string name="translateBidrectional"> &lt;-&gt; word</string>
     <string name="translateBackward"> &lt;- word</string>
+    <string name="playSounds">play sounds</string>
     <string name="resetDatabase">reset database</string>
     
     <string name="confirmResetDatabaseTitle">Reset database</string>
