@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -38,8 +39,8 @@ public class ConfigActivity extends Activity {
 			radioGroupDirection.check(R.id.radioDirection3);
 			break;
 		}
-        RadioGroup checkBoxPlaySound = (RadioGroup) this.findViewById(R.id.checkBoxPlaySound);
-        // TODO set checked checkBoxPlaySound.set
+        CheckBox checkBoxPlaySound = (CheckBox) this.findViewById(R.id.checkBoxPlaySound);
+        checkBoxPlaySound.setChecked(playSound);
     }
     
 	public void onRadioButtonClicked(View view) {
