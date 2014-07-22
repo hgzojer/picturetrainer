@@ -120,7 +120,7 @@ public class VocableListActivity extends ListActivity {
                 PictureUtil util = PictureUtil.getInstance(this);
 				byte[] picture = util.getUriPicture(fileUri);
 	            if (imageSavedInternally) {
-	            	new File(fileUri.getPath()).delete();
+	            	util.getFile(fileUri).delete();
 	            }
 				State state = TrainingApplication.getState();
 				state.getDictionary().setPicture(picture);
@@ -141,7 +141,7 @@ public class VocableListActivity extends ListActivity {
                 PictureUtil util = PictureUtil.getInstance(this);
 				byte[] picture = util.getUriPicture(fileUri);
 	            if (imageSavedInternally) {
-	            	new File(fileUri.getPath()).delete();
+	            	util.getFile(fileUri).delete();
 	            }
 				imageSaveVocable.setPicture(picture);
 				adapter.notifyDataSetChanged();

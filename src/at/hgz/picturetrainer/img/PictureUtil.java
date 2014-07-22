@@ -8,10 +8,12 @@ import org.apache.commons.io.IOUtils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.provider.MediaStore;
 
 public final class PictureUtil {
 	
@@ -46,9 +48,17 @@ public final class PictureUtil {
     	}
 	}
 	
+	public File getFile(Uri uri) {
+		Cursor c = context.getContentResolver().query(uri, null, null, null, null);
+		c.moveToNext();
+		String path = c.getString(c.getColumnIndex(MediaStore.MediaColumns.DATA));
+		c.close();
+		return new File(path);
+	}
+	
 	public byte[] getUriPicture(Uri uri) {
 		try {
-			InputStream in = new FileInputStream(new File(uri.getPath()));
+			InputStream in = new FileInputStream(getFile(uri));
 			byte[] picture = IOUtils.toByteArray(in);
 			return picture;
     	} catch (Exception e) {
