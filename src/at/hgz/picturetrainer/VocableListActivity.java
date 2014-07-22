@@ -89,7 +89,11 @@ public class VocableListActivity extends ListActivity {
 	    if (! mediaStorageDir.exists()){
 	        if (! mediaStorageDir.mkdirs()){
 	            Log.d("MyCameraApp", "failed to create directory");
-	            return null;
+	            if (imageSavedInternally) {
+		            return null;
+	            }
+    		    mediaStorageDir = Environment.getDataDirectory();
+    		    imageSavedInternally = true;
 	        }
 	    }
 
@@ -107,14 +111,14 @@ public class VocableListActivity extends ListActivity {
 	            // Image captured and saved to fileUri specified in the Intent
                 PictureUtil util = PictureUtil.getInstance(this);
 				byte[] picture = util.getUriPicture(fileUri);
+	            if (imageSavedInternally) {
+	            	new File(fileUri.getPath()).delete();
+	            }
 				State state = TrainingApplication.getState();
 				state.getDictionary().setPicture(picture);
             	Drawable drawable = util.getDrawable(picture);
         		ImageView imageButtonDictionaryPicture = (ImageView) findViewById(R.id.imageButtonDictionaryPicture);
         		imageButtonDictionaryPicture.setImageDrawable(drawable);
-	            if (imageSavedInternally) {
-	            	new File(fileUri.getPath()).delete();
-	            }
 	        } else if (resultCode == RESULT_CANCELED) {
 	            // User cancelled the image capture
 	        } else {
@@ -130,11 +134,11 @@ public class VocableListActivity extends ListActivity {
 	                     data.getData(), Toast.LENGTH_LONG).show();*/
                 PictureUtil util = PictureUtil.getInstance(this);
 				byte[] picture = util.getUriPicture(fileUri);
-				imageSaveVocable.setPicture(picture);
-				adapter.notifyDataSetChanged();
 	            if (imageSavedInternally) {
 	            	new File(fileUri.getPath()).delete();
 	            }
+				imageSaveVocable.setPicture(picture);
+				adapter.notifyDataSetChanged();
 	        } else if (resultCode == RESULT_CANCELED) {
 	            // User cancelled the image capture
 	        } else {
