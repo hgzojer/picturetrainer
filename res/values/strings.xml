@@ -41,9 +41,9 @@
     
     <string name="openConfig">configuration</string>
     <string name="translationDirection">translation direction</string>
-    <string name="translateForward">picture -&gt; word</string>
-    <string name="translateBidrectional">picture &lt;-&gt; word</string>
-    <string name="translateBackward">picture &lt;- word</string>
+    <string name="translateForward"> -&gt; word</string>
+    <string name="translateBidrectional"> &lt;-&gt; word</string>
+    <string name="translateBackward"> &lt;- word</string>
     <string name="resetDatabase">reset database</string>
     
     <string name="confirmResetDatabaseTitle">Reset database</string>
