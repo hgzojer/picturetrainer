@@ -40,6 +40,6 @@
             android:name="at.hgz.picturetrainer.ConfigActivity"
             android:label="@string/app_name" >
         </activity>
-        </application>
-
+    </application>
+    
 </manifest>
