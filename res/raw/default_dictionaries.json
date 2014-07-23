@@ -12,6 +12,18 @@
 	]
 	},
 	{
+	"picture": "presidents",
+	"name": "US presidents",
+	"vocables": [
+		{ "picture": "washington", "word": "George Washington (1789-1797)" },
+		{ "picture": "jefferson", "word": "Thomas Jefferson (1801-1809)" },
+		{ "picture": "lincoln", "word": "Abraham Lincoln (1861-1865)" },
+		{ "picture": "roosevelt", "word": "Theodore Roosevelt (1901-1909)" },
+		{ "picture": "kennedy", "word": "John F. Kennedy (1961-1963)" },
+		{ "picture": "obama", "word": "Barack Obama (2009-?)" }
+	]
+	},
+	{
 	"picture": "europe",
 	"name": "europe",
 	"vocables": [

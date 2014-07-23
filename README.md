@@ -27,3 +27,10 @@ Third party picture license and source:
 * italy.jpg, see http://de.wikipedia.org/wiki/Datei:Italy_in_the_European_Union_on_the_globe_%28Europe_centered%29.svg
 * spain.jpg, see http://de.wikipedia.org/wiki/Datei:Spain_in_the_European_Union_on_the_globe_%28Europe_centered%29.svg
 * united_kingdom.jpg, see http://de.wikipedia.org/wiki/Datei:United_Kingdom_in_the_European_Union_on_the_globe_%28Europe_centered%29.svg
+* presidents.jpg, see http://commons.wikimedia.org/wiki/File:Dean_Franklin_-_06.04.03_Mount_Rushmore_Monument_%28by-sa%29-2_new.jpg
+* washington.jpg, see http://de.wikipedia.org/wiki/George_Washington#mediaviewer/Datei:Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg
+* jefferson.jpg, see http://de.wikipedia.org/wiki/Thomas_Jefferson#mediaviewer/Datei:Thomas_Jefferson_by_Rembrandt_Peale,_1800.jpg
+* lincoln.jpg, see http://de.wikipedia.org/wiki/Abraham_Lincoln#mediaviewer/Datei:Abraham_Lincoln_head_on_shoulders_photo_portrait.jpg
+* roosevelt.jpg, see http://de.wikipedia.org/wiki/Theodore_Roosevelt#mediaviewer/Datei:President_Theodore_Roosevelt,_1904.jpg
+* kennedy.jpg, see http://upload.wikimedia.org/wikipedia/commons/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg
+* obama.jpg, see http://de.wikipedia.org/wiki/Barack_Obama#mediaviewer/Datei:President_Barack_Obama.jpg
