@@ -53,5 +53,6 @@
     
     <string name="selectPicture">Select Picture</string>
     <string name="errorSavingPicture">Error saving picture.</string>
+    <string name="toggleSound">toggle sound</string>
     	
 </resources>

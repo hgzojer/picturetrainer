@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -17,6 +20,39 @@ public abstract class AbstractTrainingActivity extends Activity {
 	protected State state;
 	
 	protected AbstractTrainingActivity() {
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.training_menu, menu);
+	    return true;
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		if (TrainingApplication.getState().isPlaySound()) {
+			menu.findItem(R.id.toggleSound).setIcon(R.drawable.ic_menu_sound);
+		} else {
+			menu.findItem(R.id.toggleSound).setIcon(R.drawable.ic_menu_mute);
+		}
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.toggleSound:
+			boolean playSound = !state.isPlaySound();
+			state.setPlaySound(playSound);
+			if (TrainingApplication.getState().isPlaySound()) {
+				item.setIcon(R.drawable.ic_menu_sound);
+			} else {
+				item.setIcon(R.drawable.ic_menu_mute);
+			}
+			return true;
+		}
+		return false;
 	}
 
 	protected void onCreate2() {
