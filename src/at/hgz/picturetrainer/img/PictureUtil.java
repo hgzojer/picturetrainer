@@ -107,7 +107,7 @@ public final class PictureUtil {
 			m.postScale(scaleX, scaleY);
 			Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, m, true);
 			ByteArrayOutputStream buf = new ByteArrayOutputStream();
-			resizedBitmap.compress(CompressFormat.JPEG, 80, buf);
+			resizedBitmap.compress(CompressFormat.JPEG, 90, buf);
 			byte[] compressed = buf.toByteArray();
 			Log.e("compress", "size=" + compressed.length);
 			return compressed;

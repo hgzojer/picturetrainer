@@ -33,6 +33,17 @@
 		{ "picture": "spain", "word": "Spain" },
 		{ "picture": "united_kingdom", "word": "United Kingdom" }
 	]
+	},
+	{
+	"picture": "digestive_system",
+	"name": "digestive system",
+	"vocables": [
+		{ "picture": "stomach", "word": "stomach and esophagus" },
+		{ "picture": "liver", "word": "liver" },
+		{ "picture": "pancreas", "word": "pancreas" },
+		{ "picture": "small_intestine", "word": "small intestine" },
+		{ "picture": "large_intestine", "word": "large intestine" }
+	]
 	}
 ]
 }
