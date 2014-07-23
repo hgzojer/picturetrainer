@@ -2,6 +2,7 @@ package at.hgz.picturetrainer;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import at.hgz.picturetrainer.img.PictureUtil;
 import at.hgz.picturetrainer.set.TrainingSet;
 import at.hgz.picturetrainer.snd.SoundUtil;
 
@@ -128,9 +130,27 @@ public abstract class AbstractTrainingActivity extends Activity {
 		View layout = inflater.inflate(R.layout.toast_wrong_layout,
 		                               (ViewGroup) findViewById(R.id.toast_wrong_layout_root));
 		
-		TextView text = (TextView) layout.findViewById(R.id.textWrongToastDetails);
-		Resources resources = getApplicationContext().getResources();
-		text.setText(resources.getString(R.string.wrongToastDetails, state.getVocable().getWord()));
+		if (state.getVocable().isFlipVocables()) {
+			TextView text = (TextView) layout.findViewById(R.id.textWrongToastDetails);
+			text.setVisibility(View.GONE);
+			
+			TextView picture = (TextView) layout.findViewById(R.id.textWrongToastPicture);
+			Resources resources = getApplicationContext().getResources();
+			picture.setText(resources.getString(R.string.wrongToastDetails, ""));
+		    PictureUtil util = PictureUtil.getInstance(this);
+		    Drawable drawable = util.getDrawable(state.getVocable().getPicture());
+		    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+			picture.setCompoundDrawables(null, null, drawable, null);
+			picture.setVisibility(View.VISIBLE);
+		} else {
+			TextView text = (TextView) layout.findViewById(R.id.textWrongToastDetails);
+			Resources resources = getApplicationContext().getResources();
+			text.setText(resources.getString(R.string.wrongToastDetails, state.getVocable().getWord()));
+			text.setVisibility(View.VISIBLE);
+			
+			TextView picture = (TextView) layout.findViewById(R.id.textWrongToastPicture);
+			picture.setVisibility(View.GONE);
+		}
 
 		Toast toast = new Toast(getApplicationContext());
 		toast.setGravity(Gravity.CENTER, 0, 0);
