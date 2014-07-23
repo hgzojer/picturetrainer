@@ -58,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
+        android:drawableLeft="@drawable/ic_action_reset"
         android:onClick="onClickResetDatabase"
         android:text="@string/resetDatabase" />
 
