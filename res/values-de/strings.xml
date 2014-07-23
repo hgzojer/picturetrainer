@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Bilder Trainer</string>
+    
+    <string name="statistic">Statistik</string>
+    <string name="right">richtig</string>
+    <string name="wrong">falsch</string>
+    <string name="todo">offen</string>
+    
+    <string name="dictionaryPicture">Bild</string>
+    <string name="dictionaryName">Früchte</string>
+    <string name="next">&gt;</string>
+    
+    <string name="bla">abc</string>
+    <string name="bla123">123</string>
+    
+    <string name="rightToast">Richtig.</string>
+    <string name="wrongToast">!!! FALSCH !!!</string>
+    <string name="wrongToastDetails">Erwartet: %s</string>
+    <string name="finishedToast">*** Fertig ***</string>
+    <string name="finishedToastDetails">Gratulation, Sie haben das Training-Set erfolgreich abgeschlossen.</string>
+    
+    <string name="count">Anzahl: %d</string>
+    <string name="edit">bearbeiten</string>
+    <string name="training">Training</string>
+    <string name="multipleChoice">MC</string>
+    <string name="nodata">Keine Wörterbücher vorhanden</string>
+    
+    <string name="dictionaryPictureLabel">Wörterbuchbild</string>
+    <string name="dictionaryNameLabel">Wörterbuchname</string>
+    <string name="picture">Bild</string>
+    <string name="addVocable">Vokabel hinzufügen</string>
+	<string name="deleteVocable">Vokabel löschen</string>
+    <string name="addDictionary">Wörterbuch hinzufügen</string>
+	<string name="deleteDictionary">Wörterbuch löschen</string>
+    <string name="savingDictionary">Wörterbuch wird gespeichert.</string>
+    <string name="deletingDictionary">Wörterbuch wird gelöscht.</string>
+    <string name="confirmDeleteDictionaryTitle">Wörterbuch löschen</string>
+    <string name="confirmDeleteDictionaryText">Möchten Sie das Wörterbuch wirklich löschen?</string>
+    
+    <string name="openConfig">Einstellungen</string>
+    <string name="translationDirection">Übersetzungsrichtung</string>
+    <string name="translateForward">Word &lt;- </string>
+    <string name="translateBidrectional">Wort &lt;-&gt; </string>
+    <string name="translateBackward">Wort -&gt; </string>
+    <string name="playSounds">Klänge abspielen</string>
+    <string name="resetDatabase">Datenbank wiederherstellen</string>
+    
+    <string name="confirmResetDatabaseTitle">Datenbank wiederherstellen</string>
+    <string name="confirmResetDatabaseText">Möchten Sie wirklich die Standard-Wörterbucher wiederherstellen? Achtung: dabei werden alle aktuellen Wörterbücher gelöscht!</string>
+    <string name="resettingDatabase">Datenbank wird wiederhergestellt.</string>
+    
+    <string name="selectPicture">Bild auswählen</string>
+    <string name="errorSavingPicture">Fehler beim Speichern des Bildes.</string>
+    <string name="toggleSound">Lautsprecher aus-/einschalten</string>
+    	
+</resources>

@@ -1,0 +1,49 @@
+{
+"dictionaries": [
+	{
+	"picture": "fruits",
+	"name": "fruits",
+	"vocables": [
+		{ "picture": "apple", "word": "Apfel" },
+		{ "picture": "banana", "word": "Banane" },
+		{ "picture": "orange", "word": "Orange" },
+		{ "picture": "strawberry", "word": "Erdbeere" },
+		{ "picture": "cherry", "word": "Kirsche" }
+	]
+	},
+	{
+	"picture": "presidents",
+	"name": "US presidents",
+	"vocables": [
+		{ "picture": "washington", "word": "George Washington (1789-1797)" },
+		{ "picture": "jefferson", "word": "Thomas Jefferson (1801-1809)" },
+		{ "picture": "lincoln", "word": "Abraham Lincoln (1861-1865)" },
+		{ "picture": "roosevelt", "word": "Theodore Roosevelt (1901-1909)" },
+		{ "picture": "kennedy", "word": "John F. Kennedy (1961-1963)" },
+		{ "picture": "obama", "word": "Barack Obama (2009-?)" }
+	]
+	},
+	{
+	"picture": "europe",
+	"name": "europe",
+	"vocables": [
+		{ "picture": "france", "word": "Frankreich" },
+		{ "picture": "germany", "word": "Deutschland" },
+		{ "picture": "italy", "word": "Italien" },
+		{ "picture": "spain", "word": "Spanien" },
+		{ "picture": "united_kingdom", "word": "Großbritannien" }
+	]
+	},
+	{
+	"picture": "digestive_system",
+	"name": "digestive system",
+	"vocables": [
+		{ "picture": "stomach", "word": "Magen und Speiseröhre" },
+		{ "picture": "liver", "word": "Leber" },
+		{ "picture": "pancreas", "word": "Bauchspeicheldrüse" },
+		{ "picture": "small_intestine", "word": "Dünndarm" },
+		{ "picture": "large_intestine", "word": "Dickdarm" }
+	]
+	}
+]
+}
