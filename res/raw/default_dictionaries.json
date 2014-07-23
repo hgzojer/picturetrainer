@@ -10,6 +10,17 @@
 		{ "picture": "strawberry", "word": "strawberry" },
 		{ "picture": "cherry", "word": "cherry" }
 	]
+	},
+	{
+	"picture": "europe",
+	"name": "europe",
+	"vocables": [
+		{ "picture": "france", "word": "France" },
+		{ "picture": "germany", "word": "Germany" },
+		{ "picture": "italy", "word": "Italy" },
+		{ "picture": "spain", "word": "Spain" },
+		{ "picture": "united_kingdom", "word": "United Kingdom" }
+	]
 	}
 ]
 }

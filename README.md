@@ -21,3 +21,9 @@ Third party picture license and source:
 * orange.jpg, see http://en.wikipedia.org/wiki/Orange_%28fruit%29#mediaviewer/File:Orange_and_cross_section.jpg
 * cherry.jpg, see http://en.wikipedia.org/wiki/Cherry#mediaviewer/File:Cherry_Stella444.jpg
 * strawberry.jpg, see http://en.wikipedia.org/wiki/Strawberry#mediaviewer/File:PerfectStrawberry.jpg
+* europe.jpg, see http://de.wikipedia.org/wiki/Datei:Europe_on_the_globe_%28red%29.svg
+* france.jpg, see http://de.wikipedia.org/wiki/Datei:France_in_the_European_Union_on_the_globe_%28Europe_centered%29.svg
+* germany.jpg, see http://de.wikipedia.org/wiki/Datei:Germany_in_the_European_Union_on_the_globe_%28Europe_centered%29.svg
+* italy.jpg, see http://de.wikipedia.org/wiki/Datei:Italy_in_the_European_Union_on_the_globe_%28Europe_centered%29.svg
+* spain.jpg, see http://de.wikipedia.org/wiki/Datei:Spain_in_the_European_Union_on_the_globe_%28Europe_centered%29.svg
+* united_kingdom.jpg, see http://de.wikipedia.org/wiki/Datei:United_Kingdom_in_the_European_Union_on_the_globe_%28Europe_centered%29.svg
