@@ -34,3 +34,4 @@ Third party picture license and source:
 * roosevelt.jpg, see http://de.wikipedia.org/wiki/Theodore_Roosevelt#mediaviewer/Datei:President_Theodore_Roosevelt,_1904.jpg
 * kennedy.jpg, see http://upload.wikimedia.org/wikipedia/commons/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg
 * obama.jpg, see http://de.wikipedia.org/wiki/Barack_Obama#mediaviewer/Datei:President_Barack_Obama.jpg
+* digestive_system.jpg, see http://de.wikipedia.org/wiki/Verdauungstrakt#mediaviewer/Datei:Digestive_system_diagram_de.svg
