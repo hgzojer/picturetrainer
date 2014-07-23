@@ -22,25 +22,25 @@
             android:id="@+id/radioDirection1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
             android:checked="true"
-            android:drawableLeft="@drawable/ic_default_picture"
+            android:drawableRight="@drawable/ic_default_picture"
+            android:onClick="onRadioButtonClicked"
             android:text="@string/translateForward" />
 
         <RadioButton
             android:id="@+id/radioDirection2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_default_picture"
             android:onClick="onRadioButtonClicked"
-            android:drawableLeft="@drawable/ic_default_picture"
             android:text="@string/translateBidrectional" />
 
         <RadioButton
             android:id="@+id/radioDirection3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_default_picture"
             android:onClick="onRadioButtonClicked"
-            android:drawableLeft="@drawable/ic_default_picture"
             android:text="@string/translateBackward" />
     </RadioGroup>
 
@@ -49,8 +49,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
-            android:onClick="onCheckBoxClicked"
-        android:drawableLeft="@drawable/ic_action_sound"
+        android:drawableRight="@drawable/ic_action_sound"
+        android:onClick="onCheckBoxClicked"
         android:text="@string/playSounds" />
 
     <Button
