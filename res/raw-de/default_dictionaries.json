@@ -2,7 +2,7 @@
 "dictionaries": [
 	{
 	"picture": "fruits",
-	"name": "fruits",
+	"name": "Früchte",
 	"vocables": [
 		{ "picture": "apple", "word": "Apfel" },
 		{ "picture": "banana", "word": "Banane" },
@@ -13,7 +13,7 @@
 	},
 	{
 	"picture": "presidents",
-	"name": "US presidents",
+	"name": "US-Präsidenten",
 	"vocables": [
 		{ "picture": "washington", "word": "George Washington (1789-1797)" },
 		{ "picture": "jefferson", "word": "Thomas Jefferson (1801-1809)" },
@@ -25,7 +25,7 @@
 	},
 	{
 	"picture": "europe",
-	"name": "europe",
+	"name": "Europa",
 	"vocables": [
 		{ "picture": "france", "word": "Frankreich" },
 		{ "picture": "germany", "word": "Deutschland" },
@@ -36,7 +36,7 @@
 	},
 	{
 	"picture": "digestive_system",
-	"name": "digestive system",
+	"name": "Verdauungssystem",
 	"vocables": [
 		{ "picture": "stomach", "word": "Magen und Speiseröhre" },
 		{ "picture": "liver", "word": "Leber" },
