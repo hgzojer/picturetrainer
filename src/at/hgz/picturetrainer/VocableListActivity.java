@@ -124,7 +124,7 @@ public class VocableListActivity extends ListActivity {
                 if (data != null && data.getData() != null) {
                 	state.setImageUri(data.getData());
                 }
-				byte[] picture = util.getFileSystemPicture(util.getCameraFile(state.getImageUri()));
+				byte[] picture = util.getFileSystemPicture(state.getImageUri());
 	            if (state.isImageSavedInternalStorage() && state.getImageInternalStorage().exists()) {
 	            	state.getImageInternalStorage().delete();
 	            }
@@ -147,7 +147,7 @@ public class VocableListActivity extends ListActivity {
                 if (data != null && data.getData() != null) {
                 	state.setImageUri(data.getData());
                 }
-				byte[] picture = util.getFileSystemPicture(util.getCameraFile(state.getImageUri()));
+				byte[] picture = util.getFileSystemPicture(state.getImageUri());
 	            if (state.isImageSavedInternalStorage() && state.getImageInternalStorage().exists()) {
 	            	state.getImageInternalStorage().delete();
 	            }
@@ -165,7 +165,7 @@ public class VocableListActivity extends ListActivity {
 	        if (resultCode == RESULT_OK) {
 				Uri selectedImageUri = data.getData();
                 PictureUtil util = PictureUtil.getInstance(this);
-				byte[] picture = util.getFileSystemPicture(util.getGalleryFile(selectedImageUri));
+				byte[] picture = util.getFileSystemPicture(selectedImageUri);
 				state.getDictionary().setPicture(picture);
             	Drawable drawable = util.getDrawable(picture);
         		ImageView imageButtonDictionaryPicture = (ImageView) findViewById(R.id.imageButtonDictionaryPicture);
@@ -182,7 +182,7 @@ public class VocableListActivity extends ListActivity {
 	        if (resultCode == RESULT_OK) {
 				Uri selectedImageUri = data.getData();
                 PictureUtil util = PictureUtil.getInstance(this);
-				byte[] picture = util.getFileSystemPicture(util.getGalleryFile(selectedImageUri));
+				byte[] picture = util.getFileSystemPicture(selectedImageUri);
 				state.getImageSaveVocable().setPicture(picture);
 				adapter.notifyDataSetChanged();
 	        } else if (resultCode == RESULT_CANCELED) {
