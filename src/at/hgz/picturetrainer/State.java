@@ -1,7 +1,9 @@
 package at.hgz.picturetrainer;
 
+import java.io.File;
 import java.util.List;
 
+import android.net.Uri;
 import at.hgz.picturetrainer.db.Dictionary;
 import at.hgz.picturetrainer.db.Vocable;
 import at.hgz.picturetrainer.set.TrainingElem;
@@ -20,6 +22,11 @@ public class State {
 	
 	private int direction;
 	private boolean playSound;
+	
+	private boolean imageSavedInternalStorage;
+	private File imageInternalStorage;
+	private Uri imageUri;
+	private Vocable imageSaveVocable;
 	
 	public Dictionary getDictionary() {
 		return dictionary;
@@ -115,5 +122,37 @@ public class State {
 
 	public void setPlaySound(boolean playSound) {
 		this.playSound = playSound;
+	}
+
+	public boolean isImageSavedInternalStorage() {
+		return imageSavedInternalStorage;
+	}
+
+	public void setImageSavedInternalStorage(boolean imageSavedInternalStorage) {
+		this.imageSavedInternalStorage = imageSavedInternalStorage;
+	}
+
+	public File getImageInternalStorage() {
+		return imageInternalStorage;
+	}
+
+	public void setImageInternalStorage(File imageInternalStorage) {
+		this.imageInternalStorage = imageInternalStorage;
+	}
+
+	public Uri getImageUri() {
+		return imageUri;
+	}
+
+	public void setImageUri(Uri imageUri) {
+		this.imageUri = imageUri;
+	}
+
+	public Vocable getImageSaveVocable() {
+		return imageSaveVocable;
+	}
+
+	public void setImageSaveVocable(Vocable imageSaveVocable) {
+		this.imageSaveVocable = imageSaveVocable;
 	}
 }

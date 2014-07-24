@@ -43,10 +43,6 @@ public class VocableListActivity extends ListActivity {
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_VOCABLE = 200;
 	private static final int SELECT_PICTURE = 300;
 	private static final int SELECT_PICTURE_VOCABLE = 400;
-	private boolean imageSavedInternally;
-	private File imageInternally;
-	private Uri fileUri;
-	private Vocable imageSaveVocable;
 	
 	private VocableArrayAdapter adapter;
 
@@ -77,32 +73,34 @@ public class VocableListActivity extends ListActivity {
 	}
 	
 	public void onClickCamera(View v) {
+		State state = TrainingApplication.getState();
 	    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	    fileUri = Uri.fromFile(getOutputMediaFile());
-	    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+	    state.setImageUri(Uri.fromFile(getOutputMediaFile()));
+	    intent.putExtra(MediaStore.EXTRA_OUTPUT, state.getImageUri());
 	    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 	
 	private File getOutputMediaFile(){
+		State state = TrainingApplication.getState();
 		File mediaStorageDir;
 		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
 		    mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
 		              Environment.DIRECTORY_PICTURES), "PictureTrainer");
-		    imageSavedInternally = false;
+		    state.setImageSavedInternalStorage(false);
 		} else {
 		    mediaStorageDir = Environment.getDataDirectory();
-		    imageSavedInternally = true;
+		    state.setImageSavedInternalStorage(true);
 		}
 
 
 	    if (! mediaStorageDir.exists()){
 	        if (! mediaStorageDir.mkdirs()){
 	            Log.d("MyCameraApp", "failed to create directory");
-	            if (imageSavedInternally) {
+	            if (state.isImageSavedInternalStorage()) {
 		            return null;
 	            }
     		    mediaStorageDir = Environment.getDataDirectory();
-    		    imageSavedInternally = true;
+    		    state.setImageSavedInternalStorage(true);
 	        }
 	    }
 
@@ -110,26 +108,26 @@ public class VocableListActivity extends ListActivity {
 	    File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
         "IMG_"+ timeStamp + ".jpg");
 
-	    if (imageSavedInternally) {
-	    	imageInternally = mediaFile;
+	    if (state.isImageSavedInternalStorage()) {
+	    	state.setImageInternalStorage(mediaFile);
 	    }
 	    return mediaFile;
 	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		State state = TrainingApplication.getState();
 	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 	        if (resultCode == RESULT_OK) {
 	            // Image captured and saved to fileUri specified in the Intent
                 PictureUtil util = PictureUtil.getInstance(this);
                 if (data != null && data.getData() != null) {
-                	fileUri = data.getData();
+                	state.setImageUri(data.getData());
                 }
-				byte[] picture = util.getFileSystemPicture(util.getCameraFile(fileUri));
-	            if (imageSavedInternally && imageInternally.exists()) {
-	            	imageInternally.delete();
+				byte[] picture = util.getFileSystemPicture(util.getCameraFile(state.getImageUri()));
+	            if (state.isImageSavedInternalStorage() && state.getImageInternalStorage().exists()) {
+	            	state.getImageInternalStorage().delete();
 	            }
-				State state = TrainingApplication.getState();
 				state.getDictionary().setPicture(picture);
             	Drawable drawable = util.getDrawable(picture);
         		ImageView imageButtonDictionaryPicture = (ImageView) findViewById(R.id.imageButtonDictionaryPicture);
@@ -147,13 +145,13 @@ public class VocableListActivity extends ListActivity {
 	            // Image captured and saved to fileUri specified in the Intent
                 PictureUtil util = PictureUtil.getInstance(this);
                 if (data != null && data.getData() != null) {
-                	fileUri = data.getData();
+                	state.setImageUri(data.getData());
                 }
-				byte[] picture = util.getFileSystemPicture(util.getCameraFile(fileUri));
-	            if (imageSavedInternally && imageInternally.exists()) {
-	            	imageInternally.delete();
+				byte[] picture = util.getFileSystemPicture(util.getCameraFile(state.getImageUri()));
+	            if (state.isImageSavedInternalStorage() && state.getImageInternalStorage().exists()) {
+	            	state.getImageInternalStorage().delete();
 	            }
-				imageSaveVocable.setPicture(picture);
+	            state.getImageSaveVocable().setPicture(picture);
 				adapter.notifyDataSetChanged();
 	        } else if (resultCode == RESULT_CANCELED) {
 	            // User cancelled the image capture
@@ -168,7 +166,6 @@ public class VocableListActivity extends ListActivity {
 				Uri selectedImageUri = data.getData();
                 PictureUtil util = PictureUtil.getInstance(this);
 				byte[] picture = util.getFileSystemPicture(util.getGalleryFile(selectedImageUri));
-				State state = TrainingApplication.getState();
 				state.getDictionary().setPicture(picture);
             	Drawable drawable = util.getDrawable(picture);
         		ImageView imageButtonDictionaryPicture = (ImageView) findViewById(R.id.imageButtonDictionaryPicture);
@@ -186,7 +183,7 @@ public class VocableListActivity extends ListActivity {
 				Uri selectedImageUri = data.getData();
                 PictureUtil util = PictureUtil.getInstance(this);
 				byte[] picture = util.getFileSystemPicture(util.getGalleryFile(selectedImageUri));
-				imageSaveVocable.setPicture(picture);
+				state.getImageSaveVocable().setPicture(picture);
 				adapter.notifyDataSetChanged();
 	        } else if (resultCode == RESULT_CANCELED) {
 	            // User cancelled the image capture
@@ -321,7 +318,8 @@ public class VocableListActivity extends ListActivity {
 				vh.listItemEditPicture.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						imageSaveVocable = vh.vocable;
+						State state = TrainingApplication.getState();
+						state.setImageSaveVocable(vh.vocable);
 				        Intent intent = new Intent();
 				        intent.setType("image/*");
 				        intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -333,10 +331,11 @@ public class VocableListActivity extends ListActivity {
 				vh.listItemCamera.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						imageSaveVocable = vh.vocable;
+						State state = TrainingApplication.getState();
+						state.setImageSaveVocable(vh.vocable);
 					    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					    fileUri = Uri.fromFile(getOutputMediaFile());
-					    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+					    state.setImageUri(Uri.fromFile(getOutputMediaFile()));
+					    intent.putExtra(MediaStore.EXTRA_OUTPUT, state.getImageUri());
 					    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_VOCABLE);
 					}
 				});
