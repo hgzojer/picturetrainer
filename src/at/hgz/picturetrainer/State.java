@@ -22,6 +22,7 @@ public class State {
 	
 	private int direction;
 	private boolean playSound;
+	private boolean configChanged;
 	
 	private boolean imageSavedInternalStorage;
 	private File imageInternalStorage;
@@ -122,6 +123,14 @@ public class State {
 
 	public void setPlaySound(boolean playSound) {
 		this.playSound = playSound;
+	}
+
+	public boolean hasConfigChanged() {
+		return configChanged;
+	}
+
+	public void setConfigChanged(boolean configChanged) {
+		this.configChanged = configChanged;
 	}
 
 	public boolean isImageSavedInternalStorage() {

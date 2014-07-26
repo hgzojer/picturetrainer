@@ -53,12 +53,31 @@ public class DictionaryListActivity extends ListActivity {
 	
 	@Override
 	protected void onDestroy() {
-        SharedPreferences settings = this.getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-		editor.putInt(ConfigActivity.WORD_DIRECTION, TrainingApplication.getState().getDirection());
-		editor.putBoolean(ConfigActivity.PLAY_SOUND, TrainingApplication.getState().isPlaySound());
-		editor.commit();
+        saveConfig();
 		super.onDestroy();
+	}
+
+	@Override
+	protected void onPause() {
+        saveConfig();
+		super.onPause();
+	}
+
+	@Override
+	protected void onStop() {
+        saveConfig();
+		super.onStop();
+	}
+
+	private void saveConfig() {
+		if (TrainingApplication.getState().hasConfigChanged()) {
+			SharedPreferences settings = this.getPreferences(MODE_PRIVATE);
+	        SharedPreferences.Editor editor = settings.edit();
+			editor.putInt(ConfigActivity.WORD_DIRECTION, TrainingApplication.getState().getDirection());
+			editor.putBoolean(ConfigActivity.PLAY_SOUND, TrainingApplication.getState().isPlaySound());
+			editor.commit();
+			TrainingApplication.getState().setConfigChanged(false);
+		}
 	}
 
 	@Override

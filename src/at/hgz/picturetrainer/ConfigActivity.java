@@ -52,12 +52,15 @@ public class ConfigActivity extends Activity {
 			switch (view.getId()) {
 			case R.id.radioDirection1:
 				TrainingApplication.getState().setDirection(TrainingSet.DIRECTION_FORWARD);
+				TrainingApplication.getState().setConfigChanged(true);
 				break;
 			case R.id.radioDirection2:
 				TrainingApplication.getState().setDirection(TrainingSet.DIRECTION_BIDIRECTIONAL);
+				TrainingApplication.getState().setConfigChanged(true);
 				break;
 			case R.id.radioDirection3:
 				TrainingApplication.getState().setDirection(TrainingSet.DIRECTION_BACKWARD);
+				TrainingApplication.getState().setConfigChanged(true);
 				break;
 			}
 		}
@@ -66,6 +69,7 @@ public class ConfigActivity extends Activity {
 	public void onCheckBoxClicked(View view) {
 		boolean checked = ((CheckBox) view).isChecked();
 		TrainingApplication.getState().setPlaySound(checked);
+		TrainingApplication.getState().setConfigChanged(true);
 	}
     
 	public void onClickResetDatabase(View view) {

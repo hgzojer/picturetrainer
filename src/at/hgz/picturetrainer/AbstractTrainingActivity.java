@@ -47,6 +47,7 @@ public abstract class AbstractTrainingActivity extends Activity {
 		case R.id.toggleSound:
 			boolean playSound = !state.isPlaySound();
 			state.setPlaySound(playSound);
+			TrainingApplication.getState().setConfigChanged(true);
 			if (TrainingApplication.getState().isPlaySound()) {
 				item.setIcon(R.drawable.ic_menu_sound);
 			} else {
