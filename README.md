@@ -12,6 +12,7 @@ Source/IDE installation:
 * see http://www.vogella.com/tutorials/Android/article.html
 
 Third party library license and source code:
+* android-support, see http://developer.android.com/
 * gson, see https://code.google.com/p/google-gson/
 * commons-io, see http://commons.apache.org/proper/commons-io/
 
@@ -36,3 +37,4 @@ Third party picture license and source:
 * kennedy.jpg, see http://upload.wikimedia.org/wikipedia/commons/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg
 * obama.jpg, see http://de.wikipedia.org/wiki/Barack_Obama#mediaviewer/Datei:President_Barack_Obama.jpg
 * digestive_system.jpg, stomach.jpg, liver.jpg, pancreas.jpg, small_intestine.jpg, large_intestine.jpg, see http://de.wikipedia.org/wiki/Verdauungstrakt#mediaviewer/Datei:Digestive_system_diagram_de.svg
+* menu icons, action icons, see http://developer.android.com/
