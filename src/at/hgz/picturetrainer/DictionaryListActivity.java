@@ -42,9 +42,6 @@ import at.hgz.picturetrainer.img.PictureUtil;
 import at.hgz.picturetrainer.set.TrainingSet;
 import at.hgz.picturetrainer.zip.ZipUtil;
 import at.hgz.picturetrainer.zip.ZipUtil.Entity;
-import at.hgz.vocabletrainer.R;
-import at.hgz.vocabletrainer.TrainingApplication;
-import at.hgz.vocabletrainer.xml.XmlUtil;
 
 public class DictionaryListActivity extends ListActivity {
 
@@ -161,7 +158,7 @@ public class DictionaryListActivity extends ListActivity {
 
 	private void exportDictionaryToExternalStorage() {
 		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-			XmlUtil util = XmlUtil.getInstance();
+			ZipUtil util = ZipUtil.getInstance();
 			Dictionary dictionary = TrainingApplication.getState().getDictionary();
 			List<Vocable> vocables = TrainingApplication.getState().getVocables();
 			byte[] dictionaryBytes = util.marshall(dictionary, vocables);
