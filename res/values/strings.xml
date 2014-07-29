@@ -54,5 +54,17 @@
     <string name="selectPicture">Select Picture</string>
     <string name="errorSavingPicture">Error saving picture.</string>
     <string name="toggleSound">toggle sound</string>
+
+    <string name="exportToExternalStorage">export to external storage</string>
+    <string name="importFromExternalStorage">import from external storage</string>
+    
+    <string name="errorExportingDictionary">Error exporting dictionary to external storage.</string>
+    <string name="exportedDictionary">Exported dictionary to external storage file %s.</string>
+    
+    <string name="title_activity_import">Import from external storage</string>
+    <string name="selectFileToImport">Select file to import:</string>
+    <string name="deleteFile">delete file</string>
+    <string name="file">DICT_123.pt</string>
+    <string name="importingDictionary">Importing dictionary.</string>
     	
 </resources>

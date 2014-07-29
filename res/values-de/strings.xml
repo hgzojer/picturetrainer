@@ -54,5 +54,17 @@
     <string name="selectPicture">Bild auswählen</string>
     <string name="errorSavingPicture">Fehler beim Speichern des Bildes.</string>
     <string name="toggleSound">Lautsprecher aus-/einschalten</string>
+
+    <string name="exportToExternalStorage">Export zum externen Speicher</string>
+    <string name="importFromExternalStorage">Import vom externen Speicher</string>
+    
+    <string name="errorExportingDictionary">Fehler beim exportieren des Wörterbuchs auf den externen Speicher.</string>
+    <string name="exportedDictionary">Das Wörterbuch wurde auf Datei %s am externen Speicher exportiert.</string>
+    
+    <string name="title_activity_import">Import vom externen Speicher</string>
+    <string name="selectFileToImport">Datei zum Importieren auswählen:</string>
+    <string name="deleteFile">Datei löschen</string>
+    <string name="file">DICT_123.pt</string>
+    <string name="importingDictionary">Wörterbuch wird importiert.</string>
     	
 </resources>

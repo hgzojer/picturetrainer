@@ -1,7 +1,17 @@
 package at.hgz.picturetrainer;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import org.apache.commons.io.IOUtils;
 
 import android.app.ListActivity;
 import android.content.Context;
@@ -9,7 +19,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,21 +34,30 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import at.hgz.picturetrainer.db.Dictionary;
 import at.hgz.picturetrainer.db.Vocable;
 import at.hgz.picturetrainer.db.VocableOpenHelper;
 import at.hgz.picturetrainer.img.PictureUtil;
 import at.hgz.picturetrainer.set.TrainingSet;
+import at.hgz.picturetrainer.zip.ZipUtil;
+import at.hgz.picturetrainer.zip.ZipUtil.Entity;
+import at.hgz.vocabletrainer.R;
+import at.hgz.vocabletrainer.TrainingApplication;
+import at.hgz.vocabletrainer.xml.XmlUtil;
 
 public class DictionaryListActivity extends ListActivity {
 
 	private static final int EDIT_ACTION = 1;
-	private static final int CONFIG_ACTION = 1;
+	private static final int CONFIG_ACTION = 2;
+	private static final int IMPORT_ACTION = 3;
 	private List<Dictionary> list = new ArrayList<Dictionary>();
 	
 	private DictionaryArrayAdapter adapter;
 	
 	private String directionSymbol = "↔";
+	
+	private boolean dictionarySelected;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +110,13 @@ public class DictionaryListActivity extends ListActivity {
 	}
 	
 	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuItem exportToExternalStorage = menu.findItem(R.id.exportToExternalStorage);
+		exportToExternalStorage.setVisible(dictionarySelected);
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case R.id.addDictionary:
@@ -114,9 +143,62 @@ public class DictionaryListActivity extends ListActivity {
 				DictionaryListActivity.this.startActivityForResult(intent, CONFIG_ACTION);
 	            return true;
 	        }
+	        case R.id.exportToExternalStorage:
+	        {
+				exportDictionaryToExternalStorage();
+	        	return true;
+	        }
+	        case R.id.importFromExternalStorage:
+	        {
+				Intent intent = new Intent(DictionaryListActivity.this, ImportActivity.class);
+				DictionaryListActivity.this.startActivityForResult(intent, IMPORT_ACTION);
+	        	return true;
+	        }
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
+	}
+
+	private void exportDictionaryToExternalStorage() {
+		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+			XmlUtil util = XmlUtil.getInstance();
+			Dictionary dictionary = TrainingApplication.getState().getDictionary();
+			List<Vocable> vocables = TrainingApplication.getState().getVocables();
+			byte[] dictionaryBytes = util.marshall(dictionary, vocables);
+			File storageDir = getExternalFilesDir(null);
+			if (!storageDir.exists()) {
+				if (!storageDir.mkdirs()) {
+					Log.d("DictionaryListActivity", "failed to create directory");
+				}
+			}
+		    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
+		    File file;
+		    int i = 1;
+		    do {
+		    	file = new File(storageDir, "DICT_"+ timeStamp + (i > 1 ? "_" + i : "") + ".vt");
+		    	i++;
+		    } while (file.exists());
+		    try {
+			    OutputStream out = new FileOutputStream(file);
+			    try {
+			    	out.write(dictionaryBytes);
+			    	out.flush();
+			    } catch (IOException ex) {
+			    	
+			    } finally {
+			    	if (out != null) {
+			    		out.close();
+			    	}
+			    }
+		    } catch (IOException ex) {
+		    	throw new RuntimeException(ex.getMessage(), ex);
+		    }
+			String text = getResources().getString(R.string.exportedDictionary, file.getName());
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		} else {
+			String text = getResources().getString(R.string.errorExportingDictionary);
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
 	}
 
 	private void loadDictionaryList() {
@@ -157,6 +239,7 @@ public class DictionaryListActivity extends ListActivity {
 				c.findViewById(R.id.buttonMultipleChoice).setVisibility(View.GONE);
 			}
 		}
+		dictionarySelected = true;
 		
 		expandItem(v, position1);
 	}
@@ -213,10 +296,13 @@ public class DictionaryListActivity extends ListActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == EDIT_ACTION || requestCode == CONFIG_ACTION) {
+		if (requestCode == EDIT_ACTION || requestCode == CONFIG_ACTION || requestCode == IMPORT_ACTION) {
 			String result = "";
 			if (resultCode == RESULT_OK) {
 				result = data.getStringExtra("result");
+				if (requestCode == IMPORT_ACTION) {
+					importDictionaryFromExternalStorage(data.getData());
+				}
 			}
 			if (resultCode == RESULT_CANCELED) {
 			}
@@ -229,6 +315,7 @@ public class DictionaryListActivity extends ListActivity {
 				c.findViewById(R.id.buttonTraining).setVisibility(View.GONE);
 				c.findViewById(R.id.buttonMultipleChoice).setVisibility(View.GONE);
 			}
+			dictionarySelected = false;
 			loadDictionaryList();
 			adapter.notifyDataSetChanged();
 			if ("save".equals(result)) {
@@ -239,6 +326,23 @@ public class DictionaryListActivity extends ListActivity {
 					}
 				}
 			}
+		}
+	}
+
+	private void importDictionaryFromExternalStorage(Uri importFile) {
+		try {
+			InputStream in = getContentResolver().openInputStream(importFile);
+			byte[] dictionaryBytes = IOUtils.toByteArray(in);
+			ZipUtil util = ZipUtil.getInstance();
+			Entity entity = util.unmarshall(dictionaryBytes);
+			Resources resources = getApplicationContext().getResources();
+			String text = resources.getString(R.string.importingDictionary);
+			Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+			toast.show();
+			VocableOpenHelper helper = VocableOpenHelper.getInstance(getApplicationContext());
+			helper.persist(entity.getDictionary(), entity.getVocables());
+		} catch (Exception ex) {
+			throw new RuntimeException(ex.getMessage(), ex);
 		}
 	}
 
