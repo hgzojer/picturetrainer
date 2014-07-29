@@ -41,9 +41,9 @@
     
     <string name="openConfig">Einstellungen</string>
     <string name="translationDirection">Übersetzungsrichtung</string>
-    <string name="translateForward">Word &lt;- </string>
-    <string name="translateBidrectional">Wort &lt;-&gt; </string>
-    <string name="translateBackward">Wort -&gt; </string>
+    <string name="translateForward">Word ← </string>
+    <string name="translateBidrectional">Wort ↔ </string>
+    <string name="translateBackward">Wort → </string>
     <string name="playSounds">Klänge abspielen</string>
     <string name="resetDatabase">Datenbank wiederherstellen</string>
     

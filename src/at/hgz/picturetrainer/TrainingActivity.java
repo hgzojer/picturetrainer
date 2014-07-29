@@ -12,7 +12,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -73,7 +72,7 @@ public class TrainingActivity extends AbstractTrainingActivity {
 			TextView editTextWord = (TextView) findViewById(R.id.editTextWord);
 			editTextWord.setVisibility(View.GONE);
 			
-			Button buttonNext = (Button) findViewById(R.id.buttonNext);
+			ImageButton buttonNext = (ImageButton) findViewById(R.id.buttonNext);
 			buttonNext.setVisibility(View.GONE);
 			
 			TextView textViewWord = (TextView) findViewById(R.id.textViewWord);
@@ -94,7 +93,7 @@ public class TrainingActivity extends AbstractTrainingActivity {
 			TextView editTextWord = (TextView) findViewById(R.id.editTextWord);
 			editTextWord.setVisibility(View.VISIBLE);
 			
-			Button buttonNext = (Button) findViewById(R.id.buttonNext);
+			ImageButton buttonNext = (ImageButton) findViewById(R.id.buttonNext);
 			buttonNext.setVisibility(View.VISIBLE);
 			
 			TextView textViewWord = (TextView) findViewById(R.id.textViewWord);

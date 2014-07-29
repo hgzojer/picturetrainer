@@ -41,9 +41,9 @@
     
     <string name="openConfig">configuration</string>
     <string name="translationDirection">translation direction</string>
-    <string name="translateForward">word &lt;- </string>
-    <string name="translateBidrectional">word &lt;-&gt; </string>
-    <string name="translateBackward">word -&gt; </string>
+    <string name="translateForward">word ← </string>
+    <string name="translateBidrectional">word ↔ </string>
+    <string name="translateBackward">word → </string>
     <string name="playSounds">play sounds</string>
     <string name="resetDatabase">reset database</string>
     
