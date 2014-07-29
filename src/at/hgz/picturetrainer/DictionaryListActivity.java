@@ -363,7 +363,7 @@ public class DictionaryListActivity extends ListActivity {
 			vh.listItemName.setText(String.format(" %s %s", directionSymbol, dictionary.getName()));
 			int visibility = View.GONE;
 			int visibilityTraining = View.GONE;
-			if (dictionary == TrainingApplication.getState().getDictionary()) {
+			if (vh.dictionary == TrainingApplication.getState().getDictionary()) {
 				visibility = View.VISIBLE;
 				int count = TrainingApplication.getState().getVocables().size();
 				Resources resources = getApplicationContext().getResources();
