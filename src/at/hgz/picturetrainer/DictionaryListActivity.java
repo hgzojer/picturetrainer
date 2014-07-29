@@ -390,7 +390,6 @@ public class DictionaryListActivity extends ListActivity {
 				if (count > 0) {
 					visibilityTraining = View.VISIBLE;
 				}
-				vh.listItemCount.setText("");
 			}
 			vh.listItemCount.setVisibility(visibility);
 			vh.buttonEdit.setVisibility(visibility);
