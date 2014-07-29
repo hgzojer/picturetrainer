@@ -61,8 +61,10 @@ public class DictionaryListActivity extends ListActivity {
 		setContentView(R.layout.activity_dictionary_list);
 
         loadConfig();
-
 		loadDictionaryList();
+
+		adapter = new DictionaryArrayAdapter(this, R.layout.dictionary_list_item, list);
+		setListAdapter(adapter);
 	}
 
 	@Override
@@ -224,9 +226,6 @@ public class DictionaryListActivity extends ListActivity {
 		for (Dictionary lib : helper.getDictionaries()) {
 			list.add(lib);
 		}
-
-		adapter = new DictionaryArrayAdapter(this, R.layout.dictionary_list_item, list);
-		setListAdapter(adapter);
 	}
 
 	@Override
@@ -234,8 +233,8 @@ public class DictionaryListActivity extends ListActivity {
 		super.onListItemClick(l, v, position, id);
 		
 		loadDictionaryVocables(position);
-		setSelection(position);
 		adapter.notifyDataSetChanged();
+		setSelection(position);
 	}
 
 	private void loadDictionaryVocables(final int position) {
@@ -254,6 +253,20 @@ public class DictionaryListActivity extends ListActivity {
 			if (resultCode == RESULT_OK) {
 				result = data.getStringExtra("result");
 				if ("save".equals(result)) {
+					int position = list.indexOf(TrainingApplication.getState().getDictionary());
+					loadDictionaryVocables(position);
+					adapter.notifyDataSetChanged();
+					setSelection(position);
+				} else if ("add".equals(result)) {
+					loadDictionaryList();
+					int position = list.size() - 1;
+					loadDictionaryVocables(position);
+					adapter.notifyDataSetChanged();
+					setSelection(position);
+				} else if ("delete".equals(result)) {
+					loadDictionaryList();
+					TrainingApplication.getState().setDictionary(null);
+					TrainingApplication.getState().setVocables(null);
 					adapter.notifyDataSetChanged();
 				}
 			}
@@ -268,9 +281,11 @@ public class DictionaryListActivity extends ListActivity {
 		if (requestCode == IMPORT_ACTION) {
 			if (resultCode == RESULT_OK) {
 				importDictionaryFromExternalStorage(data.getData());
-				loadDictionaryVocables(list.size() - 1);
-				setSelection(list.size() - 1);
+				loadDictionaryList();
+				int position = list.size() - 1;
+				loadDictionaryVocables(position);
 				adapter.notifyDataSetChanged();
+				setSelection(position);
 			}
 			if (resultCode == RESULT_CANCELED) {
 			}
