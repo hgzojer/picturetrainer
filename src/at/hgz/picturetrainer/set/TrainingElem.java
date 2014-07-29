@@ -4,7 +4,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import at.hgz.picturetrainer.ImportActivity;
 import at.hgz.picturetrainer.db.Vocable;
+import at.hgz.picturetrainer.img.PictureUtil;
 
 public class TrainingElem {
 
@@ -47,8 +49,9 @@ public class TrainingElem {
 			}
 		}
 		if (pool.size() < 2) {
-			pool.add(new Vocable(-1, -1, new byte[0] /* TODO */, word + "a"));
-			pool.add(new Vocable(-1, -1, new byte[1] /* TODO */, word + "o"));
+		    PictureUtil util = PictureUtil.getInstance(null);
+			pool.add(new Vocable(-1, -1, util.getResourcePicture("cherry"), word + "a"));
+			pool.add(new Vocable(-1, -1, util.getResourcePicture("apple"), word + "o"));
 		}
 		Vocable alt1 = pool.remove((int) (Math.random() * pool.size()));
 		Vocable alt2 = pool.remove((int) (Math.random() * pool.size()));
