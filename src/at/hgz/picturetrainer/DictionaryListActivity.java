@@ -61,6 +61,7 @@ public class DictionaryListActivity extends ListActivity {
 		setContentView(R.layout.activity_dictionary_list);
 
         loadConfig();
+		loadDirectionSymbol();
 		loadDictionaryList();
 
 		adapter = new DictionaryArrayAdapter(this, R.layout.dictionary_list_item, list);
@@ -208,6 +209,14 @@ public class DictionaryListActivity extends ListActivity {
 	}
 
 	private void loadDictionaryList() {
+		VocableOpenHelper helper = VocableOpenHelper.getInstance(getApplicationContext());
+		list.clear();
+		for (Dictionary lib : helper.getDictionaries()) {
+			list.add(lib);
+		}
+	}
+
+	private void loadDirectionSymbol() {
 		int direction = TrainingApplication.getState().getDirection();
 		switch (direction) {
 		case TrainingSet.DIRECTION_FORWARD:
@@ -219,12 +228,6 @@ public class DictionaryListActivity extends ListActivity {
 		case TrainingSet.DIRECTION_BACKWARD:
 			directionSymbol = "←";
 			break;
-		}
-
-		VocableOpenHelper helper = VocableOpenHelper.getInstance(getApplicationContext());
-		list.clear();
-		for (Dictionary lib : helper.getDictionaries()) {
-			list.add(lib);
 		}
 	}
 
@@ -275,6 +278,7 @@ public class DictionaryListActivity extends ListActivity {
 		}
 		
 		if (requestCode == CONFIG_ACTION) {
+			loadDirectionSymbol();
 			adapter.notifyDataSetChanged();
 		}
 		
