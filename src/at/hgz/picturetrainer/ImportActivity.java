@@ -67,7 +67,8 @@ public class ImportActivity extends ListActivity {
 			FileRow fileRow = new FileRow();
 			fileRow.file = file;
 			fileRow.dictionary = "";
-			fileRow.picture = null;
+		    PictureUtil util = PictureUtil.getInstance(ImportActivity.this);
+			fileRow.picture = util.getDefaultPicture();
 			try {
 				InputStream in = new FileInputStream(file);
 				byte[] dictionaryBytes = IOUtils.toByteArray(in);
@@ -162,13 +163,8 @@ public class ImportActivity extends ListActivity {
 			ViewHolder vh = (ViewHolder) convertView.getTag();
 			vh.fileRow = fileRow;
 			vh.listItemName.setText(fileRow.file.getName());
-			Drawable drawable;
-			if (fileRow.picture != null) {
-			    PictureUtil util = PictureUtil.getInstance(ImportActivity.this);
-			    drawable = util.getDrawable(fileRow.picture);
-			} else {
-				drawable = ImportActivity.this.getResources().getDrawable(R.drawable.ic_default_picture);
-			}
+		    PictureUtil util = PictureUtil.getInstance(ImportActivity.this);
+		    Drawable drawable = util.getDrawable(fileRow.picture);
 			vh.listItemPicture.setImageDrawable(drawable);
 			vh.listItemDictionary.setText(String.format("↔ %s", fileRow.dictionary));
 
