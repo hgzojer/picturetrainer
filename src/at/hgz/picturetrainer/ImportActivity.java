@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,14 +27,18 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import at.hgz.picturetrainer.db.Dictionary;
+import at.hgz.picturetrainer.img.PictureUtil;
 import at.hgz.picturetrainer.zip.ZipUtil;
 
 public class ImportActivity extends ListActivity {
 	
 	private static class FileRow {
 		public File file;
+		public byte[] picture;
 		public String dictionary;
 	}
 
@@ -62,10 +67,13 @@ public class ImportActivity extends ListActivity {
 			FileRow fileRow = new FileRow();
 			fileRow.file = file;
 			fileRow.dictionary = "";
+			fileRow.picture = null;
 			try {
 				InputStream in = new FileInputStream(file);
 				byte[] dictionaryBytes = IOUtils.toByteArray(in);
-				fileRow.dictionary = ZipUtil.getInstance().unmarshall(dictionaryBytes).getDictionary().getName();
+				Dictionary dictionary = ZipUtil.getInstance().unmarshall(dictionaryBytes).getDictionary();
+				fileRow.dictionary = dictionary.getName();
+				fileRow.picture = dictionary.getPicture();
 			} catch (Exception ex) {
 				// do nothing
 			}
@@ -109,6 +117,7 @@ public class ImportActivity extends ListActivity {
 			public ImageButton buttonDelete;
 			public View listItem;
 			public TextView listItemName;
+			public ImageView listItemPicture;
 			public TextView listItemDictionary;
 			public FileRow fileRow;
 		}
@@ -125,6 +134,7 @@ public class ImportActivity extends ListActivity {
 				vh.buttonDelete = (ImageButton) convertView.findViewById(R.id.buttonDelete);
 				vh.listItem = (View) convertView.findViewById(R.id.listItem);
 				vh.listItemName = (TextView) convertView.findViewById(R.id.listItemName);
+				vh.listItemPicture = (ImageView) convertView.findViewById(R.id.listItemPicture);
 				vh.listItemDictionary = (TextView) convertView.findViewById(R.id.listItemDictionary);
 				
 				vh.buttonDelete.setOnClickListener(new OnClickListener() {
@@ -144,6 +154,7 @@ public class ImportActivity extends ListActivity {
 				};
 				vh.listItem.setOnClickListener(selectFileListener);
 				vh.listItemName.setOnClickListener(selectFileListener);
+				vh.listItemPicture.setOnClickListener(selectFileListener);
 				vh.listItemDictionary.setOnClickListener(selectFileListener);
 				convertView.setTag(vh);
 			}
@@ -151,7 +162,15 @@ public class ImportActivity extends ListActivity {
 			ViewHolder vh = (ViewHolder) convertView.getTag();
 			vh.fileRow = fileRow;
 			vh.listItemName.setText(fileRow.file.getName());
-			vh.listItemDictionary.setText(fileRow.dictionary);
+			Drawable drawable;
+			if (fileRow.picture != null) {
+			    PictureUtil util = PictureUtil.getInstance(ImportActivity.this);
+			    drawable = util.getDrawable(fileRow.picture);
+			} else {
+				drawable = ImportActivity.this.getResources().getDrawable(R.drawable.ic_default_picture);
+			}
+			vh.listItemPicture.setImageDrawable(drawable);
+			vh.listItemDictionary.setText(String.format("↔ %s", fileRow.dictionary));
 
 			return convertView;
 		}
