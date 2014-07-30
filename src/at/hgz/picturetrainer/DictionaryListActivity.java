@@ -339,7 +339,10 @@ public class DictionaryListActivity extends ListActivity {
 			VocableOpenHelper helper = VocableOpenHelper.getInstance(getApplicationContext());
 			helper.persist(entity.getDictionary(), entity.getVocables());
 		} catch (Exception ex) {
-			throw new RuntimeException(ex.getMessage(), ex);
+			Resources resources = getApplicationContext().getResources();
+			String text = resources.getString(R.string.errorImportingDictionary);
+			Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+			toast.show();
 		}
 	}
 
