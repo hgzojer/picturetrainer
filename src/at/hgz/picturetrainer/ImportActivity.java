@@ -76,12 +76,10 @@ public class ImportActivity extends ListActivity {
 		if (files == null) {
 			files = new File[0];
 		}
+	    PictureUtil util = PictureUtil.getInstance(ImportActivity.this);
 		for (File file : files) {
 			FileRow fileRow = new FileRow();
 			fileRow.file = file;
-			fileRow.dictionary = "";
-		    PictureUtil util = PictureUtil.getInstance(ImportActivity.this);
-			fileRow.picture = util.getDefaultPicture();
 			try {
 				InputStream in = new FileInputStream(file);
 				byte[] dictionaryBytes = IOUtils.toByteArray(in);
@@ -89,7 +87,8 @@ public class ImportActivity extends ListActivity {
 				fileRow.dictionary = dictionary.getName();
 				fileRow.picture = dictionary.getPicture();
 			} catch (Exception ex) {
-				// do nothing
+				fileRow.dictionary = "(X_X)";
+				fileRow.picture = util.getResourcePicture("error_picture");
 			}
 			list.add(fileRow);
 		}
