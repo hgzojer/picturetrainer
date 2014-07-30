@@ -50,7 +50,20 @@ public class ImportActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_import);
 
-		File dir = getExternalFilesDir(null);
+
+		if (TrainingApplication.getState().getCurrentDirectory() == null) {
+			File dir = getExternalFilesDir(null);
+			TrainingApplication.getState().setCurrentDirectory(dir);
+		}
+		TextView currentPath = (TextView) findViewById(R.id.currentPath);
+		currentPath.setText("" + TrainingApplication.getState().getCurrentDirectory());
+		loadFiles();
+		adapter = new FileArrayAdapter(this, R.layout.import_item, list);
+		setListAdapter(adapter);
+	}
+
+	private void loadFiles() {
+		File dir = TrainingApplication.getState().getCurrentDirectory();
 		list.clear();
 		File[] files = dir.listFiles(new FilenameFilter() {
 			private Pattern p = Pattern.compile("^.*\\.pt$");
@@ -67,7 +80,8 @@ public class ImportActivity extends ListActivity {
 			FileRow fileRow = new FileRow();
 			fileRow.file = file;
 			fileRow.dictionary = "";
-			fileRow.picture = null;
+		    PictureUtil util = PictureUtil.getInstance(ImportActivity.this);
+			fileRow.picture = util.getDefaultPicture();
 			try {
 				InputStream in = new FileInputStream(file);
 				byte[] dictionaryBytes = IOUtils.toByteArray(in);
@@ -79,8 +93,6 @@ public class ImportActivity extends ListActivity {
 			}
 			list.add(fileRow);
 		}
-		adapter = new FileArrayAdapter(this, R.layout.import_item, list);
-		setListAdapter(adapter);
 	}
 
 	private void deleteFile(final FileRow fileRow) {
@@ -162,13 +174,8 @@ public class ImportActivity extends ListActivity {
 			ViewHolder vh = (ViewHolder) convertView.getTag();
 			vh.fileRow = fileRow;
 			vh.listItemName.setText(fileRow.file.getName());
-			Drawable drawable;
-			if (fileRow.picture != null) {
-			    PictureUtil util = PictureUtil.getInstance(ImportActivity.this);
-			    drawable = util.getDrawable(fileRow.picture);
-			} else {
-				drawable = ImportActivity.this.getResources().getDrawable(R.drawable.ic_default_picture);
-			}
+		    PictureUtil util = PictureUtil.getInstance(ImportActivity.this);
+		    Drawable drawable = util.getDrawable(fileRow.picture);
 			vh.listItemPicture.setImageDrawable(drawable);
 			vh.listItemDictionary.setText(String.format("↔ %s", fileRow.dictionary));
 

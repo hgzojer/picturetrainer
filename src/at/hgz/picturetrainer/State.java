@@ -29,6 +29,8 @@ public class State {
 	private Uri imageUri;
 	private Vocable imageSaveVocable;
 	
+	private File currentDirectory;
+	
 	public Dictionary getDictionary() {
 		return dictionary;
 	}
@@ -163,5 +165,13 @@ public class State {
 
 	public void setImageSaveVocable(Vocable imageSaveVocable) {
 		this.imageSaveVocable = imageSaveVocable;
+	}
+
+	public File getCurrentDirectory() {
+		return currentDirectory;
+	}
+
+	public void setCurrentDirectory(File currentDirectory) {
+		this.currentDirectory = currentDirectory;
 	}
 }
