@@ -284,19 +284,20 @@ public class DictionaryListActivity extends ListActivity {
 		
 		if (requestCode == IMPORT_ACTION) {
 			if (resultCode == RESULT_OK) {
-				importDictionaryFromExternalStorage(data.getData());
-				loadDictionaryList();
-				int position = list.size() - 1;
-				loadDictionaryVocables(position);
-				adapter.notifyDataSetChanged();
-				setSelection(position);
+				if (importDictionaryFromExternalStorage(data.getData())) {
+					loadDictionaryList();
+					int position = list.size() - 1;
+					loadDictionaryVocables(position);
+					adapter.notifyDataSetChanged();
+					setSelection(position);
+				}
 			}
 			if (resultCode == RESULT_CANCELED) {
 			}
 		}
 	}
 
-	private void importDictionaryFromExternalStorage(Uri importFile) {
+	private boolean importDictionaryFromExternalStorage(Uri importFile) {
 		try {
 			InputStream in = getContentResolver().openInputStream(importFile);
 			byte[] dictionaryBytes = IOUtils.toByteArray(in);
@@ -308,11 +309,13 @@ public class DictionaryListActivity extends ListActivity {
 			toast.show();
 			VocableOpenHelper helper = VocableOpenHelper.getInstance(getApplicationContext());
 			helper.persist(entity.getDictionary(), entity.getVocables());
+			return true;
 		} catch (Exception ex) {
 			Resources resources = getApplicationContext().getResources();
 			String text = resources.getString(R.string.errorImportingDictionary);
 			Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
 			toast.show();
+			return false;
 		}
 	}
 
