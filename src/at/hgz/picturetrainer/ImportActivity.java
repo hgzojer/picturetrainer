@@ -35,12 +35,14 @@ import at.hgz.picturetrainer.img.PictureUtil;
 import at.hgz.picturetrainer.zip.ZipUtil;
 
 public class ImportActivity extends ListActivity {
-	
+
 	private static class FileRow {
 		public File file;
 		public byte[] picture;
 		public String dictionary;
 	}
+	
+	private State state;
 
 	private List<FileRow> list = new ArrayList<FileRow>();
 	private FileArrayAdapter adapter;
@@ -50,20 +52,22 @@ public class ImportActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_import);
 
+		Intent intent = getIntent();
+		state = TrainingApplication.getState(intent.getIntExtra(State.STATE_ID, -1));
 
-		if (TrainingApplication.getState().getCurrentDirectory() == null) {
+		if (state.getCurrentDirectory() == null) {
 			File dir = getExternalFilesDir(null);
-			TrainingApplication.getState().setCurrentDirectory(dir);
+			state.setCurrentDirectory(dir);
 		}
 		TextView currentPath = (TextView) findViewById(R.id.currentPath);
-		currentPath.setText("" + TrainingApplication.getState().getCurrentDirectory());
+		currentPath.setText("" + state.getCurrentDirectory());
 		loadFiles();
 		adapter = new FileArrayAdapter(this, R.layout.import_item, list);
 		setListAdapter(adapter);
 	}
 
 	private void loadFiles() {
-		File dir = TrainingApplication.getState().getCurrentDirectory();
+		File dir = state.getCurrentDirectory();
 		list.clear();
 		File[] files = dir.listFiles(new FilenameFilter() {
 			private Pattern p = Pattern.compile("^.*\\.pt$");

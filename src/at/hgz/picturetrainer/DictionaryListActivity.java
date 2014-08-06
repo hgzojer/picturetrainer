@@ -49,6 +49,9 @@ public class DictionaryListActivity extends ListActivity {
 	private static final int EDIT_ACTION = 1;
 	private static final int CONFIG_ACTION = 2;
 	private static final int IMPORT_ACTION = 3;
+	
+	private State state;
+	
 	private List<Dictionary> list = new ArrayList<Dictionary>();
 	
 	private DictionaryArrayAdapter adapter;
@@ -59,6 +62,9 @@ public class DictionaryListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dictionary_list);
+        
+		Intent intent = getIntent();
+		state = TrainingApplication.getState(intent.getIntExtra(State.STATE_ID, -1));
 
         loadConfig();
 		loadDirectionSymbol();
@@ -89,24 +95,24 @@ public class DictionaryListActivity extends ListActivity {
 	private void loadConfig() {
 		SharedPreferences settings = DictionaryListActivity.this.getPreferences(MODE_PRIVATE);
         int direction = settings.getInt(ConfigActivity.WORD_DIRECTION, TrainingSet.DIRECTION_BIDIRECTIONAL);
-        TrainingApplication.getState().setDirection(direction);
+        state.setDirection(direction);
         boolean playSound = settings.getBoolean(ConfigActivity.PLAY_SOUND, true);
-        TrainingApplication.getState().setPlaySound(playSound);
+        state.setPlaySound(playSound);
 	}
 	
 	private void saveConfig() {
-		if (TrainingApplication.getState().hasConfigChanged()) {
+		if (state.hasConfigChanged()) {
 			SharedPreferences settings = this.getPreferences(MODE_PRIVATE);
 	        SharedPreferences.Editor editor = settings.edit();
-			editor.putInt(ConfigActivity.WORD_DIRECTION, TrainingApplication.getState().getDirection());
-			editor.putBoolean(ConfigActivity.PLAY_SOUND, TrainingApplication.getState().isPlaySound());
+			editor.putInt(ConfigActivity.WORD_DIRECTION, state.getDirection());
+			editor.putBoolean(ConfigActivity.PLAY_SOUND, state.isPlaySound());
 			editor.commit();
-			TrainingApplication.getState().setConfigChanged(false);
+			state.setConfigChanged(false);
 		}
 	}
 
 	private boolean isDictionarySelected() {
-		return TrainingApplication.getState().getDictionary() != null;
+		return state.getDictionary() != null;
 	}
 
 	@Override
@@ -130,14 +136,14 @@ public class DictionaryListActivity extends ListActivity {
 	        {
 	        	PictureUtil util = PictureUtil.getInstance(DictionaryListActivity.this);
 	        	byte[] image = util.getDefaultPicture();
-	        	TrainingApplication.getState().setDictionary(new Dictionary(-1, image, ""));
+	        	state.setDictionary(new Dictionary(-1, image, ""));
 	        	List<Vocable> vocables = new ArrayList<Vocable>(5);
 	        	vocables.add(new Vocable(-1, -1, image, ""));
 	        	vocables.add(new Vocable(-1, -1, image, ""));
 	        	vocables.add(new Vocable(-1, -1, image, ""));
 	        	vocables.add(new Vocable(-1, -1, image, ""));
 	        	vocables.add(new Vocable(-1, -1, image, ""));
-	        	TrainingApplication.getState().setVocables(vocables);
+	        	state.setVocables(vocables);
 				Intent intent = new Intent(DictionaryListActivity.this, VocableListActivity.class);
 				//intent.putExtra("dictionaryId", dictionaryId);
 				DictionaryListActivity.this.startActivityForResult(intent, EDIT_ACTION);
@@ -169,8 +175,8 @@ public class DictionaryListActivity extends ListActivity {
 	private void exportDictionaryToExternalStorage() {
 		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
 			ZipUtil util = ZipUtil.getInstance();
-			Dictionary dictionary = TrainingApplication.getState().getDictionary();
-			List<Vocable> vocables = TrainingApplication.getState().getVocables();
+			Dictionary dictionary = state.getDictionary();
+			List<Vocable> vocables = state.getVocables();
 			byte[] dictionaryBytes = util.marshall(dictionary, vocables);
 			File storageDir = getExternalFilesDir(null);
 			if (!storageDir.exists()) {
@@ -217,7 +223,7 @@ public class DictionaryListActivity extends ListActivity {
 	}
 
 	private void loadDirectionSymbol() {
-		int direction = TrainingApplication.getState().getDirection();
+		int direction = state.getDirection();
 		switch (direction) {
 		case TrainingSet.DIRECTION_FORWARD:
 			directionSymbol = "→";
@@ -244,8 +250,8 @@ public class DictionaryListActivity extends ListActivity {
 		VocableOpenHelper helper = VocableOpenHelper.getInstance(DictionaryListActivity.this);
 		Dictionary dictionary = list.get(position);
 		List<Vocable> vocables = helper.getVocables(dictionary.getId());
-		TrainingApplication.getState().setDictionary(dictionary);
-		TrainingApplication.getState().setVocables(vocables);
+		state.setDictionary(dictionary);
+		state.setVocables(vocables);
 	}
 
 	@Override
@@ -256,7 +262,7 @@ public class DictionaryListActivity extends ListActivity {
 			if (resultCode == RESULT_OK) {
 				result = data.getStringExtra("result");
 				if ("save".equals(result)) {
-					int position = list.indexOf(TrainingApplication.getState().getDictionary());
+					int position = list.indexOf(state.getDictionary());
 					loadDictionaryVocables(position);
 					adapter.notifyDataSetChanged();
 					setSelection(position);
@@ -268,8 +274,8 @@ public class DictionaryListActivity extends ListActivity {
 					setSelection(position);
 				} else if ("delete".equals(result)) {
 					loadDictionaryList();
-					TrainingApplication.getState().setDictionary(null);
-					TrainingApplication.getState().setVocables(null);
+					state.setDictionary(null);
+					state.setVocables(null);
 					adapter.notifyDataSetChanged();
 				}
 			}
@@ -388,9 +394,9 @@ public class DictionaryListActivity extends ListActivity {
 			vh.listItemName.setText(String.format(" %s %s", directionSymbol, dictionary.getName()));
 			int visibility = View.GONE;
 			int visibilityTraining = View.GONE;
-			if (vh.dictionary == TrainingApplication.getState().getDictionary()) {
+			if (vh.dictionary == state.getDictionary()) {
 				visibility = View.VISIBLE;
-				int count = TrainingApplication.getState().getVocables().size();
+				int count = state.getVocables().size();
 				Resources resources = getApplicationContext().getResources();
 				vh.listItemCount.setText(resources.getString(R.string.count, count));
 				if (count > 0) {

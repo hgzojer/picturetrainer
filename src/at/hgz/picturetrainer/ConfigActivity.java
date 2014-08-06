@@ -3,6 +3,7 @@ package at.hgz.picturetrainer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,9 @@ import at.hgz.picturetrainer.set.TrainingSet;
 
 public class ConfigActivity extends Activity {
 	
-    public static final String WORD_DIRECTION = "wordDirection";
+    private State state;
+
+	public static final String WORD_DIRECTION = "wordDirection";
 	
     public static final String PLAY_SOUND = "playSound";
 
@@ -24,8 +27,11 @@ public class ConfigActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
         
-        int direction = TrainingApplication.getState().getDirection();
-        boolean playSound = TrainingApplication.getState().isPlaySound();
+		Intent intent = getIntent();
+		state = TrainingApplication.getState(intent.getIntExtra(State.STATE_ID, -1));
+        
+        int direction = state.getDirection();
+        boolean playSound = state.isPlaySound();
         
         RadioGroup radioGroupDirection = (RadioGroup) this.findViewById(R.id.radioGroupDirection);
 		switch (direction) {
@@ -51,16 +57,16 @@ public class ConfigActivity extends Activity {
 		if (checked) {
 			switch (view.getId()) {
 			case R.id.radioDirection1:
-				TrainingApplication.getState().setDirection(TrainingSet.DIRECTION_FORWARD);
-				TrainingApplication.getState().setConfigChanged(true);
+				state.setDirection(TrainingSet.DIRECTION_FORWARD);
+				state.setConfigChanged(true);
 				break;
 			case R.id.radioDirection2:
-				TrainingApplication.getState().setDirection(TrainingSet.DIRECTION_BIDIRECTIONAL);
-				TrainingApplication.getState().setConfigChanged(true);
+				state.setDirection(TrainingSet.DIRECTION_BIDIRECTIONAL);
+				state.setConfigChanged(true);
 				break;
 			case R.id.radioDirection3:
-				TrainingApplication.getState().setDirection(TrainingSet.DIRECTION_BACKWARD);
-				TrainingApplication.getState().setConfigChanged(true);
+				state.setDirection(TrainingSet.DIRECTION_BACKWARD);
+				state.setConfigChanged(true);
 				break;
 			}
 		}
@@ -68,8 +74,8 @@ public class ConfigActivity extends Activity {
 	
 	public void onCheckBoxClicked(View view) {
 		boolean checked = ((CheckBox) view).isChecked();
-		TrainingApplication.getState().setPlaySound(checked);
-		TrainingApplication.getState().setConfigChanged(true);
+		state.setPlaySound(checked);
+		state.setConfigChanged(true);
 	}
     
 	public void onClickResetDatabase(View view) {

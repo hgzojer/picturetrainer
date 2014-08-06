@@ -60,8 +60,8 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="application/vnd.hgz.vocabletrainer"/>
-                <data android:pathPattern=".*\\.vt" />
+                <data android:mimeType="application/vnd.hgz.picturetrainer"/>
+                <data android:pathPattern=".*\\.pt" />
             </intent-filter>
         </activity>
         <meta-data

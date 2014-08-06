@@ -1,6 +1,7 @@
 package at.hgz.picturetrainer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.view.Gravity;
@@ -33,7 +34,7 @@ public abstract class AbstractTrainingActivity extends Activity {
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		if (TrainingApplication.getState().isPlaySound()) {
+		if (state.isPlaySound()) {
 			menu.findItem(R.id.toggleSound).setIcon(R.drawable.ic_menu_sound);
 		} else {
 			menu.findItem(R.id.toggleSound).setIcon(R.drawable.ic_menu_mute);
@@ -47,8 +48,8 @@ public abstract class AbstractTrainingActivity extends Activity {
 		case R.id.toggleSound:
 			boolean playSound = !state.isPlaySound();
 			state.setPlaySound(playSound);
-			TrainingApplication.getState().setConfigChanged(true);
-			if (TrainingApplication.getState().isPlaySound()) {
+			state.setConfigChanged(true);
+			if (state.isPlaySound()) {
 				item.setIcon(R.drawable.ic_menu_sound);
 			} else {
 				item.setIcon(R.drawable.ic_menu_mute);
@@ -59,9 +60,9 @@ public abstract class AbstractTrainingActivity extends Activity {
 	}
 
 	protected void onCreate2() {
-		state = TrainingApplication.getState();
-        //Intent intent = getIntent();
-        //state.setDictionaryId(intent.getIntExtra("dictionaryId", state.getDictionaryId()));
+		Intent intent = getIntent();
+		state = TrainingApplication.getState(intent.getIntExtra(State.STATE_ID, -1));
+		
     	if (state.isNeedInit()) {
             loadVocable();
             state.setNeedInit(false);

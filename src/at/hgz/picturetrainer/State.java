@@ -10,6 +10,10 @@ import at.hgz.picturetrainer.set.TrainingElem;
 
 public class State {
 	
+	public static final String STATE_ID = "stateId";
+	
+	private int id;
+	
 	private Dictionary dictionary;
 	private List<Vocable> vocables;
 	
@@ -30,6 +34,14 @@ public class State {
 	private Vocable imageSaveVocable;
 	
 	private File currentDirectory;
+	
+	public State(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
+	}
 	
 	public Dictionary getDictionary() {
 		return dictionary;
