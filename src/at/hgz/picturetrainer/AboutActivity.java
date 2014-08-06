@@ -32,12 +32,42 @@ public class AboutActivity extends ListActivity {
 		setContentView(R.layout.activity_about);
 
 		list.clear();
-		list.add(new License("vocabletrainer", getLicense(R.raw.picturetrainer_license)));
-		list.add(new License("google-gson", getLicense(R.raw.googlegson_license)));
-		list.add(new License("commons-io", getLicense(R.raw.commonsio_license)));
-		list.add(new License("simple-xml", getLicense(R.raw.simplexml_license)));
-		list.add(new License("google-play-services-lib", GooglePlayServicesUtil
+		list.add(new License("vocabletrainer", "Hans Georg Zojer", getLicense(R.raw.picturetrainer_license)));
+		list.add(new License("google-gson", "*", getLicense(R.raw.googlegson_license)));
+		list.add(new License("commons-io", "*", getLicense(R.raw.commonsio_license)));
+		list.add(new License("simple-xml", "*", getLicense(R.raw.simplexml_license)));
+		list.add(new License("google-play-services-lib", null, GooglePlayServicesUtil
 				.getOpenSourceSoftwareLicenseInfo(this)));
+		
+		list.add(new License("fruits.jpg", "Yosarian", getLicense(R.raw.ccbysa30_license)));
+		list.add(new License("apple.jpg", "PiccoloNamek", getLicense(R.raw.ccbysa30_license)));
+		list.add(new License("banana.jpg", null, getLicense(R.raw.gfdl12_license)));
+		list.add(new License("orange.jpg", null, getLicense(R.raw.gfdl12_license)));
+		list.add(new License("cherry.jpg", "Benjamint444, Fir0002", getLicense(R.raw.ccbysa30_license)));
+		list.add(new License("strawberry.jpg", "Rlaferla, charlesy", getLicense(R.raw.ccbysa30_license)));
+		
+		list.add(new License("europe.jpg", "TUBS", getLicense(R.raw.ccbysa30_license)));
+		list.add(new License("france.jpg", "TUBS", getLicense(R.raw.ccbysa30_license)));
+		list.add(new License("germany.jpg", "TUBS", getLicense(R.raw.ccbysa30_license)));
+		list.add(new License("italy.jpg", "TUBS", getLicense(R.raw.ccbysa30_license)));
+		list.add(new License("spain.jpg", "TUBS", getLicense(R.raw.ccbysa30_license)));
+		list.add(new License("united_kingdom.jpg", "TUBS", getLicense(R.raw.ccbysa30_license)));
+		
+		list.add(new License("presidents.jpg", "Dean Franklin, Cowtoner", getLicense(R.raw.ccbya20_license)));
+		list.add(new License("washington.jpg", null, "public domain"));
+		list.add(new License("jefferson.jpg", null, "public domain"));
+		list.add(new License("lincoln.jpg", null, "public domain"));
+		list.add(new License("roosevelt.jpg", null, "public domain"));
+		list.add(new License("kennedy.jpg", null, "public domain"));
+		list.add(new License("obama.jpg", null, "public domain"));
+		
+		list.add(new License("digestive_system.jpg", null, "public domain"));
+		list.add(new License("stomach.jpg", null, "public domain"));
+		list.add(new License("liver.jpg", null, "public domain"));
+		list.add(new License("pancreas.jpg", null, "public domain"));
+		list.add(new License("small_intestine.jpg", null, "public domain"));
+		list.add(new License("large_intestine.jpg", null, "public domain"));
+		
 		adapter = new LicenseArrayAdapter(this, R.layout.about_item, list);
 		setListAdapter(adapter);
 	}
@@ -57,7 +87,7 @@ public class AboutActivity extends ListActivity {
 		
 		License license = list.get(position);
 		Intent intent = new Intent(AboutActivity.this, LicenseActivity.class);
-		intent.putExtra("moduleName", license.getModuleName());
+		intent.putExtra("moduleName", license.getTitle());
 		intent.putExtra("licenseText", license.getLicenseText());
 		AboutActivity.this.startActivity(intent);
 	}
@@ -91,7 +121,7 @@ public class AboutActivity extends ListActivity {
 
 			ViewHolder vh = (ViewHolder) convertView.getTag();
 			vh.license = license;
-			vh.listItemName.setText(vh.license.getModuleName());
+			vh.listItemName.setText(vh.license.getTitle());
 
 			return convertView;
 		}
