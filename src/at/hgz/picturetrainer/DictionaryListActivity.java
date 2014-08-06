@@ -673,7 +673,7 @@ public class DictionaryListActivity extends ListActivity implements ConnectionCa
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent(DictionaryListActivity.this, VocableListActivity.class);
-						//intent.putExtra("dictionaryId", dictionaryId);
+						intent.putExtra(State.STATE_ID, state.getId());
 						DictionaryListActivity.this.startActivityForResult(intent, EDIT_ACTION);
 					}
 				});
@@ -681,7 +681,7 @@ public class DictionaryListActivity extends ListActivity implements ConnectionCa
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent(DictionaryListActivity.this, TrainingActivity.class);
-						//intent.putExtra("dictionaryId", dictionaryId);
+						intent.putExtra(State.STATE_ID, state.getId());
 						DictionaryListActivity.this.startActivity(intent);
 					}
 				});
@@ -689,7 +689,7 @@ public class DictionaryListActivity extends ListActivity implements ConnectionCa
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent(DictionaryListActivity.this, MultipleChoiceActivity.class);
-						//intent.putExtra("dictionaryId", dictionaryId);
+						intent.putExtra(State.STATE_ID, state.getId());
 						DictionaryListActivity.this.startActivity(intent);
 					}
 				});

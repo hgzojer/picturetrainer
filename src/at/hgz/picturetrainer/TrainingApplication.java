@@ -33,8 +33,4 @@ public class TrainingApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 	}
-
-	public static State getState() {
-		return null;
-	}
 }
