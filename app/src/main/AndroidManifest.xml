@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="at.hgz.picturetrainer">
+
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	
+    <application
+        android:name="at.hgz.picturetrainer.TrainingApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="at.hgz.picturetrainer.DictionaryListActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="at.hgz.picturetrainer.TrainingActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="at.hgz.picturetrainer.MultipleChoiceActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="at.hgz.picturetrainer.VocableListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="at.hgz.picturetrainer.ConfigActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="at.hgz.picturetrainer.ImportActivity"
+            android:label="@string/title_activity_import" >
+        </activity>
+        <activity
+            android:name="at.hgz.picturetrainer.AboutActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="at.hgz.picturetrainer.LicenseActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="at.hgz.picturetrainer.ViewActivity"
+            android:label="@string/app_name"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="application/vnd.hgz.picturetrainer"/>
+                <data android:pathPattern=".*\\.pt" />
+                <data android:host="*" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
+
+<!--
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+-->
+
+</manifest>
