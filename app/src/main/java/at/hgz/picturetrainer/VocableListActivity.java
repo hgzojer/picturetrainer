@@ -1,6 +1,7 @@
 package at.hgz.picturetrainer;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -48,6 +50,8 @@ public class VocableListActivity extends ListActivity {
 
 	private VocableArrayAdapter adapter;
 
+	String mCurrentPhotoPath;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,13 +80,49 @@ public class VocableListActivity extends ListActivity {
 	}
 	
 	public void onClickCamera(View v) {
+		/*
 	    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 	    state.setImageUri(Uri.fromFile(getOutputMediaFile()));
 	    intent.putExtra(MediaStore.EXTRA_OUTPUT, state.getImageUri());
 	    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+	    */
+		dispatchTakePictureIntent(CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
-	
-	private File getOutputMediaFile(){
+
+	private void dispatchTakePictureIntent(int requestCode) {
+		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		// Ensure that there's a camera activity to handle the intent
+		if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+			// Create the File where the photo should go
+			File photoFile = null;
+			try {
+				photoFile = getOutputMediaFile();
+			} catch (IOException ex) {
+				// Error occurred while creating the File
+				Log.d("PictureTrainer", "Error occurred while creating the File");
+			}
+			// Continue only if the File was successfully created
+			if (photoFile != null) {
+				Uri photoURI = FileProvider.getUriForFile(this,
+						"at.hgz.picturetrainer.fileprovider",
+						photoFile);
+				state.setImageUri(photoURI);
+				takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+				startActivityForResult(takePictureIntent, requestCode);
+			}
+		}
+	}
+
+	private void galleryAddPic() {
+		Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+		File f = new File(mCurrentPhotoPath);
+		Uri contentUri = Uri.fromFile(f);
+		mediaScanIntent.setData(contentUri);
+		this.sendBroadcast(mediaScanIntent);
+	}
+
+	private File getOutputMediaFile() throws IOException {
+		/*
 		File mediaStorageDir;
 		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
 		    mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
@@ -96,7 +136,7 @@ public class VocableListActivity extends ListActivity {
 
 	    if (! mediaStorageDir.exists()){
 	        if (! mediaStorageDir.mkdirs()){
-	            Log.d("MyCameraApp", "failed to create directory");
+	            Log.d("PictureTrainer", "failed to create directory");
 	            if (state.isImageSavedInternalStorage()) {
 		            return null;
 	            }
@@ -113,8 +153,64 @@ public class VocableListActivity extends ListActivity {
 	    	state.setImageInternalStorage(mediaFile);
 	    }
 	    return mediaFile;
+	    */
+		return createImageFile();
 	}
-	
+
+	private File getStorageDir() {
+		File mediaStorageDir;
+		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+			Log.d("PictureTrainer", "external media mounted");
+			mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+					Environment.DIRECTORY_PICTURES), "PictureTrainer");
+			state.setImageSavedInternalStorage(false);
+		} else {
+			Log.d("PictureTrainer", "external media not mounted, using internal cache directory");
+			mediaStorageDir = new File(getCacheDir(), Environment.DIRECTORY_PICTURES);
+			state.setImageSavedInternalStorage(true);
+		}
+
+
+		if (!mediaStorageDir.exists()) {
+			if (!mediaStorageDir.mkdirs()) {
+				Log.d("PictureTrainer", "failed to create directory: " + mediaStorageDir);
+				if (state.isImageSavedInternalStorage()) {
+					return null;
+				}
+
+				mediaStorageDir = new File(getCacheDir(), Environment.DIRECTORY_PICTURES);
+				if (!mediaStorageDir.exists()) {
+					if (!mediaStorageDir.mkdirs()) {
+						Log.d("PictureTrainer", "failed to create directory: " + mediaStorageDir);
+						return null;
+					}
+				}
+				state.setImageSavedInternalStorage(true);
+			}
+		}
+		return mediaStorageDir;
+		//return getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+	}
+
+	private File createImageFile() throws IOException {
+		// Create an image file name
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
+		String imageFileName = "IMG_" + timeStamp + "_";
+		File storageDir = getStorageDir();
+		File image = File.createTempFile(
+				imageFileName,  /* prefix */
+				".jpg",         /* suffix */
+				storageDir      /* directory */
+		);
+
+		// Save a file: path for use with ACTION_VIEW intents
+		mCurrentPhotoPath = image.getAbsolutePath();
+		if (state.isImageSavedInternalStorage()) {
+			state.setImageInternalStorage(image.getAbsoluteFile());
+		}
+		return image;
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -330,10 +426,13 @@ public class VocableListActivity extends ListActivity {
 					@Override
 					public void onClick(View v) {
 						state.setImageSaveVocable(vh.vocable);
+						/*
 					    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 					    state.setImageUri(Uri.fromFile(getOutputMediaFile()));
 					    intent.putExtra(MediaStore.EXTRA_OUTPUT, state.getImageUri());
 					    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_VOCABLE);
+					    */
+						dispatchTakePictureIntent(CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_VOCABLE);
 					}
 				});
 				

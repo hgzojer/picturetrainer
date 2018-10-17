@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+    <external-path name="external_images" path="Android/data/at.hgz.picturetrainer/files/Pictures" />
+    -->
+    <external-files-path name="external_images" path="Pictures" />
+    <external-path name="external_public_images" path="Pictures/PictureTrainer" />
+    <cache-path name="internal_cache_images" path="Pictures" />
+
+</paths>
