@@ -78,5 +78,6 @@
     <string name="errorDownloadingDictionary">Error downloading dictionary.</string>
     
     <string name="about">About Picture Trainer</string>
+    <string name="errorLoadingLicense">Error loading license.</string>
     	
 </resources>

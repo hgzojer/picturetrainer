@@ -78,5 +78,6 @@
     <string name="errorDownloadingDictionary">Fehler beim Herunterladen des Wörterbuchs.</string>
     	
     <string name="about">Über Bilder Trainer</string>
-    	
+    <string name="errorLoadingLicense">Fehler beim Laden der Lizenz.</string>
+
 </resources>

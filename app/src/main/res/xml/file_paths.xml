@@ -6,5 +6,6 @@
     <external-files-path name="external_images" path="Pictures" />
     <external-path name="external_public_images" path="Pictures/PictureTrainer" />
     <cache-path name="internal_cache_images" path="Pictures" />
+    <cache-path name="internal_cache_licenses" path="licenses" />
 
 </paths>
