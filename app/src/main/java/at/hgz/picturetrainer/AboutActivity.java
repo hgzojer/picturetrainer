@@ -1,20 +1,10 @@
 package at.hgz.picturetrainer;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +16,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
-import static java.security.AccessController.getContext;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.core.content.FileProvider;
 
 public class AboutActivity extends ListActivity {
 
@@ -83,7 +83,7 @@ public class AboutActivity extends ListActivity {
 	private String getLicense(int id) {
 		InputStream in = getResources().openRawResource(id);
 		try {
-			return IOUtils.toString(in);
+			return IOUtils.toString(in, StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}
@@ -105,7 +105,7 @@ public class AboutActivity extends ListActivity {
 				}
 				String fileName = license.getModuleName().replace('.', '_') + ".txt";
 				File licenseFile = new File(licensePath, fileName);
-					FileUtils.writeStringToFile(licenseFile, license.getLicenseText());
+					FileUtils.writeStringToFile(licenseFile, license.getLicenseText(), StandardCharsets.UTF_8);
 				Uri contentUri = FileProvider.getUriForFile(context,
 						"at.hgz.picturetrainer.fileprovider",
 						licenseFile);
